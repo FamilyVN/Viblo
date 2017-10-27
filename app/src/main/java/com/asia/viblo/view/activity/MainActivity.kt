@@ -4,9 +4,12 @@ import android.annotation.SuppressLint
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import com.asia.viblo.R
 import com.asia.viblo.model.Post
+import com.asia.viblo.view.adapter.AllPostAdapter
+import kotlinx.android.synthetic.main.activity_main.*
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 
@@ -22,15 +25,20 @@ class MainActivity : AppCompatActivity() {
             "h1.post-title-header > a"
     val cssQueryScore = "div.card-block > div.ml-05 > div.d-flex > div.points > span"
     val cssQueryView = "div.card-block > div.ml-05 > div.d-flex"
+    private val mPostList: MutableList<Post> = arrayListOf()
+    private lateinit var mAllPostAdapter: AllPostAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        NewPostAsyncTask().execute()
+        mAllPostAdapter = AllPostAdapter(this, mPostList)
+        recyclerAllPost.adapter = mAllPostAdapter
+        recyclerAllPost.layoutManager = LinearLayoutManager(this)
+        AllPostAsyncTask().execute()
     }
 
     @SuppressLint("StaticFieldLeak")
-    inner class NewPostAsyncTask : AsyncTask<String, Void, List<Post>>() {
+    inner class AllPostAsyncTask : AsyncTask<String, Void, List<Post>>() {
         override fun doInBackground(vararg params: String?): List<Post> {
             val topicList: MutableList<Post> = arrayListOf()
             try {
@@ -43,21 +51,26 @@ class MainActivity : AppCompatActivity() {
                     val timeSubject = element.select(cssQueryTime).first()
                     val urlSubject = element.select(cssQueryUrl).first()
                     val scoreSubject = element.select(cssQueryScore).first()
-                    val viewSubject = element.select(cssQueryView).first().getElementsByTag("span")
-                    post.avatar = avatarSubject.attr("src")
-                    post.name = nameSubject.text()
-                    post.time = timeSubject.text()
-                    post.url = baseUrl + urlSubject.attr("href")
-                    post.title = urlSubject.text()
-                    post.score = scoreSubject.text()
-                    viewSubject.map { it.text() }
-                            .forEachIndexed { index, data ->
-                                when (index) {
-                                    0 -> post.views = data
-                                    1 -> post.clips = data
-                                    2 -> post.comments = data
+                    val postStatusSubject = element.select(cssQueryView).first()
+                    if (postStatusSubject != null) {
+                        val viewSubject = postStatusSubject.getElementsByTag("span")
+                        viewSubject.map { it.text() }
+                                .forEachIndexed { index, data ->
+                                    when (index) {
+                                        0 -> post.views = data
+                                        1 -> post.clips = data
+                                        2 -> post.comments = data
+                                    }
                                 }
-                            }
+                    }
+                    post.avatar = avatarSubject?.attr("src")!!
+                    post.name = nameSubject?.text()!!
+                    post.time = timeSubject?.text()!!
+                    post.url = baseUrl + urlSubject?.attr("href")!!
+                    post.title = urlSubject.text()!!
+                    if (scoreSubject != null) {
+                        post.score = scoreSubject.text()
+                    }
                     topicList.add(post)
                 }
             } catch (ex: Exception) {
@@ -68,9 +81,9 @@ class MainActivity : AppCompatActivity() {
 
         override fun onPostExecute(result: List<Post>?) {
             super.onPostExecute(result)
-            for (post: Post in result!!) {
-                Log.d("TAG", "size = " + result.size)
-            }
+            mPostList.addAll(result!!)
+            mAllPostAdapter.notifyDataSetChanged()
+            Log.d("TAG", "size = " + result.size)
         }
     }
 }

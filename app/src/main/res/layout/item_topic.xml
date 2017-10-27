@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                    xmlns:cardView="http://schemas.android.com/apk/res-auto"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/size_5"
+                                    android:layout_marginRight="@dimen/size_5"
+                                    android:clipToPadding="true"
+                                    cardView:cardCornerRadius="@dimen/size_5"
+                                    cardView:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_15"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/size_15"
+        android:paddingLeft="@dimen/size_5"
+        android:paddingRight="@dimen/size_5">
+
+        <ImageView
+            android:id="@+id/imageAvatar"
+            android:layout_width="@dimen/size_70"
+            android:layout_height="@dimen/size_70"
+            android:background="@drawable/image_avatar_background"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/size_15"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorName"
+                    android:textSize="@dimen/text_size_14"/>
+
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/size_15"
+                    android:textColor="@color/colorTime"
+                    android:textSize="@dimen/text_size_14"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textColor="@color/colorTitle"
+                    android:textSize="@dimen/text_size_16"/>
+            </LinearLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_5"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/views"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_views"
+                    android:drawablePadding="@dimen/size_5"
+                    android:textColor="@color/colorTime"
+                    android:textSize="@dimen/text_size_14"
+                    cardView:layout_constraintLeft_toLeftOf="parent"/>
+
+                <TextView
+                    android:id="@+id/clips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/size_10"
+                    android:drawableLeft="@drawable/ic_clips"
+                    android:drawablePadding="@dimen/size_5"
+                    android:textColor="@color/colorTime"
+                    android:textSize="@dimen/text_size_14"
+                    cardView:layout_constraintLeft_toRightOf="@+id/views"/>
+
+                <TextView
+                    android:id="@+id/comments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/size_10"
+                    android:drawableLeft="@drawable/ic_comments"
+                    android:drawablePadding="@dimen/size_5"
+                    android:textColor="@color/colorTime"
+                    android:textSize="@dimen/text_size_14"
+                    cardView:layout_constraintLeft_toRightOf="@+id/clips"/>
+
+                <TextView
+                    android:id="@+id/score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTime"
+                    android:textSize="@dimen/text_size_14"
+                    cardView:layout_constraintRight_toRightOf="parent"/>
+            </android.support.constraint.ConstraintLayout>
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>
