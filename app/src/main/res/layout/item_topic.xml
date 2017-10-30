@@ -15,8 +15,8 @@
         android:layout_marginTop="@dimen/size_10"
         android:orientation="horizontal"
         android:paddingBottom="@dimen/size_10"
-        android:paddingLeft="@dimen/size_5"
-        android:paddingRight="@dimen/size_5">
+        android:paddingLeft="@dimen/size_10"
+        android:paddingRight="@dimen/size_10">
 
         <ImageView
             android:id="@+id/imageAvatar"
@@ -27,7 +27,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/size_5"
+            android:layout_marginLeft="@dimen/size_10"
             android:orientation="vertical">
 
             <LinearLayout
@@ -108,6 +108,9 @@
                     android:id="@+id/score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/size_5"
+                    android:drawableLeft="@drawable/ic_score"
+                    android:drawablePadding="@dimen/size_5"
                     android:textColor="@color/colorTime"
                     android:textSize="@dimen/text_size_14"
                     cardView:layout_constraintRight_toRightOf="parent"/>
