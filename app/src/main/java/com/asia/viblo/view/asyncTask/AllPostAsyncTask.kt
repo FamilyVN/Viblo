@@ -2,6 +2,7 @@ package com.asia.viblo.view.asyncTask
 
 import android.annotation.SuppressLint
 import android.os.AsyncTask
+import android.util.Log
 import com.asia.viblo.model.Post
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
@@ -61,6 +62,7 @@ class AllPostAsyncTask : AsyncTask<String, Void, List<Post>>() {
         } catch (ex: Exception) {
             ex.printStackTrace()
         }
+        Log.d("TAG", "topList.size = " + topicList.size)
         return topicList
     }
 }
