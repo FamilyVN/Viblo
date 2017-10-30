@@ -10,8 +10,8 @@ import com.squareup.picasso.Picasso
 fun loadAvatar(imageView: ImageView, url: String) {
     Picasso.with(imageView.context)
             .load(url)
-//            .placeholder(R.drawable.logo_w)
-            .resize(R.dimen.size_70, R.dimen.size_70)
+            .placeholder(R.drawable.ic_avatar_default)
+            .resize(R.dimen.size_50, R.dimen.size_50)
             .centerCrop()
             .into(imageView)
 }

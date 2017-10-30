@@ -71,5 +71,4 @@ class AllPostAdapter(context: Context, postList: MutableList<Post>) : RecyclerVi
         val clips = itemView.clips!!
         val comments = itemView.comments!!
     }
-
 }

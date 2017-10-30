@@ -16,6 +16,8 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerPage"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/size_50"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:nestedScrollingEnabled="false"/>
 </LinearLayout>

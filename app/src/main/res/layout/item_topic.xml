@@ -12,22 +12,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/size_15"
+        android:layout_marginTop="@dimen/size_10"
         android:orientation="horizontal"
-        android:paddingBottom="@dimen/size_15"
+        android:paddingBottom="@dimen/size_10"
         android:paddingLeft="@dimen/size_5"
         android:paddingRight="@dimen/size_5">
 
         <ImageView
             android:id="@+id/imageAvatar"
-            android:layout_width="@dimen/size_70"
-            android:layout_height="@dimen/size_70"
-            android:background="@drawable/image_avatar_background"/>
+            android:layout_width="@dimen/size_60"
+            android:layout_height="@dimen/size_60"
+            android:background="@drawable/bg_avatar"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/size_15"
+            android:layout_marginLeft="@dimen/size_5"
             android:orientation="vertical">
 
             <LinearLayout
