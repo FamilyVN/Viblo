@@ -2,6 +2,7 @@ package com.asia.viblo.view.asyncTask
 
 import android.annotation.SuppressLint
 import android.os.AsyncTask
+import android.text.TextUtils
 import android.util.Log
 import com.asia.viblo.model.Post
 import org.jsoup.Jsoup
@@ -21,6 +22,8 @@ val cssQueryUrl = "div.card-block > div.ml-05 > div.post-header > div.post-title
         "h1.post-title-header > a"
 val cssQueryScore = "div.card-block > div.ml-05 > div.d-flex > div.points > span"
 val cssQueryView = "div.card-block > div.ml-05 > div.d-flex"
+val cssQueryPage = "div#__nuxt > div#app-container > div#main-content > div > div.container " +
+        "> div.row > div.col-lg-9 > div > div > ul.pagination"
 
 @SuppressLint("StaticFieldLeak")
 class AllPostAsyncTask : AsyncTask<String, Void, List<Post>>() {
@@ -61,6 +64,23 @@ class AllPostAsyncTask : AsyncTask<String, Void, List<Post>>() {
             }
         } catch (ex: Exception) {
             ex.printStackTrace()
+        }
+        val pageList: MutableList<String> = arrayListOf()
+        try {
+            val document = Jsoup.connect(baseUrl + page).get()
+            val elements = document?.select(cssQueryPage)
+            elements!!
+                    .map { it.select("li") }
+                    .forEach { data ->
+                        data.asSequence()
+                                .map { it.getElementsByTag("a").text() }
+                                .filterNotTo(pageList) { TextUtils.isEmpty(it) }
+                    }
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+        }
+        if (pageList.isNotEmpty()) {
+            pageList
         }
         Log.d("TAG", "topList.size = " + topicList.size)
         return topicList

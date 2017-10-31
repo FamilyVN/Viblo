@@ -11,7 +11,5 @@ fun loadAvatar(imageView: ImageView, url: String) {
     Picasso.with(imageView.context)
             .load(url)
             .placeholder(R.drawable.ic_avatar_default)
-            .resize(R.dimen.size_50, R.dimen.size_50)
-            .centerCrop()
             .into(imageView)
 }
