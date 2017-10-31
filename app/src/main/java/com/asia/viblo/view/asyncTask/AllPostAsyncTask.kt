@@ -5,6 +5,9 @@ import android.os.AsyncTask
 import android.text.TextUtils
 import android.util.Log
 import com.asia.viblo.model.Post
+import com.asia.viblo.model.keyMaxPage
+import com.asia.viblo.model.keyPagePresent
+import com.asia.viblo.utils.SharedPrefs
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 
@@ -80,8 +83,9 @@ class AllPostAsyncTask : AsyncTask<String, Void, List<Post>>() {
             ex.printStackTrace()
         }
         if (pageList.isNotEmpty()) {
-            pageList
+            SharedPrefs.instance.put(keyMaxPage, pageList.last())
         }
+        SharedPrefs.instance.put(keyPagePresent, if (params.isEmpty()) "1" else params[0])
         Log.d("TAG", "topList.size = " + topicList.size)
         return topicList
     }
