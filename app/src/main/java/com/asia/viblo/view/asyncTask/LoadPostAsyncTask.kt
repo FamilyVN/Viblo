@@ -14,7 +14,11 @@ import org.jsoup.nodes.Element
 /**
  * Created by FRAMGIA\vu.tuan.anh on 30/10/2017.
  */
-val baseUrl = "https://viblo.asia"
+val baseUrlNewest = "https://viblo.asia"
+val baseUrlSeries = "https://viblo.asia/series"
+val baseUrlEditorsChoice = "https://viblo.asia/editors-choice"
+val baseUrlTrending = "https://viblo.asia/trending"
+val baseUrlVideos = "https://viblo.asia/videos"
 val cssQueryFeaturedArticles = "div#__nuxt > div#app-container > div#main-content > div >" +
         " div.container > div.row > div.col-lg-9 > div > div > div.card"
 val cssQueryAvatar = "div.card-block > figure.post-author-avatar > a > img"
@@ -29,10 +33,11 @@ val cssQueryPage = "div#__nuxt > div#app-container > div#main-content > div > di
         "> div.row > div.col-lg-9 > div > div > ul.pagination"
 
 @SuppressLint("StaticFieldLeak")
-class AllPostAsyncTask : AsyncTask<String, Void, List<Post>>() {
+class LoadPostAsyncTask : AsyncTask<String, Void, List<Post>>() {
     override fun doInBackground(vararg params: String?): List<Post> {
         val topicList: MutableList<Post> = arrayListOf()
-        val page: String = if (params.isEmpty()) "" else "/?page=" + params[0]
+        val baseUrl = params[0]
+        val page: String = if (params.size == 1) "" else "/?page=" + params[1]
         try {
             val document = Jsoup.connect(baseUrl + page).get()
             val elements = document?.select(cssQueryFeaturedArticles)
@@ -85,7 +90,7 @@ class AllPostAsyncTask : AsyncTask<String, Void, List<Post>>() {
         if (pageList.isNotEmpty()) {
             SharedPrefs.instance.put(keyMaxPage, pageList.last())
         }
-        SharedPrefs.instance.put(keyPagePresent, if (params.isEmpty()) "1" else params[0])
+        SharedPrefs.instance.put(keyPagePresent, if (params.size == 1) "1" else params[1])
         Log.d("TAG", "topList.size = " + topicList.size)
         return topicList
     }
