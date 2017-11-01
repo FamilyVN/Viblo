@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="TextTopic">
+    <style name="TextPost">
         <item name="android:textSize">@dimen/text_size_16</item>
         <item name="android:textColor">@color/colorTime</item>
         <item name="android:drawablePadding">@dimen/size_5</item>

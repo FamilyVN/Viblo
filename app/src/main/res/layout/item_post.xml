@@ -11,6 +11,7 @@
                                     cardView:cardUseCompatPadding="true">
 
     <LinearLayout
+        android:id="@+id/llRoot"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/size_10"
@@ -76,27 +77,27 @@
 
                 <TextView
                     android:id="@+id/views"
-                    style="@style/TextTopic"
+                    style="@style/TextPost"
                     android:drawableLeft="@drawable/ic_views"
                     cardView:layout_constraintLeft_toLeftOf="parent"/>
 
                 <TextView
                     android:id="@+id/clips"
-                    style="@style/TextTopic"
+                    style="@style/TextPost"
                     android:layout_marginLeft="@dimen/size_10"
                     android:drawableLeft="@drawable/ic_clips"
                     cardView:layout_constraintLeft_toRightOf="@+id/views"/>
 
                 <TextView
                     android:id="@+id/comments"
-                    style="@style/TextTopic"
+                    style="@style/TextPost"
                     android:layout_marginLeft="@dimen/size_10"
                     android:drawableLeft="@drawable/ic_comments"
                     cardView:layout_constraintLeft_toRightOf="@+id/clips"/>
 
                 <TextView
                     android:id="@+id/score"
-                    style="@style/TextTopic"
+                    style="@style/TextPost"
                     android:layout_marginRight="@dimen/size_5"
                     android:drawableLeft="@drawable/ic_score"
                     cardView:layout_constraintRight_toRightOf="parent"/>

@@ -5,3 +5,4 @@ package com.asia.viblo.model
  */
 val keyMaxPage = "key_max_page"
 val keyPagePresent = "key_page_present"
+val extraUrl = "extra_url"
