@@ -1,4 +1,4 @@
-package com.asia.viblo.view.activity
+package com.asia.viblo.view.activity.home
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -11,12 +11,13 @@ import com.asia.viblo.model.keyMaxPage
 import com.asia.viblo.model.keyPagePresent
 import com.asia.viblo.utils.SharedPrefs
 import com.asia.viblo.view.adapter.AllPostAdapter
-import com.asia.viblo.view.asyncTask.AllPostAsyncTask
+import com.asia.viblo.view.asyncTask.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private val mPostList: MutableList<Post> = arrayListOf()
     private lateinit var mAllPostAdapter: AllPostAdapter
+    private var mPosition: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,32 +39,43 @@ class MainActivity : AppCompatActivity() {
         mAllPostAdapter = AllPostAdapter(this, mPostList)
         recyclerAllPost.adapter = mAllPostAdapter
         recyclerAllPost.layoutManager = LinearLayoutManager(this)
-        loadData("")
+        loadData(baseUrlNewest, "")
     }
 
-    private fun loadData(page: String) {
+    private fun loadData(url: String, page: String) {
         mPostList.clear()
         if (TextUtils.isEmpty(page)) {
-            mPostList.addAll(AllPostAsyncTask().execute().get())
+            mPostList.addAll(LoadPostAsyncTask().execute(url).get())
         } else {
-            mPostList.addAll(AllPostAsyncTask().execute(page).get())
+            mPostList.addAll(LoadPostAsyncTask().execute(url, page).get())
         }
         mAllPostAdapter.notifyDataSetChanged()
+    }
+
+    private fun getLink(type: Int): String {
+        return when (type) {
+            0 -> baseUrlNewest
+            1 -> baseUrlSeries
+            2 -> baseUrlEditorsChoice
+            3 -> baseUrlTrending
+            4 -> baseUrlVideos
+            else -> baseUrlNewest
+        }
     }
 
     private fun initListener() {
         textPageNext.setOnClickListener {
             val pageNext = SharedPrefs.instance[keyPagePresent, String::class.java].toInt() + 1
-            loadData(pageNext.toString())
+            loadData(getLink(mPosition), pageNext.toString())
             updateNavigationBottom()
         }
         textPageBack.setOnClickListener {
             val pageBack = SharedPrefs.instance[keyPagePresent, String::class.java].toInt() - 1
-            loadData(pageBack.toString())
+            loadData(getLink(mPosition), pageBack.toString())
             updateNavigationBottom()
         }
         textPagePresent.setOnClickListener {
-            loadData(SharedPrefs.instance[keyPagePresent, String::class.java])
+            loadData(getLink(mPosition), SharedPrefs.instance[keyPagePresent, String::class.java])
             updateNavigationBottom()
         }
     }
