@@ -7,54 +7,57 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.asia.viblo.R
-import com.asia.viblo.model.Post
+import com.asia.viblo.model.post.Post
 import com.asia.viblo.utils.loadAvatar
-import kotlinx.android.synthetic.main.item_topic.view.*
+import com.asia.viblo.view.activity.home.OnClickPostDetail
+import kotlinx.android.synthetic.main.item_post.view.*
 
 /**
  * Created by FRAMGIA\vu.tuan.anh on 27/10/2017.
  */
-class AllPostAdapter(context: Context, postList: MutableList<Post>) : RecyclerView.Adapter<AllPostAdapter.ViewHolder>() {
+class PostAdapter(context: Context, postList: MutableList<Post>, listener: OnClickPostDetail) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
     private val mPostList: MutableList<Post> = postList
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(context)
+    private val mListener: OnClickPostDetail = listener
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(mLayoutInflater.inflate(R.layout.item_topic, parent, false))
+        return ViewHolder(mLayoutInflater.inflate(R.layout.item_post, parent, false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val topic = mPostList[position]
-        holder.name.text = topic.name
-        holder.time.text = topic.time
-        holder.title.text = topic.title
-        holder.views.text = topic.views
-        holder.clips.text = topic.clips
-        holder.comments.text = topic.comments
-        holder.score.text = topic.score
+        val post = mPostList[position]
+        holder.name.text = post.name
+        holder.time.text = post.time
+        holder.title.text = post.title
+        holder.views.text = post.views
+        holder.clips.text = post.clips
+        holder.comments.text = post.comments
+        holder.score.text = post.score
         //
-        if (TextUtils.isEmpty(topic.views)) {
+        if (TextUtils.isEmpty(post.views)) {
             holder.views.visibility = View.INVISIBLE
         } else {
             holder.views.visibility = View.VISIBLE
         }
         //
-        if (TextUtils.isEmpty(topic.clips)) {
+        if (TextUtils.isEmpty(post.clips)) {
             holder.clips.visibility = View.INVISIBLE
         } else {
             holder.clips.visibility = View.VISIBLE
         }
         //
-        if (TextUtils.isEmpty(topic.comments)) {
+        if (TextUtils.isEmpty(post.comments)) {
             holder.comments.visibility = View.INVISIBLE
         } else {
             holder.comments.visibility = View.VISIBLE
         }
         //
-        if (TextUtils.isEmpty(topic.score)) {
+        if (TextUtils.isEmpty(post.score)) {
             holder.score.visibility = View.INVISIBLE
         } else {
             holder.score.visibility = View.VISIBLE
         }
-        loadAvatar(holder.imageAvatar, topic.avatar)
+        loadAvatar(holder.imageAvatar, post.avatar)
+        holder.llRoot.setOnClickListener { mListener.onClickPostDetail(post.url) }
     }
 
     override fun getItemCount(): Int {
@@ -62,6 +65,7 @@ class AllPostAdapter(context: Context, postList: MutableList<Post>) : RecyclerVi
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val llRoot = itemView.llRoot!!
         val imageAvatar = itemView.imageAvatar!!
         val name = itemView.name!!
         val time = itemView.time!!

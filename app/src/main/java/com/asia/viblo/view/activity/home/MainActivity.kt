@@ -1,22 +1,25 @@
 package com.asia.viblo.view.activity.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.View
 import com.asia.viblo.R
-import com.asia.viblo.model.Post
+import com.asia.viblo.model.extraUrl
 import com.asia.viblo.model.keyMaxPage
 import com.asia.viblo.model.keyPagePresent
+import com.asia.viblo.model.post.Post
 import com.asia.viblo.utils.SharedPrefs
-import com.asia.viblo.view.adapter.AllPostAdapter
+import com.asia.viblo.view.activity.detail.PostDetailActivity
+import com.asia.viblo.view.adapter.PostAdapter
 import com.asia.viblo.view.asyncTask.*
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnClickPostDetail {
     private val mPostList: MutableList<Post> = arrayListOf()
-    private lateinit var mAllPostAdapter: AllPostAdapter
+    private lateinit var mPostAdapter: PostAdapter
     private var mPosition: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,8 +39,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerPost() {
-        mAllPostAdapter = AllPostAdapter(this, mPostList)
-        recyclerAllPost.adapter = mAllPostAdapter
+        mPostAdapter = PostAdapter(this, mPostList, this)
+        recyclerAllPost.adapter = mPostAdapter
         recyclerAllPost.layoutManager = LinearLayoutManager(this)
         loadData(baseUrlNewest, "")
     }
@@ -49,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         } else {
             mPostList.addAll(LoadPostAsyncTask().execute(url, page).get())
         }
-        mAllPostAdapter.notifyDataSetChanged()
+        mPostAdapter.notifyDataSetChanged()
     }
 
     private fun getLink(type: Int): String {
@@ -78,5 +81,11 @@ class MainActivity : AppCompatActivity() {
             loadData(getLink(mPosition), SharedPrefs.instance[keyPagePresent, String::class.java])
             updateNavigationBottom()
         }
+    }
+
+    override fun onClickPostDetail(url: String) {
+        val intent = Intent(this, PostDetailActivity::class.java)
+        intent.putExtra(extraUrl, url)
+        startActivity(intent)
     }
 }

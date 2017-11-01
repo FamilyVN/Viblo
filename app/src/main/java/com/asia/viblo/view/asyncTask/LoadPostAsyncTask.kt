@@ -4,9 +4,9 @@ import android.annotation.SuppressLint
 import android.os.AsyncTask
 import android.text.TextUtils
 import android.util.Log
-import com.asia.viblo.model.Post
 import com.asia.viblo.model.keyMaxPage
 import com.asia.viblo.model.keyPagePresent
+import com.asia.viblo.model.post.Post
 import com.asia.viblo.utils.SharedPrefs
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
@@ -21,9 +21,9 @@ val baseUrlTrending = "https://viblo.asia/trending"
 val baseUrlVideos = "https://viblo.asia/videos"
 val cssQueryFeaturedArticles = "div#__nuxt > div#app-container > div#main-content > div >" +
         " div.container > div.row > div.col-lg-9 > div > div > div.card"
-val cssQueryAvatar = "div.card-block > figure.post-author-avatar > a > img"
-val cssQueryName = "div.card-block > div.ml-05 > div.post-header > div.post-meta > a"
-val cssQueryTime = "div.card-block > div.ml-05 > div.post-header > div.post-meta > " +
+private val cssQueryAvatar = "div.card-block > figure.post-author-avatar > a > img"
+private val cssQueryName = "div.card-block > div.ml-05 > div.post-header > div.post-meta > a"
+private val cssQueryTime = "div.card-block > div.ml-05 > div.post-header > div.post-meta > " +
         "div.text-muted > span"
 val cssQueryUrl = "div.card-block > div.ml-05 > div.post-header > div.post-title-box > " +
         "h1.post-title-header > a"
@@ -35,7 +35,7 @@ val cssQueryPage = "div#__nuxt > div#app-container > div#main-content > div > di
 @SuppressLint("StaticFieldLeak")
 class LoadPostAsyncTask : AsyncTask<String, Void, List<Post>>() {
     override fun doInBackground(vararg params: String?): List<Post> {
-        val topicList: MutableList<Post> = arrayListOf()
+        val postList: MutableList<Post> = arrayListOf()
         val baseUrl = params[0]
         val page: String = if (params.size == 1) "" else "/?page=" + params[1]
         try {
@@ -68,7 +68,7 @@ class LoadPostAsyncTask : AsyncTask<String, Void, List<Post>>() {
                 if (scoreSubject != null) {
                     post.score = scoreSubject.text()
                 }
-                topicList.add(post)
+                postList.add(post)
             }
         } catch (ex: Exception) {
             ex.printStackTrace()
@@ -91,7 +91,7 @@ class LoadPostAsyncTask : AsyncTask<String, Void, List<Post>>() {
             SharedPrefs.instance.put(keyMaxPage, pageList.last())
         }
         SharedPrefs.instance.put(keyPagePresent, if (params.size == 1) "1" else params[1])
-        Log.d("TAG", "topList.size = " + topicList.size)
-        return topicList
+        Log.d("TAG", "topList.size = " + postList.size)
+        return postList
     }
 }
