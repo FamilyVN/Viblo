@@ -9,4 +9,6 @@
     <color name="colorName">#5488c7</color>
     <color name="colorTime">#9b9b9b</color>
     <color name="colorTitle">#0b1a33</color>
+    <color name="colorTagSpecial">#396eaf</color>
+    <color name="colorTagDefault">#dbe3e8</color>
 </resources>

@@ -19,8 +19,8 @@
             android:id="@+id/imageAvatar"
             android:layout_width="@dimen/size_60"
             android:layout_height="@dimen/size_60"
-            app:civ_border_color="@android:color/black"
-            app:civ_border_width="@dimen/size_2"/>
+            app:civ_border_color="@android:color/white"
+            app:civ_border_width="@dimen/size_1"/>
 
         <TextView
             android:id="@+id/txtName"
@@ -54,4 +54,39 @@
         android:textColor="@color/colorTitle"
         android:textSize="@dimen/text_size_18"
         android:textStyle="bold"/>
+
+    <com.asia.viblo.view.custom.TagLayout
+        android:id="@+id/tagLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/size_10"
+        android:layout_marginRight="@dimen/size_10"
+        android:layout_marginTop="@dimen/size_10"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_calender"
+            android:tint="@color/colorTime"/>
+
+        <TextView
+            android:id="@+id/txtPublishingDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/size_10"
+            android:textColor="@color/colorTime"
+            android:textSize="@dimen/text_size_14"/>
+    </LinearLayout>
+
+    <include
+        android:id="@+id/layoutView"
+        layout="@layout/include_layout_views_clips_comments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/size_10"/>
 </LinearLayout>

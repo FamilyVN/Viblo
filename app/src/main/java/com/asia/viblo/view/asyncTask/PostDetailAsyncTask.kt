@@ -15,6 +15,7 @@ private val cssQueryHeader = "div.post-meta > div.content-author > div.mw-0"
 private val cssQueryName = "div.text-bold > div.overflow-hidden > a"
 private val cssQueryTime = "div.text-muted > span"
 private val cssQueryTitle = "div.post-meta > h1"
+val cssQueryPublishingDate = "div.post-meta > div.d-flex > div.meta-d1 > div.publishing-date"
 
 @SuppressLint("StaticFieldLeak")
 class PostDetailAsyncTask : AsyncTask<String, Void, PostDetail>() {
@@ -30,6 +31,7 @@ class PostDetailAsyncTask : AsyncTask<String, Void, PostDetail>() {
             postDetail.name = elementHeader.select(cssQueryName).text()
             postDetail.time = elementHeader.select(cssQueryTime).text()
             postDetail.title = element.select(cssQueryTitle).text()
+            postDetail.publishingDate = element.select(cssQueryPublishingDate).text()
         } catch (ex: Exception) {
             ex.printStackTrace()
         }
