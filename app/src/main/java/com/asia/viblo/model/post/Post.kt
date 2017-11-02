@@ -1,11 +1,9 @@
 package com.asia.viblo.model.post
 
-import java.io.Serializable
-
 /**
  * Created by FRAMGIA\vu.tuan.anh on 27/10/2017.
  */
-class Post : Serializable {
+open class Post {
     var avatar: String = ""
     var name: String = ""
     var time: String = ""

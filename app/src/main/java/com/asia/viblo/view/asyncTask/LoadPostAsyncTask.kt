@@ -20,7 +20,7 @@ val baseUrlEditorsChoice = "https://viblo.asia/editors-choice"
 val baseUrlTrending = "https://viblo.asia/trending"
 val baseUrlVideos = "https://viblo.asia/videos"
 val cssQueryFeaturedArticles = "div#__nuxt > div#app-container > div#main-content > div >" +
-        " div.container > div.row > div.col-lg-9 > div > div > div.card"
+        " div.container > div.row > div.col-lg-9 > div > div.card"
 private val cssQueryAvatar = "div.card-block > figure.post-author-avatar > a > img"
 private val cssQueryName = "div.card-block > div.ml-05 > div.post-header > div.post-meta > a"
 private val cssQueryTime = "div.card-block > div.ml-05 > div.post-header > div.post-meta > " +

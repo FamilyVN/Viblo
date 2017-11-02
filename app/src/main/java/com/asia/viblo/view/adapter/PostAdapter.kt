@@ -10,6 +10,7 @@ import com.asia.viblo.R
 import com.asia.viblo.model.post.Post
 import com.asia.viblo.utils.loadAvatar
 import com.asia.viblo.view.activity.home.OnClickPostDetail
+import kotlinx.android.synthetic.main.include_layout_views_clips_comments.view.*
 import kotlinx.android.synthetic.main.item_post.view.*
 
 /**
@@ -70,9 +71,9 @@ class PostAdapter(context: Context, postList: MutableList<Post>, listener: OnCli
         val name = itemView.name!!
         val time = itemView.time!!
         val title = itemView.title!!
-        val score = itemView.score!!
-        val views = itemView.views!!
-        val clips = itemView.clips!!
-        val comments = itemView.comments!!
+        val score = itemView.layoutView.score!!
+        val views = itemView.layoutView.views!!
+        val clips = itemView.layoutView.clips!!
+        val comments = itemView.layoutView.comments!!
     }
 }
