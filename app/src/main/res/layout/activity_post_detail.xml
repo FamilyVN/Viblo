@@ -60,28 +60,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/txtPublishingDate"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/size_10"
         android:layout_marginRight="@dimen/size_10"
         android:layout_marginTop="@dimen/size_10"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_calender"
-            android:tint="@color/colorTime"/>
-
-        <TextView
-            android:id="@+id/txtPublishingDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/size_10"
-            android:textColor="@color/colorTime"
-            android:textSize="@dimen/text_size_14"/>
-    </LinearLayout>
+        android:drawableLeft="@drawable/ic_calender"
+        android:drawablePadding="@dimen/size_5"
+        android:textColor="@color/colorTime"
+        android:textSize="@dimen/text_size_14"/>
 
     <include
         android:id="@+id/layoutView"
