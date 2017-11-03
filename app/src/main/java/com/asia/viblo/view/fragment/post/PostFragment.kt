@@ -21,7 +21,7 @@ import com.asia.viblo.view.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_post.*
 import kotlinx.android.synthetic.main.include_layout_next_back_page.*
 
-class PostFragment : BaseFragment(), OnClickPostDetail {
+class PostFragment : BaseFragment(), OnClickPostDetail, OnUpdatePostData {
     private val mPostList: MutableList<Post> = arrayListOf()
     private lateinit var mPostAdapter: PostAdapter
     private var mPosition: Int = 0
@@ -57,13 +57,13 @@ class PostFragment : BaseFragment(), OnClickPostDetail {
     }
 
     private fun loadData(url: String, page: String) {
+        mProgressDialog.show()
         mPostList.clear()
         if (TextUtils.isEmpty(page)) {
-            mPostList.addAll(LoadPostAsyncTask().execute(url).get())
+            LoadPostAsyncTask(this).execute(url)
         } else {
-            mPostList.addAll(LoadPostAsyncTask().execute(url, page).get())
+            LoadPostAsyncTask(this).execute(url, page)
         }
-        mPostAdapter.notifyDataSetChanged()
     }
 
     private fun getLink(type: Int): String {
@@ -98,5 +98,13 @@ class PostFragment : BaseFragment(), OnClickPostDetail {
         val intent = Intent(context, PostDetailActivity::class.java)
         intent.putExtra(extraUrl, url)
         startActivity(intent)
+    }
+
+    override fun onUpdatePostData(postList: List<Post>?) {
+        if (postList != null) {
+            mPostList.addAll(postList)
+            mPostAdapter.notifyDataSetChanged()
+        }
+        mProgressDialog.dismiss()
     }
 }
