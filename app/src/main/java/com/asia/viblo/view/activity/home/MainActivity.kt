@@ -53,6 +53,7 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction().replace(R.id.frameHome, fragment).commit()
             true
         }
+        bottomNavigationHome.selectedItemId = R.id.itemPost
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

@@ -8,6 +8,7 @@ import com.asia.viblo.model.keyMaxPage
 import com.asia.viblo.model.keyPagePresent
 import com.asia.viblo.model.post.Post
 import com.asia.viblo.utils.SharedPrefs
+import com.asia.viblo.view.fragment.post.OnUpdatePostData
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 
@@ -33,7 +34,8 @@ val cssQueryPage = "div#__nuxt > div#app-container > div#main-content > div > di
         "> div.row > div.col-lg-9 > div > div > ul.pagination"
 
 @SuppressLint("StaticFieldLeak")
-class LoadPostAsyncTask : AsyncTask<String, Void, List<Post>>() {
+class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) : AsyncTask<String, Void, List<Post>>() {
+    private val mOnUpdatePostData = onUpdatePostData
     override fun doInBackground(vararg params: String?): List<Post> {
         val postList: MutableList<Post> = arrayListOf()
         val baseUrl = params[0]
@@ -93,5 +95,10 @@ class LoadPostAsyncTask : AsyncTask<String, Void, List<Post>>() {
         SharedPrefs.instance.put(keyPagePresent, if (params.size == 1) "1" else params[1])
         Log.d("TAG", "topList.size = " + postList.size)
         return postList
+    }
+
+    override fun onPostExecute(result: List<Post>?) {
+        super.onPostExecute(result)
+        mOnUpdatePostData.onUpdatePostData(result)
     }
 }
