@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/itemMenu1"
+        android:icon="@drawable/ic_post"
+        android:title="Post"/>
+    <item
+        android:id="@+id/itemMenu2"
+        android:icon="@drawable/ic_questions"
+        android:title="Questions"/>
+    <item
+        android:id="@+id/itemMenu3"
+        android:icon="@drawable/ic_discussion"
+        android:title="Discussions"/>
+</menu>
