@@ -27,11 +27,14 @@ class PostDetailActivity : AppCompatActivity() {
     }
 
     private fun updateView() {
-        loadAvatar(imageAvatar, mPostDetail.avatar)
+        if (!TextUtils.isEmpty(mPostDetail.avatar)) {
+            loadAvatar(imageAvatar, mPostDetail.avatar)
+        }
         txtName.text = mPostDetail.name
         txtTime.text = mPostDetail.time
         txtTitle.text = mPostDetail.title
         txtPublishingDate.text = mPostDetail.publishingDate
+        txtPublishingDate.visibility = if (TextUtils.isEmpty(mPostDetail.publishingDate)) View.GONE else View.VISIBLE
         if (TextUtils.isEmpty(mPostDetail.views)) {
             layoutView.views.visibility = View.INVISIBLE
         } else {
