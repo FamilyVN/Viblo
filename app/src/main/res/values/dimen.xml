@@ -17,6 +17,7 @@
     <dimen name="size_3">3dp</dimen>
     <dimen name="size_2">2dp</dimen>
     <dimen name="size_1">1dp</dimen>
+    <dimen name="size_negative_2">-2dp</dimen>
     <dimen name="text_size_18">18sp</dimen>
     <dimen name="text_size_16">16sp</dimen>
     <dimen name="text_size_14">14sp</dimen>

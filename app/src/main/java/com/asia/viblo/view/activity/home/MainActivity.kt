@@ -35,7 +35,11 @@ class MainActivity : AppCompatActivity(), OnClickPostDetail {
         val pageMaxStr = SharedPrefs.instance[keyMaxPage, String::class.java]
         textPageBack.visibility = if (TextUtils.equals("1", pagePresentStr)) View.GONE else View.VISIBLE
         textPageNext.visibility = if (TextUtils.equals(pageMaxStr, pagePresentStr)) View.GONE else View.VISIBLE
-        textPagePresent.text = pagePresentStr
+        textPagePresent.text = getPagePresent(pagePresentStr, pageMaxStr)
+    }
+
+    private fun getPagePresent(pagePresentStr: String, pageMaxStr: String): String {
+        return pagePresentStr + "/" + pageMaxStr
     }
 
     private fun initRecyclerPost() {

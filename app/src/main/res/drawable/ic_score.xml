@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:bottom="@dimen/size_12"
-        android:drawable="@drawable/up_arrow_gray"/>
+        android:bottom="@dimen/size_8"
+        android:drawable="@drawable/ic_arrow_up"/>
     <item
-        android:drawable="@drawable/down_arrow_gray"
-        android:top="@dimen/size_12"/>
+        android:drawable="@drawable/ic_arrow_down"
+        android:top="@dimen/size_8"/>
 </layer-list>
