@@ -21,9 +21,9 @@ val baseUrlTrending = "https://viblo.asia/trending"
 val baseUrlVideos = "https://viblo.asia/videos"
 val cssQueryFeaturedArticles = "div#__nuxt > div#app-container > div#main-content > div >" +
         " div.container > div.row > div.col-lg-9 > div > div.card"
-private val cssQueryAvatar = "div.card-block > figure.post-author-avatar > a > img"
-private val cssQueryName = "div.card-block > div.ml-05 > div.post-header > div.post-meta > a"
-private val cssQueryTime = "div.card-block > div.ml-05 > div.post-header > div.post-meta > " +
+val cssQueryAvatarPost = "div.card-block > figure.post-author-avatar > a > img"
+val cssQueryNamePost = "div.card-block > div.ml-05 > div.post-header > div.post-meta > a"
+val cssQueryTimePost = "div.card-block > div.ml-05 > div.post-header > div.post-meta > " +
         "div.text-muted > span"
 val cssQueryUrl = "div.card-block > div.ml-05 > div.post-header > div.post-title-box > " +
         "h1.post-title-header > a"
@@ -43,9 +43,9 @@ class LoadPostAsyncTask : AsyncTask<String, Void, List<Post>>() {
             val elements = document?.select(cssQueryFeaturedArticles)
             for (element: Element in elements!!) {
                 val post = Post()
-                val avatarSubject = element.select(cssQueryAvatar).first()
-                val nameSubject = element.select(cssQueryName).first()
-                val timeSubject = element.select(cssQueryTime).first()
+                val avatarSubject = element.select(cssQueryAvatarPost).first()
+                val nameSubject = element.select(cssQueryNamePost).first()
+                val timeSubject = element.select(cssQueryTimePost).first()
                 val urlSubject = element.select(cssQueryUrl).first()
                 val scoreSubject = element.select(cssQueryScore).first()
                 val postStatusSubject = element.select(cssQueryView).first()

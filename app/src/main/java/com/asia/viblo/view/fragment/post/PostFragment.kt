@@ -2,7 +2,6 @@ package com.asia.viblo.view.fragment.post
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -18,10 +17,11 @@ import com.asia.viblo.view.activity.detail.PostDetailActivity
 import com.asia.viblo.view.activity.home.OnClickPostDetail
 import com.asia.viblo.view.adapter.PostAdapter
 import com.asia.viblo.view.asyncTask.*
+import com.asia.viblo.view.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_post.*
 import kotlinx.android.synthetic.main.include_layout_next_back_page.*
 
-class PostFragment : Fragment(), OnClickPostDetail {
+class PostFragment : BaseFragment(), OnClickPostDetail {
     private val mPostList: MutableList<Post> = arrayListOf()
     private lateinit var mPostAdapter: PostAdapter
     private var mPosition: Int = 0
