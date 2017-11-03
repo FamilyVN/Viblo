@@ -10,6 +10,7 @@
     tools:context="com.asia.viblo.view.activity.home.MainActivity">
 
     <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottomNavigationHome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
@@ -18,34 +19,9 @@
         app:itemTextColor="@android:color/white"
         app:menu="@menu/menu_navigation_items"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerAllPost"
+    <FrameLayout
+        android:id="@+id/frameHome"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/textPageBack"
-            style="@style/TextPage"
-            android:drawableLeft="@drawable/ic_black"
-            android:text="Back"/>
-
-        <TextView
-            android:id="@+id/textPagePresent"
-            style="@style/TextPage"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:textColor="@color/colorTime"/>
-
-        <TextView
-            android:id="@+id/textPageNext"
-            style="@style/TextPage"
-            android:layout_alignParentEnd="true"
-            android:drawableRight="@drawable/ic_next"
-            android:text="Next"/>
-    </RelativeLayout>
 </LinearLayout>
