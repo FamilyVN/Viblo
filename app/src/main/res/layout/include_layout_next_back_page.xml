@@ -8,19 +8,21 @@
         android:id="@+id/textPageBack"
         style="@style/TextPage"
         android:drawableLeft="@drawable/ic_black"
-        android:text="Back"/>
+        android:text="Back"
+        android:visibility="invisible"/>
 
     <TextView
         android:id="@+id/textPagePresent"
         style="@style/TextPage"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/colorTime"/>
+        android:textColor="@android:color/black"/>
 
     <TextView
         android:id="@+id/textPageNext"
         style="@style/TextPage"
         android:layout_alignParentEnd="true"
         android:drawableRight="@drawable/ic_next"
-        android:text="Next"/>
+        android:text="Next"
+        android:visibility="invisible"/>
 </RelativeLayout>

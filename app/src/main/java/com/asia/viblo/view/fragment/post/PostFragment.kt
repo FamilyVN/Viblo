@@ -2,11 +2,13 @@ package com.asia.viblo.view.fragment.post
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import com.asia.viblo.R
 import com.asia.viblo.model.extraUrl
 import com.asia.viblo.model.keyMaxPage
@@ -17,14 +19,17 @@ import com.asia.viblo.view.activity.detail.PostDetailActivity
 import com.asia.viblo.view.activity.home.OnClickPostDetail
 import com.asia.viblo.view.adapter.PostAdapter
 import com.asia.viblo.view.asyncTask.*
+import com.asia.viblo.view.custom.DialogSelectPage
 import com.asia.viblo.view.fragment.BaseFragment
+import kotlinx.android.synthetic.main.dialog_select_page.view.*
 import kotlinx.android.synthetic.main.fragment_post.*
 import kotlinx.android.synthetic.main.include_layout_next_back_page.*
 
-class PostFragment : BaseFragment(), OnClickPostDetail, OnUpdatePostData {
+class PostFragment : BaseFragment(), OnClickPostDetail, OnUpdatePostData, OnSelectPage {
     private val mPostList: MutableList<Post> = arrayListOf()
     private lateinit var mPostAdapter: PostAdapter
     private var mPosition: Int = 0
+    private var mAlertDialog: AlertDialog? = null
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater!!.inflate(R.layout.fragment_post, container, false)
@@ -33,7 +38,6 @@ class PostFragment : BaseFragment(), OnClickPostDetail, OnUpdatePostData {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerPost()
-        updateViewNextBackBottom()
         initListener()
     }
 
@@ -81,16 +85,20 @@ class PostFragment : BaseFragment(), OnClickPostDetail, OnUpdatePostData {
         textPageNext.setOnClickListener {
             val pageNext = SharedPrefs.instance[keyPagePresent, String::class.java].toInt() + 1
             loadData(getLink(mPosition), pageNext.toString())
-            updateViewNextBackBottom()
         }
         textPageBack.setOnClickListener {
             val pageBack = SharedPrefs.instance[keyPagePresent, String::class.java].toInt() - 1
             loadData(getLink(mPosition), pageBack.toString())
-            updateViewNextBackBottom()
         }
         textPagePresent.setOnClickListener {
-            loadData(getLink(mPosition), SharedPrefs.instance[keyPagePresent, String::class.java])
-            updateViewNextBackBottom()
+            val builder = AlertDialog.Builder(context)
+            val dialogSelectPage = DialogSelectPage(context, null, this) as LinearLayout
+            dialogSelectPage.txtTitle.text = getString(R.string.text_dialog_title)
+            dialogSelectPage.txtMessage.text = String.format(
+                    getString(R.string.text_dialog_message, "1", SharedPrefs.instance[keyMaxPage, String::class.java]))
+            dialogSelectPage.editPage.setText(SharedPrefs.instance[keyPagePresent, String::class.java])
+            builder.setView(dialogSelectPage)
+            mAlertDialog = builder.show()
         }
     }
 
@@ -106,5 +114,15 @@ class PostFragment : BaseFragment(), OnClickPostDetail, OnUpdatePostData {
             mPostAdapter.notifyDataSetChanged()
         }
         mProgressDialog.dismiss()
+        updateViewNextBackBottom()
+    }
+
+    override fun onSelectPage(pageSelected: String) {
+        mAlertDialog?.dismiss()
+        loadData(getLink(mPosition), pageSelected)
+    }
+
+    override fun onCancel() {
+        mAlertDialog?.dismiss()
     }
 }
