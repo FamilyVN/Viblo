@@ -8,6 +8,8 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import com.asia.viblo.R
 import com.asia.viblo.model.extraUrl
@@ -25,7 +27,7 @@ import kotlinx.android.synthetic.main.dialog_select_page.view.*
 import kotlinx.android.synthetic.main.fragment_post.*
 import kotlinx.android.synthetic.main.include_layout_next_back_page.*
 
-class PostFragment : BaseFragment(), OnClickPostDetail, OnUpdatePostData, OnSelectPage {
+class PostFragment : BaseFragment(), OnClickPostDetail, OnUpdatePostData, OnSelectPage, OnUpdateFeedBar {
     private val mPostList: MutableList<Post> = arrayListOf()
     private lateinit var mPostAdapter: PostAdapter
     private var mPosition: Int = 0
@@ -38,7 +40,12 @@ class PostFragment : BaseFragment(), OnClickPostDetail, OnUpdatePostData, OnSele
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerPost()
+        initSpinner()
         initListener()
+    }
+
+    private fun initSpinner() {
+        FeedBarAsyncTask(this).execute(getLink(mPosition))
     }
 
     private fun updateViewNextBackBottom() {
@@ -46,6 +53,7 @@ class PostFragment : BaseFragment(), OnClickPostDetail, OnUpdatePostData, OnSele
         val pageMaxStr = SharedPrefs.instance[keyMaxPage, String::class.java]
         textPageBack.visibility = if (TextUtils.equals("1", pagePresentStr)) View.GONE else View.VISIBLE
         textPageNext.visibility = if (TextUtils.equals(pageMaxStr, pagePresentStr)) View.GONE else View.VISIBLE
+        viewNextBack.visibility = if (TextUtils.equals("0", pageMaxStr)) View.GONE else View.VISIBLE
         textPagePresent.text = getPagePresent(pagePresentStr, pageMaxStr)
     }
 
@@ -57,7 +65,10 @@ class PostFragment : BaseFragment(), OnClickPostDetail, OnUpdatePostData, OnSele
         mPostAdapter = PostAdapter(context, mPostList, this)
         recyclerPost.adapter = mPostAdapter
         recyclerPost.layoutManager = LinearLayoutManager(context)
-        loadData(baseUrlNewest, "")
+    }
+
+    private fun loadData(url: String) {
+        loadData(url, "")
     }
 
     private fun loadData(url: String, page: String) {
@@ -124,5 +135,25 @@ class PostFragment : BaseFragment(), OnClickPostDetail, OnUpdatePostData, OnSele
 
     override fun onCancel() {
         mAlertDialog?.dismiss()
+    }
+
+    override fun onUpdateFeedBar(feedBarList: List<String>?) {
+        if (feedBarList != null && feedBarList.isNotEmpty()) {
+            spinnerPost.visibility = View.VISIBLE
+            val feedBar: Array<String> = feedBarList.toTypedArray()
+            val adapter = ArrayAdapter(context, R.layout.support_simple_spinner_dropdown_item, feedBar)
+            spinnerPost.adapter = adapter
+            spinnerPost.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    mPosition = position
+                    loadData(getLink(mPosition))
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                }
+            }
+        } else {
+            spinnerPost.visibility = View.INVISIBLE
+        }
     }
 }

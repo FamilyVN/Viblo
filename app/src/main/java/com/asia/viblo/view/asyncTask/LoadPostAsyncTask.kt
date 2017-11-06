@@ -21,16 +21,26 @@ val baseUrlTrending = "https://viblo.asia/trending"
 val baseUrlVideos = "https://viblo.asia/videos"
 val cssQueryFeaturedArticles = "div#__nuxt > div#app-container > div#main-content > div >" +
         " div.container > div.row > div.col-lg-9 > div > div.card"
+val cssQueryFeaturedSeries = "div#__nuxt > div#app-container > div#main-content > div >" +
+        " div.container > div.row > div.col-lg-9 > div > div > div.card"
 val cssQueryAvatarPost = "div.card-block > figure.post-author-avatar > a > img"
+val cssQueryAvatarPostSeries = "div.card-block > a > img"
 val cssQueryNamePost = "div.card-block > div.ml-05 > div.post-header > div.post-meta > a"
+val cssQueryNamePostSeries = "div.card-block > div.ml-05 > div.series-header > div.series-meta > a"
 val cssQueryTimePost = "div.card-block > div.ml-05 > div.post-header > div.post-meta > " +
+        "div.text-muted > span"
+val cssQueryTimePostSeries = "div.card-block > div.ml-05 > div.series-header > div.series-meta > " +
         "div.text-muted > span"
 val cssQueryUrl = "div.card-block > div.ml-05 > div.post-header > div.post-title-box > " +
         "h1.post-title-header > a"
+val cssQueryUrlSeries = "div.card-block > div.ml-05 > div.series-header > div.series-title-box > " +
+        "h1.series-title-header > a"
 val cssQueryScore = "div.card-block > div.ml-05 > div.d-flex > div.points > span"
 val cssQueryView = "div.card-block > div.ml-05 > div.d-flex"
 val cssQueryPage = "div#__nuxt > div#app-container > div#main-content > div > div.container " +
-        "> div.row > div.col-lg-9 > div > div > ul.pagination"
+        "> div.row > div.col-lg-9 > div > ul.pagination"
+val cssQueryPageSeries = "div#__nuxt > div#app-container > div#main-content > div > div.container" +
+        " > div.row > div.col-lg-9 > div > ul.pagination"
 
 @SuppressLint("StaticFieldLeak")
 class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) : AsyncTask<String, Void, List<Post>>() {
@@ -41,13 +51,14 @@ class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) : AsyncTask<String, 
         val page: String = if (params.size == 1) "" else "/?page=" + params[1]
         try {
             val document = Jsoup.connect(baseUrl + page).get()
-            val elements = document?.select(cssQueryFeaturedArticles)
+            val cssQuery = getCssQuery(baseUrl, TypeQuery.BASE)
+            val elements = document?.select(cssQuery)
             for (element: Element in elements!!) {
                 val post = Post()
-                val avatarSubject = element.select(cssQueryAvatarPost).first()
-                val nameSubject = element.select(cssQueryNamePost).first()
-                val timeSubject = element.select(cssQueryTimePost).first()
-                val urlSubject = element.select(cssQueryUrl).first()
+                val avatarSubject = element.select(getCssQuery(baseUrl, TypeQuery.AVATAR)).first()
+                val nameSubject = element.select(getCssQuery(baseUrl, TypeQuery.NAME)).first()
+                val timeSubject = element.select(getCssQuery(baseUrl, TypeQuery.TIME)).first()
+                val urlSubject = element.select(getCssQuery(baseUrl, TypeQuery.URL)).first()
                 val scoreSubject = element.select(cssQueryScore).first()
                 val postStatusSubject = element.select(cssQueryView).first()
                 if (postStatusSubject != null) {
@@ -77,7 +88,7 @@ class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) : AsyncTask<String, 
         val pageList: MutableList<String> = arrayListOf()
         try {
             val document = Jsoup.connect(baseUrl + page).get()
-            val elements = document?.select(cssQueryPage)
+            val elements = document?.select(getCssQuery(baseUrl, TypeQuery.PAGE))
             elements!!
                     .map { it.select("li") }
                     .forEach { data ->
@@ -88,9 +99,7 @@ class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) : AsyncTask<String, 
         } catch (ex: Exception) {
             ex.printStackTrace()
         }
-        if (pageList.isNotEmpty()) {
-            SharedPrefs.instance.put(keyMaxPage, pageList.last())
-        }
+        SharedPrefs.instance.put(keyMaxPage, if (pageList.isNotEmpty()) pageList.last() else "0")
         SharedPrefs.instance.put(keyPagePresent, if (params.size == 1) "1" else params[1])
         return postList
     }
@@ -98,5 +107,32 @@ class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) : AsyncTask<String, 
     override fun onPostExecute(result: List<Post>?) {
         super.onPostExecute(result)
         mOnUpdatePostData.onUpdatePostData(result)
+    }
+
+    private fun getCssQuery(baseUrl: String?, typeQuery: TypeQuery): String {
+        val cssQuery: String
+        when (baseUrl) {
+            baseUrlSeries -> {
+                cssQuery = when (typeQuery) {
+                    TypeQuery.PAGE -> cssQueryPageSeries
+                    TypeQuery.AVATAR -> cssQueryAvatarPostSeries
+                    TypeQuery.NAME -> cssQueryNamePostSeries
+                    TypeQuery.TIME -> cssQueryTimePostSeries
+                    TypeQuery.URL -> cssQueryUrlSeries
+                    else -> cssQueryFeaturedSeries
+                }
+            }
+            else -> {
+                cssQuery = when (typeQuery) {
+                    TypeQuery.PAGE -> cssQueryPage
+                    TypeQuery.AVATAR -> cssQueryAvatarPost
+                    TypeQuery.NAME -> cssQueryNamePost
+                    TypeQuery.TIME -> cssQueryTimePost
+                    TypeQuery.URL -> cssQueryUrl
+                    else -> cssQueryFeaturedArticles
+                }
+            }
+        }
+        return cssQuery
     }
 }
