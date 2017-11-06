@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Viblo</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_dialog_ok">Đồng ý</string>
+    <string name="text_dialog_cancel">Hủy</string>
+    <string name="text_dialog_title">Đi đến trang</string>
+    <string name="text_dialog_message">Chọn trang (%s-%s)</string>
 </resources>

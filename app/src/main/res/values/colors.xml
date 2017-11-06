@@ -11,4 +11,8 @@
     <color name="colorTitle">#0b1a33</color>
     <color name="colorTagSpecial">#396eaf</color>
     <color name="colorTagDefault">#dbe3e8</color>
+    <color name="colorButtonOk">#3a50c9</color>
+    <color name="colorLineGrey">#d8d8d8</color>
+    <color name="colorGreyLight">#c89d9b9d</color>
+    <color name="colorGrey">#9d9b9d</color>
 </resources>
