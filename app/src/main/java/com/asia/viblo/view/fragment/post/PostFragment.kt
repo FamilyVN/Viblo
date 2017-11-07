@@ -143,6 +143,8 @@ class PostFragment : BaseFragment(), OnClickPostDetail, OnUpdatePostData, OnSele
             val feedBar: Array<String> = feedBarList.toTypedArray()
             val adapter = ArrayAdapter(context, R.layout.support_simple_spinner_dropdown_item, feedBar)
             spinnerPost.adapter = adapter
+            spinnerPost.dropDownVerticalOffset = spinnerPost.height
+            spinnerPost.dropDownWidth = spinnerPost.width - resources.getDimensionPixelSize(R.dimen.size_20)
             spinnerPost.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     mPosition = position

@@ -48,7 +48,7 @@ class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) : AsyncTask<String, 
     override fun doInBackground(vararg params: String?): List<Post> {
         val postList: MutableList<Post> = arrayListOf()
         val baseUrl = params[0]
-        val page: String = if (params.size == 1) "" else "/?page=" + params[1]
+        val page: String = if (params.size == 1) "" else getLinkPage(baseUrl, params[1])
         try {
             val document = Jsoup.connect(baseUrl + page).get()
             val cssQuery = getCssQuery(baseUrl, TypeQuery.BASE)
@@ -100,7 +100,9 @@ class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) : AsyncTask<String, 
             ex.printStackTrace()
         }
         SharedPrefs.instance.put(keyMaxPage, if (pageList.isNotEmpty()) pageList.last() else "0")
-        SharedPrefs.instance.put(keyPagePresent, if (params.size == 1) "1" else params[1])
+        if (params.size == 1) {
+            SharedPrefs.instance.put(keyPagePresent, "1")
+        }
         return postList
     }
 
@@ -134,5 +136,30 @@ class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) : AsyncTask<String, 
             }
         }
         return cssQuery
+    }
+
+    private fun getLinkPage(baseUrl: String?, page: String?): String {
+        var pageCheck = ""
+        try {
+            if (page != null) {
+                val pageMaxStr = SharedPrefs.instance[keyMaxPage, String::class.java]
+                if (!TextUtils.isEmpty(pageMaxStr)) {
+                    val pageMax = pageMaxStr.toInt()
+                    val pagePresent = page.toInt()
+                    if (pagePresent > pageMax) {
+                        pageCheck = pageMaxStr
+                    }
+                }
+            }
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+        }
+        if (!TextUtils.isEmpty(pageCheck)) {
+            SharedPrefs.instance.put(keyPagePresent, pageCheck)
+        }
+        return when (baseUrl) {
+            baseUrlNewest -> "/?page="
+            else -> "?page="
+        } + pageCheck
     }
 }
