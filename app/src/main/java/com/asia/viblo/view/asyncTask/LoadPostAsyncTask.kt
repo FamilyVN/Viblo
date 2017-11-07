@@ -139,7 +139,7 @@ class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) : AsyncTask<String, 
     }
 
     private fun getLinkPage(baseUrl: String?, page: String?): String {
-        var pageCheck = ""
+        var pageCheck = page
         try {
             if (page != null) {
                 val pageMaxStr = SharedPrefs.instance[keyMaxPage, String::class.java]

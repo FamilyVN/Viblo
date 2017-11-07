@@ -10,7 +10,7 @@
 
     <style name="TextPost">
         <item name="android:textSize">@dimen/text_size_16</item>
-        <item name="android:textColor">@color/colorTime</item>
+        <item name="android:textColor">@color/color155</item>
         <item name="android:drawablePadding">@dimen/size_5</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>
