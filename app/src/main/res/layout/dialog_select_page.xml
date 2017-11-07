@@ -41,29 +41,29 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/size_20"
+        android:layout_marginTop="@dimen/size_30"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btnOK"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/size_36"
-            android:background="@drawable/selector_color_button_ok"
-            android:text="@string/text_dialog_ok"
-            android:textAllCaps="false"
-            android:textColor="@color/selector_text_green_white"
-            android:textSize="@dimen/text_size_14"/>
 
         <Button
             android:id="@+id/btnCancel"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/size_36"
-            android:layout_marginLeft="@dimen/size_70"
             android:background="@drawable/selector_button_grey"
             android:text="@string/text_dialog_cancel"
             android:textAllCaps="false"
             android:textColor="@color/selector_text_gray_white"
+            android:textSize="@dimen/text_size_14"/>
+
+        <Button
+            android:id="@+id/btnOK"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/size_36"
+            android:layout_marginLeft="@dimen/size_70"
+            android:background="@drawable/selector_color_button_ok"
+            android:text="@string/text_dialog_ok"
+            android:textAllCaps="false"
+            android:textColor="@color/selector_text_green_white"
             android:textSize="@dimen/text_size_14"/>
     </LinearLayout>
 </LinearLayout>
