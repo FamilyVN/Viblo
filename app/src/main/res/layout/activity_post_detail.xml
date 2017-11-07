@@ -40,7 +40,7 @@
             android:layout_alignStart="@+id/txtName"
             android:layout_below="@+id/txtName"
             android:layout_marginTop="@dimen/size_5"
-            android:textColor="@color/colorTime"
+            android:textColor="@color/color155"
             android:textSize="@dimen/text_size_14"/>
     </RelativeLayout>
 
@@ -69,7 +69,7 @@
         android:layout_marginTop="@dimen/size_10"
         android:drawableLeft="@drawable/ic_calender"
         android:drawablePadding="@dimen/size_5"
-        android:textColor="@color/colorTime"
+        android:textColor="@color/color155"
         android:textSize="@dimen/text_size_14"/>
 
     <include

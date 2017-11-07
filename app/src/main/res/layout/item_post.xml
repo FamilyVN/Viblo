@@ -50,7 +50,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/size_15"
-                    android:textColor="@color/colorTime"
+                    android:textColor="@color/color155"
                     android:textSize="@dimen/text_size_14"/>
             </LinearLayout>
 
