@@ -18,6 +18,12 @@ val cssQueryPageQuestions = "div#__nuxt > div#app-container > div#main-content >
         "div.container > div.row > div.col-md-9 > div.question-list > ul.pagination"
 val cssQueryQuestions = "div#__nuxt > div#app-container > div#main-content > div > div.container " +
         "> div.row > div.col-md-9 > div.question-list > div.question-item"
+val cssQueryAvatarQuestions = "div.summary > div.asked-by > a > img"
+val cssQueryNameQuestions = "div.summary > div.asked-by > div.text-small > a"
+val cssQueryTimeQuestions = "div.summary > div.asked-by > div.text-small > span.text-muted"
+val cssQueryTitleQuestions = "div.summary > div.q-title > a > h3"
+val cssQueryViewsQuestions = "div.stats > div > div.question-stats > span.stats-item"
+val cssQueryScoreQuestions = "div.stats > div > div.question-stats > span.points"
 
 @SuppressLint("StaticFieldLeak")
 class LoadQuestionAsyncTask(onUpdateQuestionData: OnUpdateQuestionData) : AsyncTask<String, Void, List<Question>>() {
@@ -25,12 +31,31 @@ class LoadQuestionAsyncTask(onUpdateQuestionData: OnUpdateQuestionData) : AsyncT
     override fun doInBackground(vararg params: String?): List<Question> {
         val questionList: MutableList<Question> = arrayListOf()
         val baseUrl = params[0]
-        val page: String = if (params.size == 1) "" else "?page=" + params[1]
+        val page: String = if (params.size == 1) "" else getPage(params[1])
         try {
             val document = Jsoup.connect(baseUrl + page).get()
             val elements = document?.select(cssQueryQuestions)
             for (element: Element in elements!!) {
                 val question = Question()
+                val avatarSubject = element.select(cssQueryAvatarQuestions)
+                        .attr("srcset").split(",")
+                val avatar = avatarSubject[avatarSubject.size - 1]
+                question.avatar = avatar.substring(0, avatar.length - 3)
+                question.name = element.select(cssQueryNameQuestions).text()
+                question.time = element.select(cssQueryTimeQuestions).text()
+                question.title = element.select(cssQueryTitleQuestions).text()
+                val questionsStatusSubject = element.select(cssQueryViewsQuestions).first()
+                if (questionsStatusSubject != null) {
+                    val viewSubject = questionsStatusSubject.getElementsByTag("span")
+                    viewSubject.map { it.text() }
+                            .forEachIndexed { index, data ->
+                                when (index) {
+                                    0 -> question.answers = data
+                                    1 -> question.views = data
+                                }
+                            }
+                }
+//                question.score = element.select(cssQueryScoreQuestions).first().getElementsByTag("span").first().text()
                 questionList.add(question)
             }
         } catch (ex: Exception) {
@@ -60,5 +85,27 @@ class LoadQuestionAsyncTask(onUpdateQuestionData: OnUpdateQuestionData) : AsyncT
     override fun onPostExecute(result: List<Question>?) {
         super.onPostExecute(result)
         mOnUpdateQuestionData.onUpdateQuestionData(result)
+    }
+
+    private fun getPage(page: String?): String {
+        var pageCheck = page
+        try {
+            if (page != null) {
+                val pageMaxStr = SharedPrefs.instance[keyMaxPage, String::class.java]
+                if (!TextUtils.isEmpty(pageMaxStr)) {
+                    val pageMax = pageMaxStr.toInt()
+                    val pagePresent = page.toInt()
+                    if (pagePresent > pageMax) {
+                        pageCheck = pageMaxStr
+                    }
+                }
+            }
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+        }
+        if (!TextUtils.isEmpty(pageCheck)) {
+            SharedPrefs.instance.put(keyPagePresent, pageCheck)
+        }
+        return "?page=" + pageCheck
     }
 }

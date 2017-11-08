@@ -12,13 +12,16 @@ import com.asia.viblo.R
 import com.asia.viblo.model.*
 import com.asia.viblo.model.questions.Question
 import com.asia.viblo.utils.SharedPrefs
+import com.asia.viblo.view.activity.home.OnClickDetail
+import com.asia.viblo.view.adapter.QuestionAdapter
 import com.asia.viblo.view.asyncTask.LoadQuestionAsyncTask
 import com.asia.viblo.view.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_questions.*
 import kotlinx.android.synthetic.main.include_layout_next_back_page.*
 
-class QuestionsFragment : BaseFragment(), OnUpdateQuestionData {
+class QuestionsFragment : BaseFragment(), OnClickDetail, OnUpdateQuestionData {
     private val mQuestionList: MutableList<Question> = arrayListOf()
+    private lateinit var mQuestionAdapter: QuestionAdapter
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater!!.inflate(R.layout.fragment_questions, container, false)
@@ -39,6 +42,8 @@ class QuestionsFragment : BaseFragment(), OnUpdateQuestionData {
     }
 
     private fun initRecyclerQuestions() {
+        mQuestionAdapter = QuestionAdapter(context, mQuestionList, this)
+        recyclerQuestions.adapter = mQuestionAdapter
         recyclerQuestions.layoutManager = LinearLayoutManager(context)
     }
 
@@ -60,10 +65,14 @@ class QuestionsFragment : BaseFragment(), OnUpdateQuestionData {
         }
     }
 
+    override fun onClickDetail(url: String) {
+    }
+
     override fun onUpdateQuestionData(questionList: List<Question>?) {
         if (questionList != null) {
             mQuestionList.clear()
             mQuestionList.addAll(questionList)
+            mQuestionAdapter.notifyDataSetChanged()
         }
         mProgressDialog.dismiss()
         updateViewNextBackBottom()
