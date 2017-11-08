@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.asia.viblo.R
-import com.asia.viblo.view.asyncTask.baseUrlDiscussion
+import com.asia.viblo.model.baseUrlDiscussion
 import com.asia.viblo.view.fragment.BaseFragment
 
 class DiscussionsFragment : BaseFragment() {

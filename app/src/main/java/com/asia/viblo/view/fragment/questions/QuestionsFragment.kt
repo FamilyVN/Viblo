@@ -9,19 +9,16 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.asia.viblo.R
-import com.asia.viblo.model.keyMaxPage
-import com.asia.viblo.model.keyPagePresent
+import com.asia.viblo.model.*
 import com.asia.viblo.model.questions.Question
 import com.asia.viblo.utils.SharedPrefs
-import com.asia.viblo.view.asyncTask.baseUrlQuestionFollowings
-import com.asia.viblo.view.asyncTask.baseUrlQuestionMyClips
-import com.asia.viblo.view.asyncTask.baseUrlQuestionNewest
-import com.asia.viblo.view.asyncTask.baseUrlQuestionUnsolved
+import com.asia.viblo.view.asyncTask.LoadQuestionAsyncTask
 import com.asia.viblo.view.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_questions.*
 import kotlinx.android.synthetic.main.include_layout_next_back_page.*
 
 class QuestionsFragment : BaseFragment(), OnUpdateQuestionData {
+    private val mQuestionList: MutableList<Question> = arrayListOf()
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater!!.inflate(R.layout.fragment_questions, container, false)
@@ -54,7 +51,20 @@ class QuestionsFragment : BaseFragment(), OnUpdateQuestionData {
         textPagePresent.text = getPagePresent(pagePresentStr, pageMaxStr)
     }
 
-    override fun onUpdateQuestionData(questionList: List<Question>) {
+    override fun loadData(url: String, page: String) {
+        super.loadData(url, page)
+        if (TextUtils.isEmpty(page)) {
+            LoadQuestionAsyncTask(this).execute(url)
+        } else {
+            LoadQuestionAsyncTask(this).execute(url, page)
+        }
+    }
+
+    override fun onUpdateQuestionData(questionList: List<Question>?) {
+        if (questionList != null) {
+            mQuestionList.clear()
+            mQuestionList.addAll(questionList)
+        }
         mProgressDialog.dismiss()
         updateViewNextBackBottom()
     }

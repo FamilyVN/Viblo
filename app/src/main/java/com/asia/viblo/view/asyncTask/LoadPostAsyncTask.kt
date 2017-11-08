@@ -3,6 +3,8 @@ package com.asia.viblo.view.asyncTask
 import android.annotation.SuppressLint
 import android.os.AsyncTask
 import android.text.TextUtils
+import com.asia.viblo.model.baseUrlNewest
+import com.asia.viblo.model.baseUrlSeries
 import com.asia.viblo.model.keyMaxPage
 import com.asia.viblo.model.keyPagePresent
 import com.asia.viblo.model.post.Post
@@ -14,17 +16,6 @@ import org.jsoup.nodes.Element
 /**
  * Created by FRAMGIA\vu.tuan.anh on 30/10/2017.
  */
-// baseUrl
-val baseUrlNewest = "https://viblo.asia"
-val baseUrlSeries = "https://viblo.asia/series"
-val baseUrlEditorsChoice = "https://viblo.asia/editors-choice"
-val baseUrlTrending = "https://viblo.asia/trending"
-val baseUrlVideos = "https://viblo.asia/videos"
-val baseUrlQuestionNewest = "https://viblo.asia/questions"
-val baseUrlQuestionUnsolved = "https://viblo.asia/questions/unsolved"
-val baseUrlQuestionFollowings = "https://viblo.asia/questions/followings"
-val baseUrlQuestionMyClips = "https://viblo.asia/questions/clips"
-val baseUrlDiscussion = "https://viblo.asia/discussion"
 // cssQuery Post
 val cssQueryFeaturedArticles = "div#__nuxt > div#app-container > div#main-content > div >" +
         " div.container > div.row > div.col-lg-9 > div > div.card"
@@ -58,8 +49,7 @@ class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) : AsyncTask<String, 
         val page: String = if (params.size == 1) "" else getLinkPage(baseUrl, params[1])
         try {
             val document = Jsoup.connect(baseUrl + page).get()
-            val cssQuery = getCssQuery(baseUrl, TypeQuery.BASE)
-            val elements = document?.select(cssQuery)
+            val elements = document?.select(getCssQuery(baseUrl, TypeQuery.BASE))
             for (element: Element in elements!!) {
                 val post = Post()
                 val avatarSubject = element.select(getCssQuery(baseUrl, TypeQuery.AVATAR)).first()
