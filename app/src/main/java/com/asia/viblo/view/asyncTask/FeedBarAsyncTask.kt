@@ -2,7 +2,7 @@ package com.asia.viblo.view.asyncTask
 
 import android.annotation.SuppressLint
 import android.os.AsyncTask
-import com.asia.viblo.view.fragment.post.OnUpdateFeedBar
+import com.asia.viblo.view.fragment.OnUpdateFeedBar
 import org.jsoup.Jsoup
 
 /**

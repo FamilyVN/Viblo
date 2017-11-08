@@ -14,11 +14,18 @@ import org.jsoup.nodes.Element
 /**
  * Created by FRAMGIA\vu.tuan.anh on 30/10/2017.
  */
+// baseUrl
 val baseUrlNewest = "https://viblo.asia"
 val baseUrlSeries = "https://viblo.asia/series"
 val baseUrlEditorsChoice = "https://viblo.asia/editors-choice"
 val baseUrlTrending = "https://viblo.asia/trending"
 val baseUrlVideos = "https://viblo.asia/videos"
+val baseUrlQuestionNewest = "https://viblo.asia/questions"
+val baseUrlQuestionUnsolved = "https://viblo.asia/questions/unsolved"
+val baseUrlQuestionFollowings = "https://viblo.asia/questions/followings"
+val baseUrlQuestionMyClips = "https://viblo.asia/questions/clips"
+val baseUrlDiscussion = "https://viblo.asia/discussion"
+// cssQuery Post
 val cssQueryFeaturedArticles = "div#__nuxt > div#app-container > div#main-content > div >" +
         " div.container > div.row > div.col-lg-9 > div > div.card"
 val cssQueryFeaturedSeries = "div#__nuxt > div#app-container > div#main-content > div >" +
