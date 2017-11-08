@@ -9,17 +9,17 @@ import android.view.ViewGroup
 import com.asia.viblo.R
 import com.asia.viblo.model.post.Post
 import com.asia.viblo.utils.loadAvatar
-import com.asia.viblo.view.activity.home.OnClickPostDetail
+import com.asia.viblo.view.activity.home.OnClickDetail
 import kotlinx.android.synthetic.main.include_layout_views_clips_comments.view.*
 import kotlinx.android.synthetic.main.item_post.view.*
 
 /**
  * Created by FRAMGIA\vu.tuan.anh on 27/10/2017.
  */
-class PostAdapter(context: Context, postList: MutableList<Post>, listener: OnClickPostDetail) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
+class PostAdapter(context: Context, postList: MutableList<Post>, listener: OnClickDetail) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
     private val mPostList: MutableList<Post> = postList
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(context)
-    private val mListener: OnClickPostDetail = listener
+    private val mListener: OnClickDetail = listener
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(mLayoutInflater.inflate(R.layout.item_post, parent, false))
     }
@@ -58,7 +58,7 @@ class PostAdapter(context: Context, postList: MutableList<Post>, listener: OnCli
             holder.score.visibility = View.VISIBLE
         }
         loadAvatar(holder.imageAvatar, post.avatar)
-        holder.llRoot.setOnClickListener { mListener.onClickPostDetail(post.url) }
+        holder.llRoot.setOnClickListener { mListener.onClickDetail(post.url) }
     }
 
     override fun getItemCount(): Int {
