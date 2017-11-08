@@ -10,15 +10,13 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.asia.viblo.R
-import com.asia.viblo.model.extraUrl
-import com.asia.viblo.model.keyMaxPage
-import com.asia.viblo.model.keyPagePresent
+import com.asia.viblo.model.*
 import com.asia.viblo.model.post.Post
 import com.asia.viblo.utils.SharedPrefs
 import com.asia.viblo.view.activity.detail.PostDetailActivity
 import com.asia.viblo.view.activity.home.OnClickPostDetail
 import com.asia.viblo.view.adapter.PostAdapter
-import com.asia.viblo.view.asyncTask.*
+import com.asia.viblo.view.asyncTask.LoadPostAsyncTask
 import com.asia.viblo.view.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_post.*
 import kotlinx.android.synthetic.main.include_layout_next_back_page.*
@@ -64,7 +62,6 @@ class PostFragment : BaseFragment(), OnClickPostDetail, OnUpdatePostData {
 
     override fun loadData(url: String, page: String) {
         super.loadData(url, page)
-        mPostList.clear()
         if (TextUtils.isEmpty(page)) {
             LoadPostAsyncTask(this).execute(url)
         } else {
@@ -80,6 +77,7 @@ class PostFragment : BaseFragment(), OnClickPostDetail, OnUpdatePostData {
 
     override fun onUpdatePostData(postList: List<Post>?) {
         if (postList != null) {
+            mPostList.clear()
             mPostList.addAll(postList)
             mPostAdapter.notifyDataSetChanged()
         }
