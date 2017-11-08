@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import com.asia.viblo.R
-import com.asia.viblo.view.fragment.post.OnSelectPage
+import com.asia.viblo.view.fragment.OnSelectPage
 import kotlinx.android.synthetic.main.dialog_select_page.view.*
 
 /**
