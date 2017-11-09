@@ -65,7 +65,10 @@ class QuestionsFragment : BaseFragment(), OnClickDetail, OnUpdateQuestionData {
         }
     }
 
-    override fun onClickDetail(url: String) {
+    override fun onOpenPostDetail(url: String) {
+    }
+
+    override fun onOpenAuthor(authorUrl: String) {
     }
 
     override fun onUpdateQuestionData(questionList: List<Question>?) {

@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-
 import com.asia.viblo.R
 import kotlinx.android.synthetic.main.tag_layout_default.view.*
 

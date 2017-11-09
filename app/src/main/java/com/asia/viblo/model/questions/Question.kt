@@ -1,10 +1,11 @@
 package com.asia.viblo.model.questions
 
-import com.asia.viblo.model.post.Post
+import com.asia.viblo.model.BaseModel
 
 /**
  * Created by FRAMGIA\vu.tuan.anh on 07/11/2017.
  */
-class Question : Post() {
+class Question : BaseModel() {
     var answers = ""
+    var questionUrl = ""
 }

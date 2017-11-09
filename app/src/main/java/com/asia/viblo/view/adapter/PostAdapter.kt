@@ -58,7 +58,9 @@ class PostAdapter(context: Context, postList: MutableList<Post>, listener: OnCli
             holder.score.visibility = View.VISIBLE
         }
         loadAvatar(holder.imageAvatar, post.avatar)
-        holder.llRoot.setOnClickListener { mListener.onClickDetail(post.url) }
+        holder.llRoot.setOnClickListener { mListener.onOpenPostDetail(post.postUrl) }
+        holder.imageAvatar.setOnClickListener { mListener.onOpenAuthor(post.authorUrl) }
+        holder.name.setOnClickListener { mListener.onOpenAuthor(post.authorUrl) }
     }
 
     override fun getItemCount(): Int {
