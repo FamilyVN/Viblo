@@ -56,7 +56,6 @@ class SharedPrefs private constructor() {
     companion object {
         private val PREFS_NAME = "viblo"
         private var mInstance: SharedPrefs? = null
-
         val instance: SharedPrefs
             get() {
                 if (mInstance == null) {

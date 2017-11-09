@@ -13,6 +13,7 @@ import com.asia.viblo.R
 import com.asia.viblo.model.*
 import com.asia.viblo.model.post.Post
 import com.asia.viblo.utils.SharedPrefs
+import com.asia.viblo.view.activity.author.AuthorActivity
 import com.asia.viblo.view.activity.detail.PostDetailActivity
 import com.asia.viblo.view.activity.home.OnClickDetail
 import com.asia.viblo.view.adapter.PostAdapter
@@ -69,9 +70,15 @@ class PostFragment : BaseFragment(), OnClickDetail, OnUpdatePostData {
         }
     }
 
-    override fun onClickDetail(url: String) {
+    override fun onOpenPostDetail(url: String) {
         val intent = Intent(context, PostDetailActivity::class.java)
         intent.putExtra(extraUrl, url)
+        startActivity(intent)
+    }
+
+    override fun onOpenAuthor(authorUrl: String) {
+        val intent = Intent(context, AuthorActivity::class.java)
+        intent.putExtra(extraUrl, authorUrl)
         startActivity(intent)
     }
 

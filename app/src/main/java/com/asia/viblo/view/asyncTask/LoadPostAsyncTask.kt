@@ -29,16 +29,17 @@ val cssQueryTimePost = "div.card-block > div.ml-05 > div.post-header > div.post-
         "div.text-muted > span"
 val cssQueryTimePostSeries = "div.card-block > div.ml-05 > div.series-header > div.series-meta > " +
         "div.text-muted > span"
-val cssQueryUrl = "div.card-block > div.ml-05 > div.post-header > div.post-title-box > " +
+val cssQueryPostUrl = "div.card-block > div.ml-05 > div.post-header > div.post-title-box > " +
         "h1.post-title-header > a"
-val cssQueryUrlSeries = "div.card-block > div.ml-05 > div.series-header > div.series-title-box > " +
-        "h1.series-title-header > a"
+val cssQueryPostUrlSeries = "div.card-block > div.ml-05 > div.series-header > " +
+        "div.series-title-box > h1.series-title-header > a"
 val cssQueryScore = "div.card-block > div.ml-05 > div.d-flex > div.points > span"
 val cssQueryView = "div.card-block > div.ml-05 > div.d-flex"
 val cssQueryPage = "div#__nuxt > div#app-container > div#main-content > div > div.container " +
         "> div.row > div.col-lg-9 > div > ul.pagination"
 val cssQueryPageSeries = "div#__nuxt > div#app-container > div#main-content > div > div.container" +
         " > div.row > div.col-lg-9 > div > ul.pagination"
+val cssQueryAuthorUrl = "div.card-block"
 
 @SuppressLint("StaticFieldLeak")
 class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) : AsyncTask<String, Void, List<Post>>() {
@@ -57,6 +58,7 @@ class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) : AsyncTask<String, 
                 val nameSubject = element.select(getCssQuery(baseUrl, TypeQuery.NAME)).first()
                 val timeSubject = element.select(getCssQuery(baseUrl, TypeQuery.TIME)).first()
                 val urlSubject = element.select(getCssQuery(baseUrl, TypeQuery.URL)).first()
+                val authorsUrlSubject = element.select(cssQueryAuthorUrl).first()
                 val scoreSubject = element.select(cssQueryScore).first()
                 val postStatusSubject = element.select(cssQueryView).first()
                 if (postStatusSubject != null) {
@@ -75,7 +77,8 @@ class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) : AsyncTask<String, 
                 post.avatar = avatarSubject?.attr("src")!!
                 post.name = nameSubject?.text()!!
                 post.time = timeSubject?.text()!!
-                post.url = baseUrl + urlSubject?.attr("href")!!
+                post.postUrl = baseUrl + urlSubject?.attr("href")!!
+                post.authorUrl = baseUrl + authorsUrlSubject?.getElementsByTag("a")?.first()?.attr("href")
                 post.title = urlSubject.text()!!
                 if (scoreSubject != null) {
                     post.score = scoreSubject.text()
@@ -120,7 +123,7 @@ class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) : AsyncTask<String, 
                     TypeQuery.AVATAR -> cssQueryAvatarPostSeries
                     TypeQuery.NAME -> cssQueryNamePostSeries
                     TypeQuery.TIME -> cssQueryTimePostSeries
-                    TypeQuery.URL -> cssQueryUrlSeries
+                    TypeQuery.URL -> cssQueryPostUrlSeries
                     else -> cssQueryFeaturedSeries
                 }
             }
@@ -130,7 +133,7 @@ class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) : AsyncTask<String, 
                     TypeQuery.AVATAR -> cssQueryAvatarPost
                     TypeQuery.NAME -> cssQueryNamePost
                     TypeQuery.TIME -> cssQueryTimePost
-                    TypeQuery.URL -> cssQueryUrl
+                    TypeQuery.URL -> cssQueryPostUrl
                     else -> cssQueryFeaturedArticles
                 }
             }

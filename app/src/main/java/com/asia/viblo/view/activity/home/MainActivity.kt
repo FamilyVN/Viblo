@@ -16,7 +16,6 @@ import com.asia.viblo.view.fragment.post.PostFragment
 import com.asia.viblo.view.fragment.questions.QuestionsFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
-
 class MainActivity : AppCompatActivity() {
     private var mSearchViewListener: SearchView.OnQueryTextListener? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +38,6 @@ class MainActivity : AppCompatActivity() {
                 return false
             }
         }
-
     }
 
     private fun initBottomNavigationView() {

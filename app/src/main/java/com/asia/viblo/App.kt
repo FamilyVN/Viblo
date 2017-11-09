@@ -1,7 +1,6 @@
 package com.asia.viblo
 
 import android.app.Application
-
 import com.google.gson.Gson
 
 /**
@@ -18,9 +17,7 @@ class App : Application() {
     }
 
     companion object {
-
         private var mSelf: App? = null
-
         fun self(): App? {
             return mSelf
         }

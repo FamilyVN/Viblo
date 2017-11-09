@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.Window
 import com.asia.viblo.R
 
-
 /**
  * Created by FRAMGIA\vu.tuan.anh on 03/11/2017.
  */

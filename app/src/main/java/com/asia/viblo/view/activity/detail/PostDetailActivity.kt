@@ -14,7 +14,6 @@ import kotlinx.android.synthetic.main.include_layout_views_clips_comments.view.*
 
 class PostDetailActivity : AppCompatActivity() {
     private var mPostDetail = PostDetail()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post_detail)
