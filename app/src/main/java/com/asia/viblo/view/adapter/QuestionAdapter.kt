@@ -9,6 +9,7 @@ import com.asia.viblo.R
 import com.asia.viblo.model.questions.Question
 import com.asia.viblo.utils.loadAvatar
 import com.asia.viblo.view.activity.home.OnClickDetail
+import kotlinx.android.synthetic.main.include_layout_status_questions.view.*
 import kotlinx.android.synthetic.main.item_question.view.*
 
 /**
@@ -42,8 +43,8 @@ class QuestionAdapter(context: Context, questionList: MutableList<Question>, lis
         val name = itemView.name!!
         val time = itemView.time!!
         val title = itemView.title!!
-        val answers = itemView.answers!!
-        val score = itemView.score!!
-        val views = itemView.views!!
+        val answers = itemView.layoutStatus.answers!!
+        val score = itemView.layoutStatus.score!!
+        val views = itemView.layoutStatus.views!!
     }
 }

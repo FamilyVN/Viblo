@@ -22,8 +22,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageAvatar"
-            android:layout_width="@dimen/size_60"
-            android:layout_height="@dimen/size_60"
+            android:layout_width="@dimen/size_40"
+            android:layout_height="@dimen/size_40"
             app:civ_border_color="@android:color/white"
             app:civ_border_width="@dimen/size_1"/>
 
