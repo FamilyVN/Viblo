@@ -52,7 +52,8 @@ class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) : AsyncTask<String, 
             val elements = document?.select(getCssQuery(baseUrl, TypeQuery.BASE))
             for (element: Element in elements!!) {
                 val post = Post()
-                val avatarSubject = element.select(getCssQuery(baseUrl, TypeQuery.AVATAR)).attr("srcset")!!.split(",")
+//                val avatarSubject = element.select(getCssQuery(baseUrl, TypeQuery.AVATAR)).attr("srcset")!!.split(",")
+                val avatarSubject = element.select(getCssQuery(baseUrl, TypeQuery.AVATAR)).first()
                 val nameSubject = element.select(getCssQuery(baseUrl, TypeQuery.NAME)).first()
                 val timeSubject = element.select(getCssQuery(baseUrl, TypeQuery.TIME)).first()
                 val urlSubject = element.select(getCssQuery(baseUrl, TypeQuery.URL)).first()
@@ -69,8 +70,9 @@ class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) : AsyncTask<String, 
                                 }
                             }
                 }
-                val avatar = avatarSubject[avatarSubject.size - 1]
-                post.avatar = avatar.substring(0, avatar.length - 3)
+//                val avatar = avatarSubject[avatarSubject.size - 1]
+//                post.avatar = avatar.substring(0, avatar.length - 3)
+                post.avatar = avatarSubject?.attr("src")!!
                 post.name = nameSubject?.text()!!
                 post.time = timeSubject?.text()!!
                 post.url = baseUrl + urlSubject?.attr("href")!!

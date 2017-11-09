@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/answers"
+        style="@style/TextPost"
+        android:drawableLeft="@drawable/ic_answers"/>
+
+    <TextView
+        android:id="@+id/score"
+        style="@style/TextPost"
+        android:layout_marginLeft="@dimen/size_10"
+        android:drawableLeft="@drawable/ic_score"
+        android:drawablePadding="@dimen/size_negative_2"/>
+
+    <TextView
+        android:id="@+id/views"
+        style="@style/TextPost"
+        android:layout_marginLeft="@dimen/size_10"
+        android:drawableLeft="@drawable/ic_views"/>
+</LinearLayout>
