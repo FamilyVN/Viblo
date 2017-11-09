@@ -59,8 +59,8 @@ class PostAdapter(context: Context, postList: MutableList<Post>, listener: OnCli
         }
         loadAvatar(holder.imageAvatar, post.avatar)
         holder.llRoot.setOnClickListener { mListener.onOpenPostDetail(post.postUrl) }
-        holder.imageAvatar.setOnClickListener { mListener.onOpenAuthor(post.authorUrl) }
-        holder.name.setOnClickListener { mListener.onOpenAuthor(post.authorUrl) }
+        holder.imageAvatar.setOnClickListener { mListener.onOpenAuthor(post) }
+        holder.name.setOnClickListener { mListener.onOpenAuthor(post) }
     }
 
     override fun getItemCount(): Int {

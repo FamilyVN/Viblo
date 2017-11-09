@@ -3,7 +3,7 @@ package com.asia.viblo.model
 /**
  * Created by FRAMGIA\vu.tuan.anh on 08/11/2017.
  */
-val baseUrlNewest = "https://viblo.asia"
+val baseUrlViblo = "https://viblo.asia"
 val baseUrlSeries = "https://viblo.asia/series"
 val baseUrlEditorsChoice = "https://viblo.asia/editors-choice"
 val baseUrlTrending = "https://viblo.asia/trending"

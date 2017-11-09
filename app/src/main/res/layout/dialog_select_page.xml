@@ -60,10 +60,10 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/size_36"
             android:layout_marginLeft="@dimen/size_70"
-            android:background="@drawable/selector_color_button_ok"
+            android:background="@drawable/selector_button_blue_white"
             android:text="@string/text_dialog_ok"
             android:textAllCaps="false"
-            android:textColor="@color/selector_text_green_white"
+            android:textColor="@color/selector_text_white_blue"
             android:textSize="@dimen/text_size_14"/>
     </LinearLayout>
 </LinearLayout>

@@ -68,7 +68,7 @@ class QuestionsFragment : BaseFragment(), OnClickDetail, OnUpdateQuestionData {
     override fun onOpenPostDetail(url: String) {
     }
 
-    override fun onOpenAuthor(authorUrl: String) {
+    override fun onOpenAuthor(baseModel: BaseModel) {
     }
 
     override fun onUpdateQuestionData(questionList: List<Question>?) {
@@ -83,6 +83,7 @@ class QuestionsFragment : BaseFragment(), OnClickDetail, OnUpdateQuestionData {
 
     override fun onUpdateFeedBar(feedBarList: List<String>?) {
         if (feedBarList != null && feedBarList.isNotEmpty()) {
+            if (spinnerQuestions == null) return
             spinnerQuestions.visibility = View.VISIBLE
             val feedBar: Array<String> = feedBarList.toTypedArray()
             val adapter = ArrayAdapter(context, R.layout.support_simple_spinner_dropdown_item, feedBar)

@@ -32,12 +32,12 @@ class PostFragment : BaseFragment(), OnClickDetail, OnUpdatePostData {
 
     override fun getLink(type: Int): String {
         return when (type) {
-            0 -> baseUrlNewest
+            0 -> baseUrlViblo
             1 -> baseUrlSeries
             2 -> baseUrlEditorsChoice
             3 -> baseUrlTrending
             4 -> baseUrlVideos
-            else -> baseUrlNewest
+            else -> baseUrlViblo
         }
     }
 
@@ -76,9 +76,9 @@ class PostFragment : BaseFragment(), OnClickDetail, OnUpdatePostData {
         startActivity(intent)
     }
 
-    override fun onOpenAuthor(authorUrl: String) {
+    override fun onOpenAuthor(baseModel: BaseModel) {
         val intent = Intent(context, AuthorActivity::class.java)
-        intent.putExtra(extraUrl, authorUrl)
+        intent.putExtra(extraData, baseModel)
         startActivity(intent)
     }
 
@@ -94,6 +94,7 @@ class PostFragment : BaseFragment(), OnClickDetail, OnUpdatePostData {
 
     override fun onUpdateFeedBar(feedBarList: List<String>?) {
         if (feedBarList != null && feedBarList.isNotEmpty()) {
+            if (spinnerPost == null) return
             spinnerPost.visibility = View.VISIBLE
             val feedBar: Array<String> = feedBarList.toTypedArray()
             val adapter = ArrayAdapter(context, R.layout.support_simple_spinner_dropdown_item, feedBar)
