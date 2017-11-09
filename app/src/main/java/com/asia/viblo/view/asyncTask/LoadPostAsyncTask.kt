@@ -3,8 +3,8 @@ package com.asia.viblo.view.asyncTask
 import android.annotation.SuppressLint
 import android.os.AsyncTask
 import android.text.TextUtils
-import com.asia.viblo.model.baseUrlNewest
 import com.asia.viblo.model.baseUrlSeries
+import com.asia.viblo.model.baseUrlViblo
 import com.asia.viblo.model.keyMaxPage
 import com.asia.viblo.model.keyPagePresent
 import com.asia.viblo.model.post.Post
@@ -161,7 +161,7 @@ class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) : AsyncTask<String, 
             SharedPrefs.instance.put(keyPagePresent, pageCheck)
         }
         return when (baseUrl) {
-            baseUrlNewest -> "/?page="
+            baseUrlViblo -> "/?page="
             else -> "?page="
         } + pageCheck
     }

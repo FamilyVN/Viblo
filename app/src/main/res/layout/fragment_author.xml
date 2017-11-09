@@ -1,0 +1,24 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="com.asia.viblo.view.fragment.author.AuthorFragment">
+
+    <Spinner
+        android:id="@+id/spinnerAuthor"
+        android:layout_width="@dimen/size_170"
+        android:layout_height="@dimen/size_30"
+        android:layout_margin="@dimen/size_10"
+        android:visibility="invisible"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerAuthor"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <include
+        android:id="@+id/viewNextBack"
+        layout="@layout/include_layout_next_back_page"/>
+</LinearLayout>
