@@ -40,6 +40,7 @@ val cssQueryPage = "div#__nuxt > div#app-container > div#main-content > div > di
 val cssQueryPageSeries = "div#__nuxt > div#app-container > div#main-content > div > div.container" +
         " > div.row > div.col-lg-9 > div > ul.pagination"
 val cssQueryAuthorUrl = "div.card-block"
+val cssQueryPostTag = "div.card-block > div.ml-05 > div.post-header > div.post-title-box > div.tags > a"
 
 @SuppressLint("StaticFieldLeak")
 class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) : AsyncTask<String, Void, List<Post>>() {
@@ -61,6 +62,7 @@ class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) : AsyncTask<String, 
                 val authorsUrlSubject = element.select(cssQueryAuthorUrl).first()
                 val scoreSubject = element.select(cssQueryScore).first()
                 val postStatusSubject = element.select(cssQueryView).first()
+                val tagSubject = element.select(cssQueryPostTag)
                 if (postStatusSubject != null) {
                     val viewSubject = postStatusSubject.getElementsByTag("span")
                     viewSubject.map { it.text() }
@@ -83,6 +85,9 @@ class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) : AsyncTask<String, 
                 if (scoreSubject != null) {
                     post.score = scoreSubject.text()
                 }
+                tagSubject
+                        .filterNot { TextUtils.isEmpty(it.text()) }
+                        .forEach { post.tags.add(it.text()) }
                 postList.add(post)
             }
         } catch (ex: Exception) {

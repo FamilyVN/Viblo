@@ -57,7 +57,9 @@ class PostAdapter(context: Context, postList: MutableList<Post>, listener: OnCli
         } else {
             holder.score.visibility = View.VISIBLE
         }
+        //
         loadAvatar(holder.imageAvatar, post.avatar)
+        //
         holder.llRoot.setOnClickListener { mListener.onOpenPostDetail(post.postUrl) }
         holder.imageAvatar.setOnClickListener { mListener.onOpenAuthor(post) }
         holder.name.setOnClickListener { mListener.onOpenAuthor(post) }
@@ -77,5 +79,11 @@ class PostAdapter(context: Context, postList: MutableList<Post>, listener: OnCli
         val views = itemView.layoutView.views!!
         val clips = itemView.layoutView.clips!!
         val comments = itemView.layoutView.comments!!
+        val tagLayout = itemView.tagLayout!!
+
+        init {
+            tagLayout.spaceVertical = itemView.resources.getDimensionPixelSize(R.dimen.size_5)
+            tagLayout.spaceHorizontal = itemView.resources.getDimensionPixelSize(R.dimen.size_5)
+        }
     }
 }

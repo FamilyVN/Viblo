@@ -19,7 +19,6 @@ class TagLayout : ViewGroup {
     var spaceHorizontal: Int = 0
     var spaceVertical: Int = 0
     var rowCount: Int = 0
-        private set
     private var mLayoutInflater: LayoutInflater? = null
     private var mTagArray: SparseArray<View>? = null
     private var mOnTagRemovedListener: OnTagRemovedListener? = null
