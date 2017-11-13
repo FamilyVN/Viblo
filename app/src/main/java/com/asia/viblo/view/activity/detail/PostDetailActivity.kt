@@ -8,6 +8,7 @@ import com.asia.viblo.R
 import com.asia.viblo.model.extraUrl
 import com.asia.viblo.model.post.PostDetail
 import com.asia.viblo.utils.loadAvatar
+import com.asia.viblo.utils.setTags
 import com.asia.viblo.view.asyncTask.PostDetailAsyncTask
 import kotlinx.android.synthetic.main.activity_post_detail.*
 import kotlinx.android.synthetic.main.include_layout_views_clips_comments.view.*
@@ -53,5 +54,8 @@ class PostDetailActivity : AppCompatActivity() {
             layoutView.comments.text = mPostDetail.comments
         }
         layoutView.score.visibility = View.INVISIBLE
+        //
+        setTags(flowLayout, mPostDetail.tags)
+        //
     }
 }
