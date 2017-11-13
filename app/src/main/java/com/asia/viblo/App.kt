@@ -8,8 +8,6 @@ import com.google.gson.Gson
  */
 class App : Application() {
     var gSon: Gson? = null
-        private set
-
     override fun onCreate() {
         super.onCreate()
         mSelf = this

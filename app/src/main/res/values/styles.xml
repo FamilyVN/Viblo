@@ -24,4 +24,10 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">@dimen/size_10</item>
     </style>
+
+    <style name="TextSingleLine">
+        <item name="android:gravity">center</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
 </resources>

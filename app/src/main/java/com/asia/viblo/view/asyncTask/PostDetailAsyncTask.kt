@@ -2,6 +2,7 @@ package com.asia.viblo.view.asyncTask
 
 import android.annotation.SuppressLint
 import android.os.AsyncTask
+import android.text.TextUtils
 import com.asia.viblo.model.post.PostDetail
 import org.jsoup.Jsoup
 
@@ -16,6 +17,9 @@ private val cssQueryName = "div.text-bold > div.overflow-hidden > a"
 private val cssQueryTime = "div.text-muted > span"
 private val cssQueryTitle = "div.post-meta > h1"
 val cssQueryPublishingDate = "div.post-meta > div.d-flex > div.meta-d1 > div.publishing-date"
+val cssQueryDetailTagDefault = "div.post-meta > div.tags > a"
+val cssQueryDetailTag = "div#__nuxt > div#app-container > div#main-content > div > div > div > " +
+        "div.container > div.row > div.col-xl-9 > div.tags > a"
 
 @SuppressLint("StaticFieldLeak")
 class PostDetailAsyncTask : AsyncTask<String, Void, PostDetail>() {
@@ -32,6 +36,14 @@ class PostDetailAsyncTask : AsyncTask<String, Void, PostDetail>() {
             postDetail.time = elementHeader.select(cssQueryTime).text()
             postDetail.title = element.select(cssQueryTitle).text()
             postDetail.publishingDate = element.select(cssQueryPublishingDate).text()
+            val tagSubject = if (TextUtils.isEmpty(postDetail.name)) {
+                body.select(cssQueryDetailTag)
+            } else {
+                element.select(cssQueryDetailTagDefault)
+            }
+            tagSubject
+                    .filterNot { TextUtils.isEmpty(it.text()) }
+                    .forEach { postDetail.tags.add(it.text()) }
         } catch (ex: Exception) {
             ex.printStackTrace()
         }

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.asia.viblo.R
 import com.asia.viblo.model.post.Post
 import com.asia.viblo.utils.loadAvatar
+import com.asia.viblo.utils.setTags
 import com.asia.viblo.view.activity.home.OnClickDetail
 import kotlinx.android.synthetic.main.include_layout_views_clips_comments.view.*
 import kotlinx.android.synthetic.main.item_post.view.*
@@ -61,6 +62,8 @@ class PostAdapter(context: Context, postList: MutableList<Post>, listener: OnCli
         //
         loadAvatar(holder.imageAvatar, post.avatar)
         //
+        setTags(holder.flowLayout, post.tags)
+        //
         holder.llRoot.setOnClickListener { mListener.onOpenPostDetail(post.postUrl) }
         holder.imageAvatar.setOnClickListener { mListener.onOpenAuthor(post) }
         holder.name.setOnClickListener { mListener.onOpenAuthor(post) }
@@ -80,11 +83,6 @@ class PostAdapter(context: Context, postList: MutableList<Post>, listener: OnCli
         val views = itemView.layoutView.views!!
         val clips = itemView.layoutView.clips!!
         val comments = itemView.layoutView.comments!!
-        val tagLayout = itemView.tagLayout!!
-
-        init {
-            tagLayout.spaceVertical = itemView.resources.getDimensionPixelSize(R.dimen.size_5)
-            tagLayout.spaceHorizontal = itemView.resources.getDimensionPixelSize(R.dimen.size_5)
-        }
+        val flowLayout = itemView.flowLayout!!
     }
 }
