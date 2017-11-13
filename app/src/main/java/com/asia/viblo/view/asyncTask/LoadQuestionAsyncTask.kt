@@ -26,7 +26,8 @@ val cssQueryStatusQuestions = "div.stats > div > div.question-stats > span.stats
 val cssQueryScoreQuestions = "div.stats > div > div.question-stats > div.points > span.text-muted"
 
 @SuppressLint("StaticFieldLeak")
-class LoadQuestionAsyncTask(onUpdateQuestionData: OnUpdateQuestionData) : AsyncTask<String, Void, List<Question>>() {
+class LoadQuestionAsyncTask(onUpdateQuestionData: OnUpdateQuestionData) :
+        AsyncTask<String, Void, List<Question>>() {
     private val mOnUpdateQuestionData = onUpdateQuestionData
     override fun doInBackground(vararg params: String?): List<Question> {
         val questionList: MutableList<Question> = arrayListOf()

@@ -15,7 +15,8 @@ import kotlinx.android.synthetic.main.item_question.view.*
 /**
  * Created by FRAMGIA\vu.tuan.anh on 08/11/2017.
  */
-class QuestionAdapter(context: Context, questionList: MutableList<Question>, listener: OnClickDetail) : RecyclerView.Adapter<QuestionAdapter.ViewHolder>() {
+class QuestionAdapter(context: Context, questionList: MutableList<Question>, listener: OnClickDetail) :
+        RecyclerView.Adapter<QuestionAdapter.ViewHolder>() {
     private val mQuestionList: MutableList<Question> = questionList
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(context)
     private val mListener: OnClickDetail = listener

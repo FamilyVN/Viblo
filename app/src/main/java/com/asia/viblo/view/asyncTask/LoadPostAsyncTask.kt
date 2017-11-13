@@ -43,7 +43,8 @@ val cssQueryAuthorUrl = "div.card-block"
 val cssQueryPostTag = "div.card-block > div.ml-05 > div.post-header > div.post-title-box > div.tags > a"
 
 @SuppressLint("StaticFieldLeak")
-class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) : AsyncTask<String, Void, List<Post>>() {
+class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) :
+        AsyncTask<String, Void, List<Post>>() {
     private val mOnUpdatePostData = onUpdatePostData
     override fun doInBackground(vararg params: String?): List<Post> {
         val postList: MutableList<Post> = arrayListOf()

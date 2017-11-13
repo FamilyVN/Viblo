@@ -16,7 +16,8 @@ import kotlinx.android.synthetic.main.item_post.view.*
 /**
  * Created by FRAMGIA\vu.tuan.anh on 27/10/2017.
  */
-class PostAdapter(context: Context, postList: MutableList<Post>, listener: OnClickDetail) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
+class PostAdapter(context: Context, postList: MutableList<Post>, listener: OnClickDetail) :
+        RecyclerView.Adapter<PostAdapter.ViewHolder>() {
     private val mPostList: MutableList<Post> = postList
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(context)
     private val mListener: OnClickDetail = listener
