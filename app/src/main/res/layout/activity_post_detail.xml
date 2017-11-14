@@ -1,84 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.v4.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.asia.viblo.view.activity.detail.PostDetailActivity">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/size_10"
-        android:layout_marginRight="@dimen/size_10"
-        android:layout_marginTop="@dimen/size_10">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imageAvatar"
-            android:layout_width="@dimen/size_60"
-            android:layout_height="@dimen/size_60"
-            app:civ_border_color="@android:color/white"
-            app:civ_border_width="@dimen/size_1"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/size_10"
+            android:layout_marginRight="@dimen/size_10"
+            android:layout_marginTop="@dimen/size_10">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageAvatar"
+                android:layout_width="@dimen/size_60"
+                android:layout_height="@dimen/size_60"
+                app:civ_border_color="@android:color/white"
+                app:civ_border_width="@dimen/size_1"/>
+
+            <TextView
+                android:id="@+id/txtName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="@dimen/size_15"
+                android:layout_marginTop="@dimen/size_5"
+                android:layout_toEndOf="@+id/imageAvatar"
+                android:textColor="@color/colorName"
+                android:textSize="@dimen/text_size_14"/>
+
+            <TextView
+                android:id="@+id/txtTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/txtName"
+                android:layout_below="@+id/txtName"
+                android:layout_marginTop="@dimen/size_5"
+                android:textColor="@color/color155"
+                android:textSize="@dimen/text_size_14"/>
+        </RelativeLayout>
 
         <TextView
-            android:id="@+id/txtName"
-            android:layout_width="wrap_content"
+            android:id="@+id/txtTitle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="@dimen/size_15"
-            android:layout_marginTop="@dimen/size_5"
-            android:layout_toEndOf="@+id/imageAvatar"
-            android:textColor="@color/colorName"
-            android:textSize="@dimen/text_size_14"/>
+            android:layout_marginLeft="@dimen/size_10"
+            android:layout_marginRight="@dimen/size_10"
+            android:layout_marginTop="@dimen/size_20"
+            android:textColor="@color/colorTitle"
+            android:textSize="@dimen/text_size_18"
+            android:textStyle="bold"/>
+
+        <com.asia.viblo.view.custom.FlowLayout
+            android:id="@+id/flowLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/size_10"
+            android:layout_marginRight="@dimen/size_10"
+            android:layout_marginTop="@dimen/size_10"/>
 
         <TextView
-            android:id="@+id/txtTime"
+            android:id="@+id/txtPublishingDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/txtName"
-            android:layout_below="@+id/txtName"
-            android:layout_marginTop="@dimen/size_5"
+            android:layout_marginLeft="@dimen/size_10"
+            android:layout_marginRight="@dimen/size_10"
+            android:layout_marginTop="@dimen/size_10"
+            android:drawableLeft="@drawable/ic_calender"
+            android:drawablePadding="@dimen/size_5"
             android:textColor="@color/color155"
             android:textSize="@dimen/text_size_14"/>
-    </RelativeLayout>
 
-    <TextView
-        android:id="@+id/txtTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/size_10"
-        android:layout_marginRight="@dimen/size_10"
-        android:layout_marginTop="@dimen/size_20"
-        android:textColor="@color/colorTitle"
-        android:textSize="@dimen/text_size_18"
-        android:textStyle="bold"/>
+        <include
+            android:id="@+id/layoutView"
+            layout="@layout/include_layout_views_clips_comments"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_30"
+            android:layout_margin="@dimen/size_10"/>
 
-    <com.asia.viblo.view.custom.FlowLayout
-        android:id="@+id/flowLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/size_10"
-        android:layout_marginRight="@dimen/size_10"
-        android:layout_marginTop="@dimen/size_10"/>
-
-    <TextView
-        android:id="@+id/txtPublishingDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/size_10"
-        android:layout_marginRight="@dimen/size_10"
-        android:layout_marginTop="@dimen/size_10"
-        android:drawableLeft="@drawable/ic_calender"
-        android:drawablePadding="@dimen/size_5"
-        android:textColor="@color/color155"
-        android:textSize="@dimen/text_size_14"/>
-
-    <include
-        android:id="@+id/layoutView"
-        layout="@layout/include_layout_views_clips_comments"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/size_10"/>
-</LinearLayout>
+        <TextView
+            android:id="@+id/txtData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/size_10"
+            android:autoLink="web"
+            android:lineSpacingExtra="@dimen/size_5"
+            android:textSize="@dimen/text_size_14"/>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

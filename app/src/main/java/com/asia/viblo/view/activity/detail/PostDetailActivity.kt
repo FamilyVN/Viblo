@@ -2,6 +2,7 @@ package com.asia.viblo.view.activity.detail
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.text.Html
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
@@ -26,7 +27,7 @@ class PostDetailActivity : AppCompatActivity(), OnClickTag {
     }
 
     private fun loadData() {
-        mPostDetail = PostDetailAsyncTask().execute(intent.getStringExtra(extraUrl)).get()
+        mPostDetail = PostDetailAsyncTask().execute(baseUrlViblo + intent.getStringExtra(extraUrl)).get()
     }
 
     private fun updateView() {
@@ -60,6 +61,12 @@ class PostDetailActivity : AppCompatActivity(), OnClickTag {
         //
         setTags(flowLayout, mPostDetail.tags, mPostDetail.tagUrlList, this)
         //
+        val builder = StringBuilder()
+        for (data: String in mPostDetail.data) {
+            builder.append(data)
+            Log.d("TAG", "data = " + data)
+        }
+        txtData.text = Html.fromHtml(builder.toString())
     }
 
     override fun onOpenTag(tagUrl: String) {

@@ -20,6 +20,8 @@ val cssQueryPublishingDate = "div.post-meta > div.d-flex > div.meta-d1 > div.pub
 val cssQueryDetailTagDefault = "div.post-meta > div.tags > a"
 val cssQueryDetailTag = "div#__nuxt > div#app-container > div#main-content > div > div > div > " +
         "div.container > div.row > div.col-xl-9 > div.tags > a"
+val cssQueryDetailStatus = "div.post-meta > div.d-flex > div.meta-d2 > div.post-stats > span"
+val cssQueryDetailData = "div.md-contents"
 
 @SuppressLint("StaticFieldLeak")
 class PostDetailAsyncTask : AsyncTask<String, Void, PostDetail>() {
@@ -47,6 +49,17 @@ class PostDetailAsyncTask : AsyncTask<String, Void, PostDetail>() {
                         postDetail.tags.add(it.text())
                         postDetail.tagUrlList.add(it.attr("href"))
                     }
+            // status
+            val statusSubject = element.select(cssQueryDetailStatus)
+            statusSubject?.map { it.text() }?.forEachIndexed { index, data ->
+                when (index) {
+                    0 -> postDetail.views = data
+                    1 -> postDetail.clips = data
+                    2 -> postDetail.comments = data
+                }
+            }
+            val dataSubject = element.select(cssQueryDetailData)
+            dataSubject?.mapNotNull { it.childNodes() }?.flatMap { it }?.forEach { postDetail.data.add(it.outerHtml()) }
         } catch (ex: Exception) {
             ex.printStackTrace()
         }

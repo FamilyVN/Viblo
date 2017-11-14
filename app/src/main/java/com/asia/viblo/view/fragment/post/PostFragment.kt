@@ -72,9 +72,9 @@ class PostFragment : BaseFragment(), OnClickDetail, OnUpdatePostData, OnClickTag
         }
     }
 
-    override fun onOpenPostDetail(url: String) {
+    override fun onOpenPostDetail(postUrl: String) {
         val intent = Intent(context, PostDetailActivity::class.java)
-        intent.putExtra(extraUrl, url)
+        intent.putExtra(extraUrl, postUrl)
         startActivity(intent)
     }
 
