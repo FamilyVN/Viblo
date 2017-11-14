@@ -5,5 +5,7 @@ package com.asia.viblo.model
  */
 enum class TypeContent {
     IMAGE,
-    TEXT
+    TEXT,
+    TABLE,
+    CODE
 }
