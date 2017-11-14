@@ -11,17 +11,19 @@ import com.asia.viblo.model.post.Post
 import com.asia.viblo.utils.loadAvatar
 import com.asia.viblo.utils.setTags
 import com.asia.viblo.view.activity.home.OnClickDetail
+import com.asia.viblo.view.activity.home.OnClickTag
 import kotlinx.android.synthetic.main.include_layout_views_clips_comments.view.*
 import kotlinx.android.synthetic.main.item_post.view.*
 
 /**
  * Created by FRAMGIA\vu.tuan.anh on 27/10/2017.
  */
-class PostAdapter(context: Context, postList: MutableList<Post>, listener: OnClickDetail) :
+class PostAdapter(context: Context, postList: MutableList<Post>, onClickDetail: OnClickDetail, onClickTag: OnClickTag) :
         RecyclerView.Adapter<PostAdapter.ViewHolder>() {
     private val mPostList: MutableList<Post> = postList
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(context)
-    private val mListener: OnClickDetail = listener
+    private val mOnClickDetail: OnClickDetail = onClickDetail
+    private val mOnClickTag: OnClickTag = onClickTag
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(mLayoutInflater.inflate(R.layout.item_post, parent, false))
     }
@@ -62,11 +64,11 @@ class PostAdapter(context: Context, postList: MutableList<Post>, listener: OnCli
         //
         loadAvatar(holder.imageAvatar, post.avatar)
         //
-        setTags(holder.flowLayout, post.tags)
+        setTags(holder.flowLayout, post.tags, post.tagUrlList, mOnClickTag)
         //
-        holder.llRoot.setOnClickListener { mListener.onOpenPostDetail(post.postUrl) }
-        holder.imageAvatar.setOnClickListener { mListener.onOpenAuthor(post) }
-        holder.name.setOnClickListener { mListener.onOpenAuthor(post) }
+        holder.llRoot.setOnClickListener { mOnClickDetail.onOpenPostDetail(post.postUrl) }
+        holder.imageAvatar.setOnClickListener { mOnClickDetail.onOpenAuthor(post) }
+        holder.name.setOnClickListener { mOnClickDetail.onOpenAuthor(post) }
     }
 
     override fun getItemCount(): Int {

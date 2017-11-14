@@ -5,4 +5,5 @@
     <string name="text_dialog_cancel">Hủy</string>
     <string name="text_dialog_title">Đi đến trang</string>
     <string name="text_dialog_message">Chọn trang (%s-%s)</string>
+    <string name="msg_network_error">Network error, please try again later.</string>
 </resources>

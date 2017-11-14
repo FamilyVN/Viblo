@@ -10,6 +10,7 @@ import com.asia.viblo.R
 import com.asia.viblo.model.keyMaxPage
 import com.asia.viblo.model.keyPagePresent
 import com.asia.viblo.utils.SharedPrefs
+import com.asia.viblo.utils.checkErrorNetwork
 import com.asia.viblo.utils.showProgressDialog
 import com.asia.viblo.view.asyncTask.FeedBarAsyncTask
 import com.asia.viblo.view.custom.DialogSelectPage
@@ -52,6 +53,7 @@ abstract class BaseFragment : Fragment(), OnSelectPage, OnUpdateFeedBar {
     }
 
     private fun initSpinner() {
+        if (!checkErrorNetwork(context)) return
         FeedBarAsyncTask(this).execute(getLink(mPosition))
     }
 
@@ -60,6 +62,7 @@ abstract class BaseFragment : Fragment(), OnSelectPage, OnUpdateFeedBar {
     }
 
     open fun loadData(url: String, page: String) {
+        if (!checkErrorNetwork(context)) return
         mProgressDialog.show()
     }
 
