@@ -5,4 +5,5 @@ package com.asia.viblo.model.post
  */
 class PostDetail : Post() {
     var publishingDate: String = ""
+    var data: MutableList<String> = arrayListOf()
 }

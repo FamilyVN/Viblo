@@ -34,7 +34,7 @@ val cssQueryPostUrl = "div.card-block > div.ml-05 > div.post-header > div.post-t
 val cssQueryPostUrlSeries = "div.card-block > div.ml-05 > div.series-header > " +
         "div.series-title-box > h1.series-title-header > a"
 val cssQueryScore = "div.card-block > div.ml-05 > div.d-flex > div.points > span"
-val cssQueryView = "div.card-block > div.ml-05 > div.d-flex"
+val cssQueryPostStatus = "div.card-block > div.ml-05 > div.d-flex"
 val cssQueryPage = "div#__nuxt > div#app-container > div#main-content > div > div.container " +
         "> div.row > div.col-lg-9 > div > ul.pagination"
 val cssQueryPageSeries = "div#__nuxt > div#app-container > div#main-content > div > div.container" +
@@ -62,7 +62,7 @@ class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) :
                 val urlSubject = element.select(getCssQuery(baseUrl, TypeQuery.URL)).first()
                 val authorsUrlSubject = element.select(cssQueryAuthorUrl).first()
                 val scoreSubject = element.select(cssQueryScore).first()
-                val postStatusSubject = element.select(cssQueryView).first()
+                val postStatusSubject = element.select(cssQueryPostStatus).first()
                 val tagSubject = element.select(cssQueryPostTag)
                 if (postStatusSubject != null) {
                     val viewSubject = postStatusSubject.getElementsByTag("span")
@@ -80,8 +80,8 @@ class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) :
                 post.avatar = avatarSubject?.attr("src")!!
                 post.name = nameSubject?.text()!!
                 post.time = timeSubject?.text()!!
-                post.postUrl = baseUrl + urlSubject?.attr("href")!!
-                post.authorUrl = baseUrl + authorsUrlSubject?.getElementsByTag("a")?.first()?.attr("href")
+                post.postUrl = urlSubject?.attr("href")!!
+                post.authorUrl = authorsUrlSubject?.getElementsByTag("a")?.first()?.attr("href")!!
                 post.title = urlSubject.text()!!
                 if (scoreSubject != null) {
                     post.score = scoreSubject.text()

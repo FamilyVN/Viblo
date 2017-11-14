@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.asia.viblo.R
 import com.asia.viblo.model.BaseModel
-import com.asia.viblo.model.baseUrlViblo
 import com.asia.viblo.model.extraData
 import com.asia.viblo.utils.loadAvatar
 import com.asia.viblo.view.fragment.author.AuthorFragment
@@ -26,6 +25,6 @@ class AuthorActivity : AppCompatActivity() {
     private fun initViews() {
         loadAvatar(imageAvatar, mBaseModel.avatar)
         txtName.text = mBaseModel.name
-        txtAuthor.text = mBaseModel.authorUrl.replace(baseUrlViblo + "/u/", "@")
+        txtAuthor.text = mBaseModel.authorUrl.replace("/u/", "@")
     }
 }
