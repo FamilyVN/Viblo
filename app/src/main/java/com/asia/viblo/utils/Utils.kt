@@ -15,10 +15,14 @@ import com.asia.viblo.R
 import com.asia.viblo.view.activity.home.OnClickTag
 import com.asia.viblo.view.custom.FlowLayout
 import com.squareup.picasso.Picasso
+import java.util.regex.Pattern
 
 /**
  * Created by FRAMGIA\vu.tuan.anh on 27/10/2017.
  */
+val regex1 = "\\(?\\b(http://|www[.])[-A-Za-z0-9+&amp;@#/%?=~_()|!:,.;]*[-A-Za-z0-9+&amp;@#/%=~_()|]"
+val regex2 = "\\(?\\b(https://|www[.])[-A-Za-z0-9+&amp;@#/%?=~_()|!:,.;]*[-A-Za-z0-9+&amp;@#/%=~_()|]"
+
 fun loadAvatar(imageView: ImageView, url: String) {
     Picasso.with(imageView.context)
             .load(url)
@@ -75,4 +79,22 @@ fun checkErrorNetwork(context: Context?): Boolean {
         return false
     }
     return true
+}
+
+fun getUrlListFromString(text: String): MutableList<String> {
+    val urlList: MutableList<String> = arrayListOf()
+    urlList.addAll(getUrlListFromString(text, regex1))
+    urlList.addAll(getUrlListFromString(text, regex2))
+    return urlList
+}
+
+fun getUrlListFromString(text: String, regex: String): MutableList<String> {
+    val urlList: MutableList<String> = arrayListOf()
+    val pattern = Pattern.compile(regex)
+    val matcher = pattern.matcher(text)
+    while (matcher.find()) {
+        val urlStr = matcher.group()
+        urlList.add(urlStr)
+    }
+    return urlList
 }
