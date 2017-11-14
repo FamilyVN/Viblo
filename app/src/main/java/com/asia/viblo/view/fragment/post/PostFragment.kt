@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,13 +17,14 @@ import com.asia.viblo.utils.SharedPrefs
 import com.asia.viblo.view.activity.author.AuthorActivity
 import com.asia.viblo.view.activity.detail.PostDetailActivity
 import com.asia.viblo.view.activity.home.OnClickDetail
+import com.asia.viblo.view.activity.home.OnClickTag
 import com.asia.viblo.view.adapter.PostAdapter
 import com.asia.viblo.view.asyncTask.LoadPostAsyncTask
 import com.asia.viblo.view.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_post.*
 import kotlinx.android.synthetic.main.include_layout_next_back_page.*
 
-class PostFragment : BaseFragment(), OnClickDetail, OnUpdatePostData {
+class PostFragment : BaseFragment(), OnClickDetail, OnUpdatePostData, OnClickTag {
     private val mPostList: MutableList<Post> = arrayListOf()
     private lateinit var mPostAdapter: PostAdapter
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -47,7 +49,7 @@ class PostFragment : BaseFragment(), OnClickDetail, OnUpdatePostData {
     }
 
     private fun initRecyclerPost() {
-        mPostAdapter = PostAdapter(context, mPostList, this)
+        mPostAdapter = PostAdapter(context, mPostList, this, this)
         recyclerPost.adapter = mPostAdapter
         recyclerPost.layoutManager = LinearLayoutManager(context)
     }
@@ -80,6 +82,10 @@ class PostFragment : BaseFragment(), OnClickDetail, OnUpdatePostData {
         val intent = Intent(context, AuthorActivity::class.java)
         intent.putExtra(extraData, baseModel)
         startActivity(intent)
+    }
+
+    override fun onOpenTag(tagUrl: String) {
+        Log.d("TAG.PostFragment", "tagUrl = " + baseUrlViblo + tagUrl)
     }
 
     override fun onUpdatePostData(postList: List<Post>?) {

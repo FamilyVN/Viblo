@@ -1,5 +1,7 @@
 package com.asia.viblo.utils
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.support.annotation.DimenRes
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -7,8 +9,10 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import android.widget.Toast
 import com.asia.viblo.App
 import com.asia.viblo.R
+import com.asia.viblo.view.activity.home.OnClickTag
 import com.asia.viblo.view.custom.FlowLayout
 import com.squareup.picasso.Picasso
 
@@ -26,8 +30,9 @@ fun getSize(@DimenRes dpId: Int): Int {
     return App.self()?.resources?.getDimensionPixelOffset(dpId)!!
 }
 
-fun setTags(flowLayout: FlowLayout, tags: MutableList<String>?) {
-    if (tags == null) {
+fun setTags(flowLayout: FlowLayout, tags: MutableList<String>?, tagUrlList: MutableList<String>?,
+            onClickTag: OnClickTag) {
+    if (tags == null || tags.size == 0) {
         flowLayout.visibility = View.GONE
         return
     }
@@ -35,7 +40,7 @@ fun setTags(flowLayout: FlowLayout, tags: MutableList<String>?) {
     flowLayout.removeAllViews()
     val context = flowLayout.context
     val layoutInflater = LayoutInflater.from(context)
-    for (tag in tags) {
+    for ((index, tag) in tags.withIndex()) {
         val tagView = if (TextUtils.equals(tag, "Trending") || TextUtils.equals(tag, "Editors' Choice")) {
             layoutInflater.inflate(R.layout.item_tag_primary, flowLayout, false) as TextView
         } else {
@@ -47,6 +52,27 @@ fun setTags(flowLayout: FlowLayout, tags: MutableList<String>?) {
         params.bottomMargin = getSize(R.dimen.size_4)
         tagView.layoutParams = params
         tagView.text = tag
+        tagView.setOnClickListener {
+            if (tagUrlList != null && tagUrlList.size > 0 && tagUrlList.size >= index) {
+                onClickTag.onOpenTag(tagUrlList[index])
+            }
+        }
         flowLayout.addView(tagView)
     }
+}
+
+fun isOnline(context: Context?): Boolean {
+    if (context == null) return false
+    val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val networkInfo = connectivityManager.activeNetworkInfo
+    return networkInfo != null && networkInfo.isConnected
+}
+
+fun checkErrorNetwork(context: Context?): Boolean {
+    if (context == null) return false
+    if (!isOnline(context.applicationContext)) {
+        Toast.makeText(context, R.string.msg_network_error, Toast.LENGTH_SHORT).show()
+        return false
+    }
+    return true
 }

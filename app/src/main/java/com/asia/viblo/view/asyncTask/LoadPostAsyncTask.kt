@@ -88,7 +88,10 @@ class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) :
                 }
                 tagSubject
                         .filterNot { TextUtils.isEmpty(it.text()) }
-                        .forEach { post.tags.add(it.text()) }
+                        .forEach {
+                            post.tags.add(it.text())
+                            post.tagUrlList.add(it.attr("href"))
+                        }
                 postList.add(post)
             }
         } catch (ex: Exception) {

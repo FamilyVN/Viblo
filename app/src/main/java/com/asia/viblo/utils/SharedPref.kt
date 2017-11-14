@@ -14,6 +14,7 @@ class SharedPrefs private constructor() {
         mSharedPreferences = App.self()!!.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     }
 
+    @Suppress("UNCHECKED_CAST")
     operator fun <T> get(key: String, anonymousClass: Class<T>): T {
         return when (anonymousClass) {
             String::class.java -> mSharedPreferences.getString(key, "") as T
@@ -25,6 +26,7 @@ class SharedPrefs private constructor() {
         }
     }
 
+    @Suppress("UNCHECKED_CAST")
     operator fun <T> get(key: String, anonymousClass: Class<T>, defaultValue: T): T {
         return when (anonymousClass) {
             String::class.java -> mSharedPreferences.getString(key, defaultValue as String) as T

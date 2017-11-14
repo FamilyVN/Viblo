@@ -3,17 +3,20 @@ package com.asia.viblo.view.activity.detail
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import com.asia.viblo.R
+import com.asia.viblo.model.baseUrlViblo
 import com.asia.viblo.model.extraUrl
 import com.asia.viblo.model.post.PostDetail
 import com.asia.viblo.utils.loadAvatar
 import com.asia.viblo.utils.setTags
+import com.asia.viblo.view.activity.home.OnClickTag
 import com.asia.viblo.view.asyncTask.PostDetailAsyncTask
 import kotlinx.android.synthetic.main.activity_post_detail.*
 import kotlinx.android.synthetic.main.include_layout_views_clips_comments.view.*
 
-class PostDetailActivity : AppCompatActivity() {
+class PostDetailActivity : AppCompatActivity(), OnClickTag {
     private var mPostDetail = PostDetail()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +58,11 @@ class PostDetailActivity : AppCompatActivity() {
         }
         layoutView.score.visibility = View.INVISIBLE
         //
-        setTags(flowLayout, mPostDetail.tags)
+        setTags(flowLayout, mPostDetail.tags, mPostDetail.tagUrlList, this)
         //
+    }
+
+    override fun onOpenTag(tagUrl: String) {
+        Log.d("TAG.PostDetailActivity", "tagUrl = " + baseUrlViblo + tagUrl)
     }
 }

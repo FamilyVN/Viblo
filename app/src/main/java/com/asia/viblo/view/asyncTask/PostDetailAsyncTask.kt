@@ -43,7 +43,10 @@ class PostDetailAsyncTask : AsyncTask<String, Void, PostDetail>() {
             }
             tagSubject
                     .filterNot { TextUtils.isEmpty(it.text()) }
-                    .forEach { postDetail.tags.add(it.text()) }
+                    .forEach {
+                        postDetail.tags.add(it.text())
+                        postDetail.tagUrlList.add(it.attr("href"))
+                    }
         } catch (ex: Exception) {
             ex.printStackTrace()
         }
