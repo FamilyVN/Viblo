@@ -117,7 +117,7 @@ class PostFragment : BaseFragment(), OnClickDetail, OnUpdatePostData, OnClickTag
                 }
             }
         } else {
-            spinnerPost.visibility = View.INVISIBLE
+            spinnerPost?.visibility = View.INVISIBLE
         }
     }
 }

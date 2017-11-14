@@ -86,13 +86,12 @@
             android:layout_height="@dimen/size_30"
             android:layout_margin="@dimen/size_10"/>
 
-        <TextView
-            android:id="@+id/txtData"
+        <com.asia.viblo.view.custom.ContentHtmlLayout
+            android:id="@+id/contentHtml"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/size_10"
-            android:autoLink="web"
-            android:lineSpacingExtra="@dimen/size_5"
-            android:textSize="@dimen/text_size_14"/>
+            android:layout_marginBottom="@dimen/size_10"
+            android:layout_marginLeft="@dimen/size_10"
+            android:layout_marginRight="@dimen/size_10"/>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>
