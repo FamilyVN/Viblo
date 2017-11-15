@@ -17,7 +17,7 @@ private val cssQueryHeader = "div.post-meta > div.content-author > div.mw-0"
 private val cssQueryName = "div.text-bold > div.overflow-hidden > a"
 private val cssQueryTime = "div.text-muted > span"
 private val cssQueryTitle = "div.post-meta > h1"
-val cssQueryPublishingDate = "div.post-meta > div.d-flex > div.meta-d1 > div.publishing-date"
+val cssQueryPublishingDate = "div.post-meta > div.scroller_thumb-flex > div.meta-d1 > div.publishing-date"
 val cssQueryDetailTagDefault = "div.post-meta > div.tags > a"
 val cssQueryDetailTag = "div#__nuxt > div#app-container > div#main-content > div > div > div > " +
         "div.container > div.row > div.col-xl-9 > div.tags > a"

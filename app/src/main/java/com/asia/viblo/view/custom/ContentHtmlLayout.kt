@@ -2,7 +2,7 @@ package com.asia.viblo.view.custom
 
 import android.content.Context
 import android.os.Build
-import android.support.v7.widget.LinearLayoutManager
+import android.support.v4.content.ContextCompat
 import android.text.Html
 import android.text.TextUtils
 import android.util.AttributeSet
@@ -16,7 +16,6 @@ import com.asia.viblo.model.ContentChild
 import com.asia.viblo.model.TypeContent.*
 import com.asia.viblo.utils.getUrlListFromString
 import com.asia.viblo.utils.loadAvatar
-import com.asia.viblo.view.adapter.CodeAdapter
 import kotlinx.android.synthetic.main.item_layout_content_code.view.*
 import kotlinx.android.synthetic.main.item_layout_content_default.view.*
 
@@ -97,9 +96,16 @@ class ContentHtmlLayout : LinearLayout {
                 CODE_CLASS -> {
                     val contentList = contentChild.content.split("\n").toMutableList()
                     val layout = layoutInflater.inflate(R.layout.item_layout_content_code, this, false)
-                    val adapter = CodeAdapter(context, contentList)
-                    layout.recyclerCode.adapter = adapter
-                    layout.recyclerCode.layoutManager = LinearLayoutManager(context, HORIZONTAL, false)
+                    for (content: String in contentList) {
+                        val textView = layoutInflater.inflate(
+                                R.layout.item_text_content_default, this, false) as TextView
+                        textView.setTextColor(ContextCompat.getColor(context, android.R.color.white))
+                        textView.setText(if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                            Html.fromHtml(content, Html.FROM_HTML_MODE_COMPACT) else
+                            Html.fromHtml(content), TextView.BufferType.SPANNABLE)
+                        layout.layoutCode.addView(textView)
+                    }
+
                     addView(layout)
                 }
                 BLOCK_QUOTE -> {
