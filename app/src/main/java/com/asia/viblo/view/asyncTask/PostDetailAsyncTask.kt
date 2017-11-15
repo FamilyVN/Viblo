@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.AsyncTask
 import android.text.TextUtils
 import com.asia.viblo.model.post.PostDetail
+import com.asia.viblo.view.activity.detail.OnUpdatePostDetail
 import org.jsoup.Jsoup
 
 /**
@@ -24,7 +25,8 @@ val cssQueryDetailStatus = "div.post-meta > div.d-flex > div.meta-d2 > div.post-
 val cssQueryDetailData = "div.md-contents"
 
 @SuppressLint("StaticFieldLeak")
-class PostDetailAsyncTask : AsyncTask<String, Void, PostDetail>() {
+class PostDetailAsyncTask(onUpdatePostDetail: OnUpdatePostDetail) : AsyncTask<String, Void, PostDetail>() {
+    private val mOnUpdatePostDetail = onUpdatePostDetail
     override fun doInBackground(vararg params: String?): PostDetail {
         val postDetail = PostDetail()
         val baseUrl = params[0]
@@ -64,5 +66,10 @@ class PostDetailAsyncTask : AsyncTask<String, Void, PostDetail>() {
             ex.printStackTrace()
         }
         return postDetail
+    }
+
+    override fun onPostExecute(result: PostDetail?) {
+        super.onPostExecute(result)
+        mOnUpdatePostDetail.onUpdatePostDetail(result)
     }
 }

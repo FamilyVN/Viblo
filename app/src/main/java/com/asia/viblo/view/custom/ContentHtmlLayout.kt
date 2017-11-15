@@ -2,6 +2,7 @@ package com.asia.viblo.view.custom
 
 import android.content.Context
 import android.os.Build
+import android.support.v7.widget.LinearLayoutManager
 import android.text.Html
 import android.text.TextUtils
 import android.util.AttributeSet
@@ -15,6 +16,8 @@ import com.asia.viblo.model.ContentChild
 import com.asia.viblo.model.TypeContent.*
 import com.asia.viblo.utils.getUrlListFromString
 import com.asia.viblo.utils.loadAvatar
+import com.asia.viblo.view.adapter.CodeAdapter
+import kotlinx.android.synthetic.main.item_layout_content_code.view.*
 import kotlinx.android.synthetic.main.item_layout_content_default.view.*
 
 /**
@@ -49,7 +52,7 @@ class ContentHtmlLayout : LinearLayout {
                             .replace("</blockquote>", "")
                     contentChildList.add(ContentChild(content, BLOCK_QUOTE))
                 }
-                data.contains("<pre><code class=") -> {
+                data.contains("<pre><code") -> {
                     contentChildList.add(ContentChild(data, CODE_CLASS))
                 }
                 data.contains("<code>") -> {
@@ -92,7 +95,12 @@ class ContentHtmlLayout : LinearLayout {
                 TABLE -> {
                 }
                 CODE_CLASS -> {
-
+                    val contentList = contentChild.content.split("\n").toMutableList()
+                    val layout = layoutInflater.inflate(R.layout.item_layout_content_code, this, false)
+                    val adapter = CodeAdapter(context, contentList)
+                    layout.recyclerCode.adapter = adapter
+                    layout.recyclerCode.layoutManager = LinearLayoutManager(context, HORIZONTAL, false)
+                    addView(layout)
                 }
                 BLOCK_QUOTE -> {
                     val layout = layoutInflater.inflate(
