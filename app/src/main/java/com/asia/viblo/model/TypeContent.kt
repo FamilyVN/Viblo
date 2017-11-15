@@ -7,5 +7,7 @@ enum class TypeContent {
     IMAGE,
     TEXT,
     TABLE,
-    CODE
+    CODE,
+    CODE_CLASS,
+    BLOCK_QUOTE
 }

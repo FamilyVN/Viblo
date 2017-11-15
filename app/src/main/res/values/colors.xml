@@ -17,4 +17,5 @@
     <color name="colorGrey">#9d9b9d</color>
     <color name="colorBgBadgeDefault">#dbe3e8</color>
     <color name="colorTextBadgeDefault">#0b1a33</color>
+    <color name="colorTextRed">#bd4147</color>
 </resources>
