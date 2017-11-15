@@ -1,5 +1,6 @@
 package com.asia.viblo.view.activity.detail
 
+import android.app.Dialog
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
@@ -11,22 +12,25 @@ import com.asia.viblo.model.extraUrl
 import com.asia.viblo.model.post.PostDetail
 import com.asia.viblo.utils.loadAvatar
 import com.asia.viblo.utils.setTags
+import com.asia.viblo.utils.showProgressDialog
 import com.asia.viblo.view.activity.home.OnClickTag
 import com.asia.viblo.view.asyncTask.PostDetailAsyncTask
 import kotlinx.android.synthetic.main.activity_post_detail.*
 import kotlinx.android.synthetic.main.include_layout_views_clips_comments.view.*
 
-class PostDetailActivity : AppCompatActivity(), OnClickTag {
+class PostDetailActivity : AppCompatActivity(), OnClickTag, OnUpdatePostDetail {
     private var mPostDetail = PostDetail()
+    private lateinit var mProgressDialog: Dialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        mProgressDialog = showProgressDialog(this)
         setContentView(R.layout.activity_post_detail)
         loadData()
-        updateView()
     }
 
     private fun loadData() {
-        mPostDetail = PostDetailAsyncTask().execute(baseUrlViblo + intent.getStringExtra(extraUrl)).get()
+        mProgressDialog.show()
+        PostDetailAsyncTask(this).execute(baseUrlViblo + intent.getStringExtra(extraUrl))
     }
 
     private fun updateView() {
@@ -65,5 +69,11 @@ class PostDetailActivity : AppCompatActivity(), OnClickTag {
 
     override fun onOpenTag(tagUrl: String) {
         Log.d("TAG.PostDetailActivity", "tagUrl = " + baseUrlViblo + tagUrl)
+    }
+
+    override fun onUpdatePostDetail(postDetail: PostDetail?) {
+        mProgressDialog.dismiss()
+        mPostDetail = postDetail!!
+        updateView()
     }
 }
