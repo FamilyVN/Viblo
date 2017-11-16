@@ -77,14 +77,16 @@
             android:drawableLeft="@drawable/ic_calender"
             android:drawablePadding="@dimen/size_5"
             android:textColor="@color/color155"
-            android:textSize="@dimen/text_size_14"/>
+            android:textSize="@dimen/text_size_14"
+            android:visibility="gone"/>
 
         <include
             android:id="@+id/layoutView"
             layout="@layout/include_layout_views_clips_comments"
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_30"
-            android:layout_margin="@dimen/size_10"/>
+            android:layout_margin="@dimen/size_10"
+            android:visibility="gone"/>
 
         <com.asia.viblo.view.custom.ContentHtmlLayout
             android:id="@+id/contentHtml"

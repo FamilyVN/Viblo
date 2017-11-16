@@ -74,8 +74,9 @@
                 android:layout_marginTop="@dimen/size_5"/>
 
             <include
-                android:id="@+id/layoutView"
-                layout="@layout/include_layout_views_clips_comments"/>
+                android:id="@+id/layoutStatus"
+                layout="@layout/include_layout_views_clips_comments"
+                android:visibility="gone"/>
         </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>

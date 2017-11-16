@@ -47,6 +47,7 @@ class PostDetailActivity : AppCompatActivity(), OnClickTag, OnUpdatePostDetail {
         } else {
             layoutView.views.visibility = View.VISIBLE
             layoutView.views.text = mPostDetail.views
+            layoutView.visibility = View.VISIBLE
         }
         if (TextUtils.isEmpty(mPostDetail.clips)) {
             layoutView.clips.visibility = View.INVISIBLE

@@ -37,7 +37,12 @@ class ContentHtmlLayout : LinearLayout {
         for (data: String in contentHtml) {
             when {
                 data.contains("<ul>") -> {
-                    contentChildList.add(ContentChild(data))
+                    val content = data
+                            .replace("<li>", "<p>&#160;&#160;● ")
+                            .replace("</li>", "</p>")
+                            .replace("<code>", "<font color = '#bd4147'>")
+                            .replace("</code>", "</font>")
+                    contentChildList.add(ContentChild(content))
                 }
                 data.contains("<img class=\"block-image\" src=") -> {
                     contentChildList.add(ContentChild(data, IMAGE))
@@ -97,15 +102,15 @@ class ContentHtmlLayout : LinearLayout {
                     val contentList = contentChild.content.split("\n").toMutableList()
                     val layout = layoutInflater.inflate(R.layout.item_layout_content_code, this, false)
                     for (content: String in contentList) {
+                        val text = content.replace(" ", "&#160;")
                         val textView = layoutInflater.inflate(
                                 R.layout.item_text_content_default, this, false) as TextView
                         textView.setTextColor(ContextCompat.getColor(context, android.R.color.white))
                         textView.setText(if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                            Html.fromHtml(content, Html.FROM_HTML_MODE_COMPACT) else
-                            Html.fromHtml(content), TextView.BufferType.SPANNABLE)
+                            Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT) else
+                            Html.fromHtml(text), TextView.BufferType.SPANNABLE)
                         layout.layoutCode.addView(textView)
                     }
-
                     addView(layout)
                 }
                 BLOCK_QUOTE -> {
