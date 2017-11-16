@@ -36,6 +36,7 @@ class PostAdapter(context: Context, postList: MutableList<Post>, onClickDetail: 
         holder.views.text = post.views
         holder.clips.text = post.clips
         holder.comments.text = post.comments
+        holder.posts.text = post.posts
         holder.score.text = post.score
         //
         if (TextUtils.isEmpty(post.views)) {
@@ -55,6 +56,11 @@ class PostAdapter(context: Context, postList: MutableList<Post>, onClickDetail: 
             holder.comments.visibility = View.INVISIBLE
         } else {
             holder.comments.visibility = View.VISIBLE
+        }
+        if (TextUtils.isEmpty(post.posts)) {
+            holder.posts.visibility = View.INVISIBLE
+        } else {
+            holder.posts.visibility = View.VISIBLE
         }
         //
         if (TextUtils.isEmpty(post.score)) {
@@ -87,6 +93,7 @@ class PostAdapter(context: Context, postList: MutableList<Post>, onClickDetail: 
         val views = itemView.layoutStatus.views!!
         val clips = itemView.layoutStatus.clips!!
         val comments = itemView.layoutStatus.comments!!
+        val posts = itemView.layoutStatus.posts!!
         val flowLayout = itemView.flowLayout!!
     }
 }

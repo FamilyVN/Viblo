@@ -41,6 +41,7 @@ val cssQueryPageSeries = "div#__nuxt > div#app-container > div#main-content > di
         " > div.row > div.col-lg-9 > div > ul.pagination"
 val cssQueryAuthorUrl = "div.card-block"
 val cssQueryPostTag = "div.card-block > div.ml-05 > div.post-header > div.post-title-box > div.tags > a"
+val cssQueryPostSeriesTag = "div.card-block > div.ml-05 > div.series-header > div.series-title-box > div.tags > a"
 
 @SuppressLint("StaticFieldLeak")
 class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) :
@@ -63,15 +64,22 @@ class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) :
                 val authorsUrlSubject = element.select(cssQueryAuthorUrl).first()
                 val scoreSubject = element.select(cssQueryScore).first()
                 val postStatusSubject = element.select(cssQueryPostStatus).first()
-                val tagSubject = element.select(cssQueryPostTag)
+                val tagSubject = element.select(getCssQuery(baseUrl, TypeQuery.TAG))
                 if (postStatusSubject != null) {
                     val viewSubject = postStatusSubject.getElementsByTag("span")
-                    viewSubject.map { it.text() }
+                    viewSubject.map {
+                        if (TextUtils.isEmpty(it.text())) "0" else it.text()
+                    }
                             .forEachIndexed { index, data ->
                                 when (index) {
                                     0 -> post.views = data
                                     1 -> post.clips = data
                                     2 -> post.comments = data
+                                    3 -> {
+                                        if (baseUrl?.contains(baseUrlSeries)!!) {
+                                            post.posts = data
+                                        }
+                                    }
                                 }
                             }
                 }
@@ -133,6 +141,7 @@ class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) :
                     TypeQuery.NAME -> cssQueryNamePostSeries
                     TypeQuery.TIME -> cssQueryTimePostSeries
                     TypeQuery.URL -> cssQueryPostUrlSeries
+                    TypeQuery.TAG -> cssQueryPostSeriesTag
                     else -> cssQueryFeaturedSeries
                 }
             }
@@ -143,6 +152,7 @@ class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) :
                     TypeQuery.NAME -> cssQueryNamePost
                     TypeQuery.TIME -> cssQueryTimePost
                     TypeQuery.URL -> cssQueryPostUrl
+                    TypeQuery.TAG -> cssQueryPostTag
                     else -> cssQueryFeaturedArticles
                 }
             }

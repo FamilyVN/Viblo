@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.asia.viblo.R
 import com.asia.viblo.model.*
 import com.asia.viblo.model.post.Post
@@ -73,6 +74,10 @@ class PostFragment : BaseFragment(), OnClickDetail, OnUpdatePostData, OnClickTag
     }
 
     override fun onOpenPostDetail(postUrl: String) {
+        if (postUrl.contains("/s/")) {
+            Toast.makeText(context, "Coming soon!", Toast.LENGTH_SHORT).show()
+            return
+        }
         val intent = Intent(context, PostDetailActivity::class.java)
         intent.putExtra(extraUrl, postUrl)
         startActivity(intent)
@@ -86,6 +91,7 @@ class PostFragment : BaseFragment(), OnClickDetail, OnUpdatePostData, OnClickTag
 
     override fun onOpenTag(tagUrl: String) {
         Log.d("TAG.PostFragment", "tagUrl = " + baseUrlViblo + tagUrl)
+        Toast.makeText(context, tagUrl, Toast.LENGTH_SHORT).show()
     }
 
     override fun onUpdatePostData(postList: List<Post>?) {

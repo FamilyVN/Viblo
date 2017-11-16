@@ -35,10 +35,11 @@ class ContentHtmlLayout : LinearLayout {
     fun addContentHtml(contentHtml: MutableList<String>) {
         val contentChildList: MutableList<ContentChild> = arrayListOf()
         for (data: String in contentHtml) {
+            Log.d("TAG", "data = " + data)
             when {
                 data.contains("<ul>") -> {
                     val content = data
-                            .replace("<li>", "<p>&#160;&#160;● ")
+                            .replace("<li>", "<p>&#160;&#160;●&#160&#160")
                             .replace("</li>", "</p>")
                             .replace("<code>", "<font color = '#bd4147'>")
                             .replace("</code>", "</font>")
@@ -66,7 +67,7 @@ class ContentHtmlLayout : LinearLayout {
                     contentChildList.add(ContentChild(content, CODE))
                 }
                 else -> {
-                    if (!TextUtils.isEmpty(data) && data.isNotBlank()) {
+                    if (!TextUtils.isEmpty(data) && !TextUtils.equals(data, " ")) {
                         contentChildList.add(ContentChild(data))
                     }
                 }
@@ -74,42 +75,37 @@ class ContentHtmlLayout : LinearLayout {
         }
         val layoutInflater = LayoutInflater.from(context)
         for (contentChild: ContentChild in contentChildList) {
-            Log.d("TAG", "content = " + contentChild.content)
             when (contentChild.typeContent) {
                 TEXT, CODE -> {
-                    val textView = layoutInflater.inflate(
-                            R.layout.item_text_content_default, this, false) as TextView
-                    textView.setText(if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                        Html.fromHtml(contentChild.content, Html.FROM_HTML_MODE_COMPACT) else
-                        Html.fromHtml(contentChild.content), TextView.BufferType.SPANNABLE)
-                    addView(textView)
+                    addView(createText(layoutInflater, contentChild.content))
                 }
                 IMAGE -> {
-                    val list = contentChild.content.split("\"")
-                    for (sub: String in list) {
-                        val urlList = getUrlListFromString(sub)
-                        for (url in urlList) {
-                            val imageView = layoutInflater.inflate(
-                                    R.layout.item_image_content_default, this, false) as ImageView
-                            loadAvatar(imageView, url)
-                            addView(imageView)
+                    val listBr = contentChild.content.split("<br>")
+                    for (text: String in listBr) {
+                        if (text.contains("<img ")) {
+                            val list = text.split("\"")
+                            for (sub: String in list) {
+                                val urlList = getUrlListFromString(sub)
+                                for (url in urlList) {
+                                    addView(createImage(layoutInflater, url))
+                                }
+                            }
+                        } else {
+                            addView(createText(layoutInflater, text))
                         }
                     }
+
                 }
                 TABLE -> {
+                    val layout = layoutInflater.inflate(R.layout.item_layout_content_code, this, false)
+                    addView(layout)
                 }
                 CODE_CLASS -> {
                     val contentList = contentChild.content.split("\n").toMutableList()
                     val layout = layoutInflater.inflate(R.layout.item_layout_content_code, this, false)
                     for (content: String in contentList) {
                         val text = content.replace(" ", "&#160;")
-                        val textView = layoutInflater.inflate(
-                                R.layout.item_text_content_default, this, false) as TextView
-                        textView.setTextColor(ContextCompat.getColor(context, android.R.color.white))
-                        textView.setText(if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                            Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT) else
-                            Html.fromHtml(text), TextView.BufferType.SPANNABLE)
-                        layout.layoutCode.addView(textView)
+                        layout.layoutCode.addView(createText(layoutInflater, text, android.R.color.white))
                     }
                     addView(layout)
                 }
@@ -123,5 +119,28 @@ class ContentHtmlLayout : LinearLayout {
                 }
             }
         }
+    }
+
+    private fun createImage(layoutInflater: LayoutInflater, url: String): ImageView {
+        val imageView = layoutInflater.inflate(
+                R.layout.item_image_content_default, this, false) as ImageView
+        loadAvatar(imageView, url)
+        return imageView
+    }
+
+    private fun createText(layoutInflater: LayoutInflater, text: String): TextView {
+        return createText(layoutInflater, text, null)
+    }
+
+    private fun createText(layoutInflater: LayoutInflater, text: String, idColor: Int?): TextView {
+        val textView = layoutInflater.inflate(
+                R.layout.item_text_content_default, this, false) as TextView
+        textView.setText(if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+            Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT) else
+            Html.fromHtml(text), TextView.BufferType.SPANNABLE)
+        if (idColor != null) {
+            textView.setTextColor(ContextCompat.getColor(context, idColor))
+        }
+        return textView
     }
 }
