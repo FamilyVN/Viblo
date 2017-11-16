@@ -1,7 +1,9 @@
 package com.asia.viblo.utils
 
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
+import android.net.Uri
 import android.support.annotation.DimenRes
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -99,4 +101,13 @@ fun getUrlListFromString(text: String, regex: String): MutableList<String> {
         urlList.add(urlStr)
     }
     return urlList
+}
+
+fun openBrowser(context: Context?, url: String) {
+    if (!TextUtils.isEmpty(url) && context != null) {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        intent.data = Uri.parse(url)
+        context.startActivity(intent)
+    }
 }

@@ -11,11 +11,14 @@ import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import com.asia.viblo.R
 import com.asia.viblo.model.ContentChild
 import com.asia.viblo.model.TypeContent.*
+import com.asia.viblo.model.baseUrlViblo
 import com.asia.viblo.utils.getUrlListFromString
 import com.asia.viblo.utils.loadAvatar
+import com.asia.viblo.utils.openBrowser
 import kotlinx.android.synthetic.main.item_layout_content_code.view.*
 import kotlinx.android.synthetic.main.item_layout_content_default.view.*
 
@@ -140,6 +143,17 @@ class ContentHtmlLayout : LinearLayout {
             Html.fromHtml(text), TextView.BufferType.SPANNABLE)
         if (idColor != null) {
             textView.setTextColor(ContextCompat.getColor(context, idColor))
+        }
+
+        val urlList = getUrlListFromString(text)
+        if (urlList.size > 0) {
+            textView.setOnClickListener {
+                if (urlList[0].contains(baseUrlViblo)) {
+                    Toast.makeText(context, urlList[0], Toast.LENGTH_SHORT).show()
+                } else {
+                    openBrowser(context, urlList[0])
+                }
+            }
         }
         return textView
     }
