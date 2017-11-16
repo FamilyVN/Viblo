@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    >
 
     <data>
 
@@ -47,11 +48,18 @@
             android:drawableLeft="@drawable/ic_comments"/>
 
         <TextView
+            android:id="@+id/posts"
+            style="@style/TextPost"
+            android:layout_marginLeft="@dimen/size_10"
+            android:layout_toEndOf="@+id/comments"
+            android:drawableLeft="@drawable/ic_posts"
+            android:visibility="gone"/>
+
+        <TextView
             android:id="@+id/score"
             style="@style/TextPost"
             android:layout_alignParentEnd="true"
             android:drawableLeft="@drawable/ic_score"
-            android:drawablePadding="@dimen/size_negative_2"
-            android:text="1"/>
+            android:drawablePadding="@dimen/size_negative_2"/>
     </RelativeLayout>
 </layout>

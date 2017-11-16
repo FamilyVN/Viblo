@@ -9,5 +9,6 @@ enum class TypeQuery {
     BASE,
     NAME,
     TIME,
-    URL
+    URL,
+    TAG
 }

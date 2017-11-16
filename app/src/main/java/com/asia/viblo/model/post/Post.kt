@@ -9,4 +9,5 @@ open class Post : BaseModel() {
     var postUrl = ""
     var clips = ""
     var comments = ""
+    var posts = ""
 }

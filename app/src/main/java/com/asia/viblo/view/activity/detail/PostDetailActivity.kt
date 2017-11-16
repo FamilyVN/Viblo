@@ -1,18 +1,23 @@
 package com.asia.viblo.view.activity.detail
 
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.asia.viblo.R
+import com.asia.viblo.model.BaseModel
 import com.asia.viblo.model.baseUrlViblo
+import com.asia.viblo.model.extraData
 import com.asia.viblo.model.extraUrl
 import com.asia.viblo.model.post.PostDetail
 import com.asia.viblo.utils.loadAvatar
 import com.asia.viblo.utils.setTags
 import com.asia.viblo.utils.showProgressDialog
+import com.asia.viblo.view.activity.author.AuthorActivity
 import com.asia.viblo.view.activity.home.OnClickTag
 import com.asia.viblo.view.asyncTask.PostDetailAsyncTask
 import kotlinx.android.synthetic.main.activity_post_detail.*
@@ -66,10 +71,23 @@ class PostDetailActivity : AppCompatActivity(), OnClickTag, OnUpdatePostDetail {
         setTags(flowLayout, mPostDetail.tags, mPostDetail.tagUrlList, this)
         //
         contentHtml.addContentHtml(mPostDetail.data)
+        txtName.setOnClickListener {
+            onOpenAuthor(mPostDetail)
+        }
+        imageAvatar.setOnClickListener {
+            onOpenAuthor(mPostDetail)
+        }
+    }
+
+    private fun onOpenAuthor(baseModel: BaseModel) {
+        val intent = Intent(this, AuthorActivity::class.java)
+        intent.putExtra(extraData, baseModel)
+        startActivity(intent)
     }
 
     override fun onOpenTag(tagUrl: String) {
         Log.d("TAG.PostDetailActivity", "tagUrl = " + baseUrlViblo + tagUrl)
+        Toast.makeText(this, tagUrl, Toast.LENGTH_SHORT).show()
     }
 
     override fun onUpdatePostDetail(postDetail: PostDetail?) {
