@@ -1,36 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/size_30"
-    android:layout_marginTop="@dimen/size_5">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:id="@+id/views"
-        style="@style/TextPost"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:drawableLeft="@drawable/ic_views"/>
+    <data>
 
-    <TextView
-        android:id="@+id/clips"
-        style="@style/TextPost"
-        android:layout_marginLeft="@dimen/size_10"
-        android:layout_toEndOf="@+id/views"
-        android:drawableLeft="@drawable/ic_clips"/>
+        <variable
+            name="views"
+            type="String"/>
 
-    <TextView
-        android:id="@+id/comments"
-        style="@style/TextPost"
-        android:layout_marginLeft="@dimen/size_10"
-        android:layout_toEndOf="@+id/clips"
-        android:drawableLeft="@drawable/ic_comments"/>
+        <variable
+            name="clips"
+            type="String"/>
 
-    <TextView
-        android:id="@+id/score"
-        style="@style/TextPost"
-        android:layout_alignParentEnd="true"
-        android:drawableLeft="@drawable/ic_score"
-        android:drawablePadding="@dimen/size_negative_2"
-        android:text="1"/>
-</RelativeLayout>
+        <variable
+            name="comments"
+            type="String"/>
+
+        <variable
+            name="score"
+            type="String"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_30"
+        android:layout_marginTop="@dimen/size_5">
+
+        <TextView
+            android:id="@+id/views"
+            style="@style/TextPost"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:drawableLeft="@drawable/ic_views"/>
+
+        <TextView
+            android:id="@+id/clips"
+            style="@style/TextPost"
+            android:layout_marginLeft="@dimen/size_10"
+            android:layout_toEndOf="@+id/views"
+            android:drawableLeft="@drawable/ic_clips"/>
+
+        <TextView
+            android:id="@+id/comments"
+            style="@style/TextPost"
+            android:layout_marginLeft="@dimen/size_10"
+            android:layout_toEndOf="@+id/clips"
+            android:drawableLeft="@drawable/ic_comments"/>
+
+        <TextView
+            android:id="@+id/score"
+            style="@style/TextPost"
+            android:layout_alignParentEnd="true"
+            android:drawableLeft="@drawable/ic_score"
+            android:drawablePadding="@dimen/size_negative_2"
+            android:text="1"/>
+    </RelativeLayout>
+</layout>

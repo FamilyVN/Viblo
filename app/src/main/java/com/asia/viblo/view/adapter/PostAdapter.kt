@@ -42,6 +42,7 @@ class PostAdapter(context: Context, postList: MutableList<Post>, onClickDetail: 
             holder.views.visibility = View.INVISIBLE
         } else {
             holder.views.visibility = View.VISIBLE
+            holder.layoutStatus.visibility = View.VISIBLE
         }
         //
         if (TextUtils.isEmpty(post.clips)) {
@@ -81,10 +82,11 @@ class PostAdapter(context: Context, postList: MutableList<Post>, onClickDetail: 
         val name = itemView.name!!
         val time = itemView.time!!
         val title = itemView.title!!
-        val score = itemView.layoutView.score!!
-        val views = itemView.layoutView.views!!
-        val clips = itemView.layoutView.clips!!
-        val comments = itemView.layoutView.comments!!
+        val layoutStatus = itemView.layoutStatus!!
+        val score = itemView.layoutStatus.score!!
+        val views = itemView.layoutStatus.views!!
+        val clips = itemView.layoutStatus.clips!!
+        val comments = itemView.layoutStatus.comments!!
         val flowLayout = itemView.flowLayout!!
     }
 }

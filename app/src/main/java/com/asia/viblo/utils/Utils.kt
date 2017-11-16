@@ -45,7 +45,9 @@ fun setTags(flowLayout: FlowLayout, tags: MutableList<String>?, tagUrlList: Muta
     val context = flowLayout.context
     val layoutInflater = LayoutInflater.from(context)
     for ((index, tag) in tags.withIndex()) {
-        val tagView = if (TextUtils.equals(tag, "Trending") || TextUtils.equals(tag, "Editors' Choice")) {
+        val tagView = if (TextUtils.equals(tag, "Trending")
+                || TextUtils.equals(tag, "Editors' Choice")
+                || TextUtils.equals(tag, "Announcement")) {
             layoutInflater.inflate(R.layout.item_tag_primary, flowLayout, false) as TextView
         } else {
             layoutInflater.inflate(R.layout.item_tag_default, flowLayout, false) as TextView
