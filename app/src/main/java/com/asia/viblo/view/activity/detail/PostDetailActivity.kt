@@ -49,6 +49,7 @@ class PostDetailActivity : AppCompatActivity(), OnClickTag, OnUpdatePostDetail {
         txtPublishingDate.visibility = if (TextUtils.isEmpty(mPostDetail.publishingDate)) View.GONE else View.VISIBLE
         if (TextUtils.isEmpty(mPostDetail.views)) {
             layoutView.views.visibility = View.INVISIBLE
+            layoutView.visibility = View.GONE
         } else {
             layoutView.views.visibility = View.VISIBLE
             layoutView.views.text = mPostDetail.views

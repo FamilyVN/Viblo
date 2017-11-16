@@ -41,6 +41,7 @@ class PostAdapter(context: Context, postList: MutableList<Post>, onClickDetail: 
         //
         if (TextUtils.isEmpty(post.views)) {
             holder.views.visibility = View.INVISIBLE
+            holder.layoutStatus.visibility = View.GONE
         } else {
             holder.views.visibility = View.VISIBLE
             holder.layoutStatus.visibility = View.VISIBLE
