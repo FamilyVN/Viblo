@@ -32,6 +32,12 @@ fun loadAvatar(imageView: ImageView, url: String) {
             .into(imageView)
 }
 
+fun loadImageUrl(imageView: ImageView, url: String) {
+    Picasso.with(imageView.context)
+            .load(url)
+            .into(imageView)
+}
+
 fun getSize(@DimenRes dpId: Int): Int {
     return App.self()?.resources?.getDimensionPixelOffset(dpId)!!
 }
@@ -107,7 +113,15 @@ fun openBrowser(context: Context?, url: String) {
     if (!TextUtils.isEmpty(url) && context != null) {
         val intent = Intent(Intent.ACTION_VIEW)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        intent.data = Uri.parse(url)
+        intent.addCategory(Intent.CATEGORY_BROWSABLE)
+        intent.addCategory(Intent.CATEGORY_DEFAULT)
+        val regex1 = url.substring(0, 7)
+        val regex2 = url.substring(0, 8)
+        if (TextUtils.equals(regex1, "http://") || TextUtils.equals(regex2, "https://")) {
+            intent.data = Uri.parse(url)
+        } else {
+            intent.data = Uri.parse("https://" + url)
+        }
         context.startActivity(intent)
     }
 }

@@ -12,11 +12,14 @@ import org.jsoup.Jsoup
  */
 val cssQueryDetail = "div#__nuxt > div#app-container > div#main-content > div > div > div" +
         ".container > div.row > div.col-xl-9 > div.post-content-wrapper"
+val cssQueryDetailAnnouncement = "div#__nuxt > div#app-container > div#main-content >" +
+        " div.container > div.row > div.col-lg-9 > div.support-article"
 private val cssQueryAvatar = "div.post-meta > div.content-author > a > img"
 private val cssQueryHeader = "div.post-meta > div.content-author > div.mw-0"
 private val cssQueryName = "div.text-bold > div.overflow-hidden > a"
 private val cssQueryTime = "div.text-muted > span"
 private val cssQueryTitle = "div.post-meta > h1"
+private val cssQueryTitleAnnouncement = "h1"
 val cssQueryPublishingDate = "div.post-meta > div.d-flex > div.meta-d1 > div.publishing-date"
 val cssQueryDetailTagDefault = "div.post-meta > div.tags > a"
 val cssQueryDetailTag = "div#__nuxt > div#app-container > div#main-content > div > div > div > " +
@@ -33,12 +36,12 @@ class PostDetailAsyncTask(onUpdatePostDetail: OnUpdatePostDetail) : AsyncTask<St
         try {
             val document = Jsoup.connect(baseUrl).get()
             val body = document.body()
-            val element = body.select(cssQueryDetail)
+            val element = body.select(getCssQuery(baseUrl, TypeQuery.BASE))
             postDetail.avatar = element.select(cssQueryAvatar).attr("src")
             val elementHeader = element.select(cssQueryHeader)
             postDetail.name = elementHeader.select(cssQueryName).text()
             postDetail.time = elementHeader.select(cssQueryTime).text()
-            postDetail.title = element.select(cssQueryTitle).text()
+            postDetail.title = element.select(getCssQuery(baseUrl, TypeQuery.TITLE)).text()
             postDetail.publishingDate = element.select(cssQueryPublishingDate).text()
             val tagSubject = if (TextUtils.isEmpty(postDetail.name)) {
                 body.select(cssQueryDetailTag)
@@ -71,5 +74,23 @@ class PostDetailAsyncTask(onUpdatePostDetail: OnUpdatePostDetail) : AsyncTask<St
     override fun onPostExecute(result: PostDetail?) {
         super.onPostExecute(result)
         mOnUpdatePostDetail.onUpdatePostDetail(result)
+    }
+
+    private fun getCssQuery(baseUrl: String?, typeQuery: TypeQuery): String {
+        val cssQuery: String
+        if (baseUrl?.contains("/announcements/")!!) {
+            cssQuery = when (typeQuery) {
+                TypeQuery.BASE -> cssQueryDetailAnnouncement
+                TypeQuery.TITLE -> cssQueryTitleAnnouncement
+                else -> cssQueryDetailAnnouncement
+            }
+        } else {
+            cssQuery = when (typeQuery) {
+                TypeQuery.BASE -> cssQueryDetail
+                TypeQuery.TITLE -> cssQueryTitle
+                else -> cssQueryDetail
+            }
+        }
+        return cssQuery
     }
 }

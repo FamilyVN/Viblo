@@ -35,7 +35,9 @@ class PostDetailActivity : AppCompatActivity(), OnClickTag, OnUpdatePostDetail {
 
     private fun loadData() {
         mProgressDialog.show()
-        PostDetailAsyncTask(this).execute(baseUrlViblo + intent.getStringExtra(extraUrl))
+        val baseUrl = baseUrlViblo + intent.getStringExtra(extraUrl)
+        PostDetailAsyncTask(this).execute(baseUrl)
+        relativeHeader.visibility = if (baseUrl.contains("/announcements/")) View.GONE else View.VISIBLE
     }
 
     private fun updateView() {
