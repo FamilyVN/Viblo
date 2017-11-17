@@ -28,7 +28,6 @@ abstract class BaseFragment : Fragment(), OnSelectPage, OnUpdateFeedBar {
         super.onViewCreated(view, savedInstanceState)
         mProgressDialog = showProgressDialog(context)
         if (!checkErrorNetwork(context)) return
-        mProgressDialog.show()
         initListener()
         initSpinner()
     }

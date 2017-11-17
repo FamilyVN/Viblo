@@ -8,16 +8,14 @@ import android.text.TextUtils
 import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
-import android.widget.ImageView
-import android.widget.LinearLayout
+import android.widget.*
 import android.widget.TextView
-import android.widget.Toast
 import com.asia.viblo.R
 import com.asia.viblo.model.ContentChild
 import com.asia.viblo.model.TypeContent.*
 import com.asia.viblo.model.baseUrlViblo
 import com.asia.viblo.utils.getUrlListFromString
-import com.asia.viblo.utils.loadAvatar
+import com.asia.viblo.utils.loadImageUrl
 import com.asia.viblo.utils.openBrowser
 import kotlinx.android.synthetic.main.item_layout_content_code.view.*
 import kotlinx.android.synthetic.main.item_layout_content_default.view.*
@@ -40,9 +38,9 @@ class ContentHtmlLayout : LinearLayout {
         for (data: String in contentHtml) {
             Log.d("TAG", "data = " + data)
             when {
-                data.contains("<ul>") -> {
+                data.contains("<ul>") || data.contains("<ol>") -> {
                     val content = data
-                            .replace("<li>", "<p>&#160;&#160;●&#160&#160")
+                            .replace("<li>", "<p>&#160;&#160;●&#160;&#160;")
                             .replace("</li>", "</p>")
                             .replace("<code>", "<font color = '#bd4147'>")
                             .replace("</code>", "</font>")
@@ -61,7 +59,30 @@ class ContentHtmlLayout : LinearLayout {
                     contentChildList.add(ContentChild(content, BLOCK_QUOTE))
                 }
                 data.contains("<pre><code") -> {
-                    contentChildList.add(ContentChild(data, CODE_CLASS))
+                    val content = data
+                            .replace("<span class=\"hljs-string\">", "<font color = '#449173'>")
+                            .replace("<span class=\"hljs-keyword\">", "<font color = '#c479db'>")
+                            .replace("<span class=\"hljs-name\">", "<font color = '#c7504a'>")
+                            .replace("<span class=\"hljs-attr\">", "<font color = '#cf9153'>")
+                            .replace("<span class=\"hljs-class\">", "<font color = '#95b064'>")
+                            .replace("<span class=\"hljs-title\">", "<font color = '#3683e0'>")//
+                            .replace("<span class=\"hljs-meta\">", "<font color = '#3683e0'>")
+                            .replace("<span class=\"hljs-selector-tag\">", "<font color = '#bd4147'>")
+                            .replace("<span class=\"hljs-doctag\">", "<font color = '#bd4147'>")
+                            .replace("<span class=\"hljs-comment\">", "<font color = '#bd4147'>")
+                            .replace("<span class=\"hljs-function\">", "<font color = '#bd4147'>")
+                            .replace("<span class=\"hljs-params\">", "<font color = '#bd4147'>")
+                            .replace("<span class=\"hljs-number\">", "<font color = '#bd4147'>")
+                            .replace("<span class=\"hljs-selector-pseudo\">", "<font color = '#bd4147'>")
+                            .replace("<span class=\"hljs-type\">", "<font color = '#bd4147'>")
+                            .replace("<span class=\"hljs-literal\">", "<font color = '#bd4147'>")
+                            .replace("<span class=\"hljs-selector-class\">", "<font color = '#bd4147'>")
+                            .replace("<span class=\"hljs-attribute\">", "<font color = '#bd4147'>")
+                            .replace("<span class=\"hljs-tag\">", "<font color = '#bd4147'>")
+                            .replace("</span>", "</font>")
+                            .replace("<pre><code>", "")
+                            .replace("</code></pre>", "")
+                    contentChildList.add(ContentChild(content, CODE_CLASS))
                 }
                 data.contains("<code>") -> {
                     val content = data
@@ -78,11 +99,9 @@ class ContentHtmlLayout : LinearLayout {
         }
         val layoutInflater = LayoutInflater.from(context)
         for (contentChild: ContentChild in contentChildList) {
+//            Log.d("TAG", "content = " + contentChild.content)
             when (contentChild.typeContent) {
-                TEXT, CODE -> {
-                    addView(createText(layoutInflater, contentChild.content))
-                }
-                IMAGE -> {
+                TEXT, CODE, IMAGE -> {
                     val listBr = contentChild.content.split("<br>")
                     for (text: String in listBr) {
                         if (text.contains("<img ")) {
@@ -100,15 +119,13 @@ class ContentHtmlLayout : LinearLayout {
 
                 }
                 TABLE -> {
-                    val layout = layoutInflater.inflate(R.layout.item_layout_content_code, this, false)
-                    addView(layout)
+//                    createTable(layoutInflater, contentChild.content)
                 }
                 CODE_CLASS -> {
                     val contentList = contentChild.content.split("\n").toMutableList()
                     val layout = layoutInflater.inflate(R.layout.item_layout_content_code, this, false)
                     for (content: String in contentList) {
-                        val text = content.replace(" ", "&#160;")
-                        layout.layoutCode.addView(createText(layoutInflater, text, android.R.color.white))
+                        layout.layoutCode.addView(createText(layoutInflater, content, R.color.colorCode))
                     }
                     addView(layout)
                 }
@@ -124,10 +141,57 @@ class ContentHtmlLayout : LinearLayout {
         }
     }
 
+    private fun createTable(layoutInflater: LayoutInflater, data: String) {
+        val theadList: MutableList<String> = arrayListOf()
+        val content = data
+                .replace("\n", "")
+                .replace("<tr>", "")
+                .replace("</tr>", "")
+        val thead = content.substring(content.indexOf("<thead>") + "<thead>".length,
+                content.indexOf("</thead>"))
+        val dataThead = thead.split("</th>")
+        val theadSize = dataThead.size - 1
+        for ((index, text) in dataThead.withIndex()) {
+            if (index < theadSize) {
+                theadList.add(text)
+            }
+        }
+        val body = content.substring(content.indexOf("<tbody>") + "<tbody>".length,
+                content.indexOf("</tbody>"))
+        val dataBody = body.split("</td>")
+        val bodyList: MutableList<MutableList<String>> = arrayListOf()
+        val childList: MutableList<String> = arrayListOf()
+        val bodySize = dataBody.size - 1
+        for ((index, text) in dataBody.withIndex()) {
+            if (index < bodySize) {
+                if (index > 0 && index % theadSize == 0) {
+                    bodyList.add(childList.toMutableList())
+                    childList.clear()
+                }
+                childList.add(text.replace("<td>", "").trim())
+            }
+        }
+        val table = layoutInflater.inflate(R.layout.item_table_content_default, this, false) as TableLayout
+        for (theadData: String in theadList) {
+            Log.d("TAG", "theadData = " + theadData)
+        }
+        for (bodyDataList: MutableList<String> in bodyList) {
+            val tableRow = layoutInflater.inflate(R.layout.item_table_row_content_default, table, false) as TableRow
+            val layoutParams = TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT)
+            tableRow.layoutParams = layoutParams
+            for (bodyData: String in bodyDataList) {
+                Log.d("TAG", "bodyData = " + bodyData)
+                tableRow.addView(createText(layoutInflater, bodyData, null, R.layout.item_text_content_table))
+            }
+            table.addView(tableRow)
+        }
+        addView(table)
+    }
+
     private fun createImage(layoutInflater: LayoutInflater, url: String): ImageView {
         val imageView = layoutInflater.inflate(
                 R.layout.item_image_content_default, this, false) as ImageView
-        loadAvatar(imageView, url)
+        loadImageUrl(imageView, url)
         return imageView
     }
 
@@ -136,15 +200,17 @@ class ContentHtmlLayout : LinearLayout {
     }
 
     private fun createText(layoutInflater: LayoutInflater, text: String, idColor: Int?): TextView {
-        val textView = layoutInflater.inflate(
-                R.layout.item_text_content_default, this, false) as TextView
+        return createText(layoutInflater, text, idColor, R.layout.item_text_content_default)
+    }
+
+    private fun createText(layoutInflater: LayoutInflater, text: String, idColor: Int?, idLayout: Int): TextView {
+        val textView = layoutInflater.inflate(idLayout, this, false) as TextView
         textView.setText(if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
             Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT) else
             Html.fromHtml(text), TextView.BufferType.SPANNABLE)
         if (idColor != null) {
             textView.setTextColor(ContextCompat.getColor(context, idColor))
         }
-
         val urlList = getUrlListFromString(text)
         if (urlList.size > 0) {
             textView.setOnClickListener {

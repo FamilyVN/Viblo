@@ -19,4 +19,5 @@
     <color name="colorTextBadgeDefault">#0b1a33</color>
     <color name="colorTextRed">#bd4147</color>
     <color name="colorNote">#abb2bf</color>
+    <color name="colorCode">#f0f0f0</color>
 </resources>
