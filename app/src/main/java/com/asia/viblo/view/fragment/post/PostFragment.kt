@@ -19,6 +19,7 @@ import com.asia.viblo.view.activity.author.AuthorActivity
 import com.asia.viblo.view.activity.detail.PostDetailActivity
 import com.asia.viblo.view.activity.home.OnClickDetail
 import com.asia.viblo.view.activity.home.OnClickTag
+import com.asia.viblo.view.activity.series.SeriesActivity
 import com.asia.viblo.view.adapter.PostAdapter
 import com.asia.viblo.view.asyncTask.LoadPostAsyncTask
 import com.asia.viblo.view.fragment.BaseFragment
@@ -75,7 +76,9 @@ class PostFragment : BaseFragment(), OnClickDetail, OnUpdatePostData, OnClickTag
 
     override fun onOpenPostDetail(postUrl: String) {
         if (postUrl.contains("/s/")) {
-            Toast.makeText(context, "Coming soon!", Toast.LENGTH_SHORT).show()
+            val intent = Intent(context, SeriesActivity::class.java)
+            intent.putExtra(extraUrl, postUrl)
+            startActivity(intent)
             return
         }
         val intent = Intent(context, PostDetailActivity::class.java)
