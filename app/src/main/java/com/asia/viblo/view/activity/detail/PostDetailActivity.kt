@@ -1,9 +1,7 @@
 package com.asia.viblo.view.activity.detail
 
-import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
@@ -16,28 +14,25 @@ import com.asia.viblo.model.extraUrl
 import com.asia.viblo.model.post.PostDetail
 import com.asia.viblo.utils.loadAvatar
 import com.asia.viblo.utils.setTags
-import com.asia.viblo.utils.showProgressDialog
+import com.asia.viblo.view.activity.BaseActivity
 import com.asia.viblo.view.activity.author.AuthorActivity
 import com.asia.viblo.view.activity.home.OnClickTag
 import com.asia.viblo.view.asyncTask.PostDetailAsyncTask
 import kotlinx.android.synthetic.main.activity_post_detail.*
 import kotlinx.android.synthetic.main.include_layout_views_clips_comments.view.*
 
-class PostDetailActivity : AppCompatActivity(), OnClickTag, OnUpdatePostDetail {
+class PostDetailActivity : BaseActivity(), OnClickTag, OnUpdatePostDetail {
     private var mPostDetail = PostDetail()
-    private lateinit var mProgressDialog: Dialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mProgressDialog = showProgressDialog(this)
         setContentView(R.layout.activity_post_detail)
-        loadData()
     }
 
-    private fun loadData() {
-        mProgressDialog.show()
+    override fun loadData() {
+        super.loadData()
         val baseUrl = baseUrlViblo + intent.getStringExtra(extraUrl)
         PostDetailAsyncTask(this).execute(baseUrl)
-        relativeHeader.visibility = if (baseUrl.contains("/announcements/")) View.GONE else View.VISIBLE
+        relativeHeader?.visibility = if (baseUrl.contains("/announcements/")) View.GONE else View.VISIBLE
     }
 
     private fun updateView() {
