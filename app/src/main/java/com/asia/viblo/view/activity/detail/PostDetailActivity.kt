@@ -32,7 +32,6 @@ class PostDetailActivity : BaseActivity(), OnClickTag, OnUpdatePostDetail {
         super.loadData()
         val baseUrl = baseUrlViblo + intent.getStringExtra(extraUrl)
         PostDetailAsyncTask(this).execute(baseUrl)
-        relativeHeader?.visibility = if (baseUrl.contains("/announcements/")) View.GONE else View.VISIBLE
     }
 
     private fun updateView() {
@@ -40,6 +39,7 @@ class PostDetailActivity : BaseActivity(), OnClickTag, OnUpdatePostDetail {
             loadAvatar(imageAvatar, mPostDetail.avatar)
         }
         txtName.text = mPostDetail.name
+        relativeHeader?.visibility = if (TextUtils.isEmpty(mPostDetail.name)) View.GONE else View.VISIBLE
         txtTime.text = mPostDetail.time
         txtTitle.text = mPostDetail.title
         txtPublishingDate.text = mPostDetail.publishingDate
