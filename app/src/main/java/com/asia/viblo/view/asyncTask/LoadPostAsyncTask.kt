@@ -23,11 +23,11 @@ val cssQueryFeaturedSeries = "div#__nuxt > div#app-container > div#main-content 
         " div.container > div.row > div.col-lg-9 > div > div > div.card"
 val cssQueryAvatarPost = "div.card-block > figure.post-author-avatar > a > img"
 val cssQueryAvatarPostSeries = "div.card-block > a > img"
-val cssQueryNamePost = "div.card-block > div.ml-05 > div.post-header > div.post-meta > a"
-val cssQueryNamePostSeries = "div.card-block > div.ml-05 > div.series-header > div.series-meta > a"
-val cssQueryTimePost = "div.card-block > div.ml-05 > div.post-header > div.post-meta > " +
+val cssQueryPostName = "div.card-block > div.ml-05 > div.post-header > div.post-meta > a"
+val cssQueryPostNameSeries = "div.card-block > div.ml-05 > div.series-header > div.series-meta > a"
+val cssQueryPostTime = "div.card-block > div.ml-05 > div.post-header > div.post-meta > " +
         "div.text-muted > span"
-val cssQueryTimePostSeries = "div.card-block > div.ml-05 > div.series-header > div.series-meta > " +
+val cssQueryPostTimeSeries = "div.card-block > div.ml-05 > div.series-header > div.series-meta > " +
         "div.text-muted > span"
 val cssQueryPostUrl = "div.card-block > div.ml-05 > div.post-header > div.post-title-box > " +
         "h1.post-title-header > a"
@@ -37,9 +37,9 @@ val cssQueryScore = "div.card-block > div.ml-05 > div.d-flex > div.points > span
 val cssQueryPostStatus = "div.card-block > div.ml-05 > div.d-flex"
 val cssQueryPage = "div#__nuxt > div#app-container > div#main-content > div > div.container " +
         "> div.row > div.col-lg-9 > div > ul.pagination"
-val cssQueryPageSeries = "div#__nuxt > div#app-container > div#main-content > div > div.container" +
-        " > div.row > div.col-lg-9 > div > ul.pagination"
-val cssQueryAuthorUrl = "div.card-block"
+val cssQueryPostPageSeries = "div#__nuxt > div#app-container > div#main-content > div > " +
+        "div.container > div.row > div.col-lg-9 > div > ul.pagination"
+val cssQueryPostAuthorUrl = "div.card-block"
 val cssQueryPostTag = "div.card-block > div.ml-05 > div.post-header > div.post-title-box > div.tags > a"
 val cssQueryPostSeriesTag = "div.card-block > div.ml-05 > div.series-header > div.series-title-box > div.tags > a"
 
@@ -61,7 +61,7 @@ class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) :
                 val nameSubject = element.select(getCssQuery(baseUrl, TypeQuery.NAME)).first()
                 val timeSubject = element.select(getCssQuery(baseUrl, TypeQuery.TIME)).first()
                 val urlSubject = element.select(getCssQuery(baseUrl, TypeQuery.URL)).first()
-                val authorsUrlSubject = element.select(cssQueryAuthorUrl).first()
+                val authorsUrlSubject = element.select(cssQueryPostAuthorUrl).first()
                 val scoreSubject = element.select(cssQueryScore).first()
                 val postStatusSubject = element.select(cssQueryPostStatus).first()
                 val tagSubject = element.select(getCssQuery(baseUrl, TypeQuery.TAG))
@@ -136,10 +136,10 @@ class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) :
         when (baseUrl) {
             baseUrlSeries -> {
                 cssQuery = when (typeQuery) {
-                    TypeQuery.PAGE -> cssQueryPageSeries
+                    TypeQuery.PAGE -> cssQueryPostPageSeries
                     TypeQuery.AVATAR -> cssQueryAvatarPostSeries
-                    TypeQuery.NAME -> cssQueryNamePostSeries
-                    TypeQuery.TIME -> cssQueryTimePostSeries
+                    TypeQuery.NAME -> cssQueryPostNameSeries
+                    TypeQuery.TIME -> cssQueryPostTimeSeries
                     TypeQuery.URL -> cssQueryPostUrlSeries
                     TypeQuery.TAG -> cssQueryPostSeriesTag
                     else -> cssQueryFeaturedSeries
@@ -149,8 +149,8 @@ class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) :
                 cssQuery = when (typeQuery) {
                     TypeQuery.PAGE -> cssQueryPage
                     TypeQuery.AVATAR -> cssQueryAvatarPost
-                    TypeQuery.NAME -> cssQueryNamePost
-                    TypeQuery.TIME -> cssQueryTimePost
+                    TypeQuery.NAME -> cssQueryPostName
+                    TypeQuery.TIME -> cssQueryPostTime
                     TypeQuery.URL -> cssQueryPostUrl
                     TypeQuery.TAG -> cssQueryPostTag
                     else -> cssQueryFeaturedArticles

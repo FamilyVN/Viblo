@@ -19,6 +19,8 @@ import com.asia.viblo.utils.loadImageUrl
 import com.asia.viblo.utils.openBrowser
 import kotlinx.android.synthetic.main.item_layout_content_code.view.*
 import kotlinx.android.synthetic.main.item_layout_content_default.view.*
+import org.jsoup.Jsoup
+import org.jsoup.parser.Parser
 
 /**
  * Created by anhtv on 14/11/2017.
@@ -59,26 +61,28 @@ class ContentHtmlLayout : LinearLayout {
                     contentChildList.add(ContentChild(content, BLOCK_QUOTE))
                 }
                 data.contains("<pre><code") -> {
+                    Log.d("TAG", "data = " + data)
                     val content = data
-                            .replace("<span class=\"hljs-string\">", "<font color = '#449173'>")
-                            .replace("<span class=\"hljs-keyword\">", "<font color = '#c479db'>")
+                            .replace("<span class=\"hljs-string\">", "<font color = '#98c379'>")
+                            .replace("<span class=\"hljs-keyword\">", "<font color = '#c678dd'>")
                             .replace("<span class=\"hljs-name\">", "<font color = '#c7504a'>")
                             .replace("<span class=\"hljs-attr\">", "<font color = '#cf9153'>")
-                            .replace("<span class=\"hljs-class\">", "<font color = '#95b064'>")
+                            .replace("<span class=\"hljs-class\">", "<font color = '#d19a66'>")
                             .replace("<span class=\"hljs-title\">", "<font color = '#3683e0'>")//
-                            .replace("<span class=\"hljs-meta\">", "<font color = '#3683e0'>")
+                            .replace("<span class=\"hljs-meta\">", "<font color = '#61aeee'>")
                             .replace("<span class=\"hljs-selector-tag\">", "<font color = '#bd4147'>")
                             .replace("<span class=\"hljs-doctag\">", "<font color = '#bd4147'>")
-                            .replace("<span class=\"hljs-comment\">", "<font color = '#bd4147'>")
+                            .replace("<span class=\"hljs-comment\">", "<font color = '#5c6370'>")
                             .replace("<span class=\"hljs-function\">", "<font color = '#bd4147'>")
                             .replace("<span class=\"hljs-params\">", "<font color = '#bd4147'>")
-                            .replace("<span class=\"hljs-number\">", "<font color = '#bd4147'>")
+                            .replace("<span class=\"hljs-number\">", "<font color = '#c98e53'>")
                             .replace("<span class=\"hljs-selector-pseudo\">", "<font color = '#bd4147'>")
-                            .replace("<span class=\"hljs-type\">", "<font color = '#bd4147'>")
-                            .replace("<span class=\"hljs-literal\">", "<font color = '#bd4147'>")
+                            .replace("<span class=\"hljs-type\">", "<font color = '#d19a66'>")
+                            .replace("<span class=\"hljs-literal\">", "<font color = '#56b6c2'>")
                             .replace("<span class=\"hljs-selector-class\">", "<font color = '#bd4147'>")
                             .replace("<span class=\"hljs-attribute\">", "<font color = '#bd4147'>")
                             .replace("<span class=\"hljs-tag\">", "<font color = '#bd4147'>")
+                            .replace("<span class=\"hljs-built_in\">", "<font color = '#e6c07b'>")
                             .replace("</span>", "</font>")
                             .replace("<pre><code>", "")
                             .replace("</code></pre>", "")
@@ -113,7 +117,14 @@ class ContentHtmlLayout : LinearLayout {
                                 }
                             }
                         } else {
-                            addView(createText(layoutInflater, text))
+                            if (text.contains("<code>")) {
+                                val content = text
+                                        .replace("<code>", "<font color = '#bd4147'>")
+                                        .replace("</code>", "</font>")
+                                addView(createText(layoutInflater, content))
+                            } else {
+                                addView(createText(layoutInflater, text))
+                            }
                         }
                     }
 
@@ -135,6 +146,7 @@ class ContentHtmlLayout : LinearLayout {
                     layout.txtContent.setText(if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
                         Html.fromHtml(contentChild.content, Html.FROM_HTML_MODE_COMPACT) else
                         Html.fromHtml(contentChild.content), TextView.BufferType.SPANNABLE)
+                    setUpOpenUrl(layout.txtContent, contentChild.content)
                     addView(layout)
                 }
             }
@@ -211,6 +223,11 @@ class ContentHtmlLayout : LinearLayout {
         if (idColor != null) {
             textView.setTextColor(ContextCompat.getColor(context, idColor))
         }
+        setUpOpenUrl(textView, text)
+        return textView
+    }
+
+    private fun setUpOpenUrl(textView: TextView, text: String) {
         val urlList = getUrlListFromString(text)
         if (urlList.size > 0) {
             textView.setOnClickListener {
@@ -220,7 +237,17 @@ class ContentHtmlLayout : LinearLayout {
                     openBrowser(context, urlList[0])
                 }
             }
+        } else {
+            if (text.contains("</a>")) {
+                val html = text.substring(text.indexOf("<a"), text.indexOf("</a>") + "</a>".length)
+                val element = Jsoup.parse(html, "", Parser.xmlParser())
+                val url = element?.select("a")?.attr("href")
+                if (url != null) {
+                    textView.setOnClickListener {
+                        Toast.makeText(context, baseUrlViblo + url, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         }
-        return textView
     }
 }

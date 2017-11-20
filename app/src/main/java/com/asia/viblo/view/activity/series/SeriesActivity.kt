@@ -1,24 +1,42 @@
 package com.asia.viblo.view.activity.series
 
+import android.content.Intent
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.View
 import com.asia.viblo.R
+import com.asia.viblo.model.BaseModel
 import com.asia.viblo.model.baseUrlViblo
+import com.asia.viblo.model.extraData
 import com.asia.viblo.model.extraUrl
+import com.asia.viblo.model.post.Post
 import com.asia.viblo.model.series.SeriesDetail
 import com.asia.viblo.utils.loadAvatar
 import com.asia.viblo.utils.setTags
 import com.asia.viblo.view.activity.BaseActivity
+import com.asia.viblo.view.activity.author.AuthorActivity
+import com.asia.viblo.view.activity.detail.PostDetailActivity
+import com.asia.viblo.view.activity.home.OnClickDetail
 import com.asia.viblo.view.activity.home.OnClickTag
+import com.asia.viblo.view.adapter.PostAdapter
 import com.asia.viblo.view.asyncTask.LoadSeriesAsyncTask
 import kotlinx.android.synthetic.main.activity_series.*
 import kotlinx.android.synthetic.main.include_layout_views_clips_comments.view.*
 
-class SeriesActivity : BaseActivity(), OnUpdateSeriesDetail, OnClickTag {
+class SeriesActivity : BaseActivity(), OnUpdateSeriesDetail, OnClickTag, OnClickDetail {
+    private lateinit var mPostAdapter: PostAdapter
+    private var mPostList = arrayListOf<Post>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_series)
+        initRecyclerContent()
+    }
+
+    private fun initRecyclerContent() {
+        mPostAdapter = PostAdapter(this, mPostList, this, this)
+        recyclerContent.adapter = mPostAdapter
+        recyclerContent.layoutManager = LinearLayoutManager(this)
     }
 
     override fun loadData() {
@@ -30,6 +48,15 @@ class SeriesActivity : BaseActivity(), OnUpdateSeriesDetail, OnClickTag {
     override fun onUpdateSeriesDetail(seriesDetail: SeriesDetail?) {
         mProgressDialog.dismiss()
         updateViews(seriesDetail)
+        updateRecyclerContent(seriesDetail?.seriesList)
+    }
+
+    private fun updateRecyclerContent(seriesList: MutableList<Post>?) {
+        if (seriesList != null) {
+            mPostList.clear()
+            mPostList.addAll(seriesList)
+            mPostAdapter.notifyDataSetChanged()
+        }
     }
 
     private fun updateViews(seriesDetail: SeriesDetail?) {
@@ -66,5 +93,23 @@ class SeriesActivity : BaseActivity(), OnUpdateSeriesDetail, OnClickTag {
     }
 
     override fun onOpenTag(tagUrl: String) {
+    }
+
+    override fun onOpenPostDetail(postUrl: String) {
+        if (postUrl.contains("/s/")) {
+            val intent = Intent(this, SeriesActivity::class.java)
+            intent.putExtra(extraUrl, postUrl)
+            startActivity(intent)
+            return
+        }
+        val intent = Intent(this, PostDetailActivity::class.java)
+        intent.putExtra(extraUrl, postUrl)
+        startActivity(intent)
+    }
+
+    override fun onOpenAuthor(baseModel: BaseModel) {
+        val intent = Intent(this, AuthorActivity::class.java)
+        intent.putExtra(extraData, baseModel)
+        startActivity(intent)
     }
 }

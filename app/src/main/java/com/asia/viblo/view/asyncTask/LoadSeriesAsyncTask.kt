@@ -23,6 +23,18 @@ val cssQuerySeriesStatus = "div.my-05 > header.summary > div.d-flex > div.d-bloc
         " ul.post-right-menu > li.hidden-lg-up > span"
 val cssQuerySeriesData = "div.md-contents"
 val cssQuerySeriesContent = "div > div.card"
+val cssQuerySeriesContentAvatar = "div.card-block > figure.post-author-avatar > a > img"
+val cssQuerySeriesContentName = "div.card-block > div.ml-05 > div.post-header > div.post-meta > a"
+val cssQuerySeriesContentTime = "div.card-block > div.ml-05 > div.post-header > div.post-meta > " +
+        "div.text-muted > span"
+val cssQuerySeriesContentPostUrl = "div.card-block > div.ml-05 > div.post-header >" +
+        " div.post-title-box > h1 > a"
+val cssQuerySeriesContentAuthorUrl = "div.card-block > figure.post-author-avatar"
+val cssQuerySeriesContentScore = "div.card-block > div.ml-05 > div.d-flex > div.points > span"
+val cssQuerySeriesContentStatus = "div.card-block > div.ml-05 > div.d-flex > div.d-flex > div" +
+        ".post-stats"
+val cssQuerySeriesContentTag = "div.card-block > div.ml-05 > div.post-header " +
+        "> div.post-title-box > div.tags > a"
 
 class LoadSeriesAsyncTask(onUpdateSeriesDetail: OnUpdateSeriesDetail) : AsyncTask<String, Void, SeriesDetail>() {
     private val mOnUpdateSeriesDetail: OnUpdateSeriesDetail = onUpdateSeriesDetail
@@ -70,10 +82,55 @@ class LoadSeriesAsyncTask(onUpdateSeriesDetail: OnUpdateSeriesDetail) : AsyncTas
 
     private fun loadContent(seriesDetail: SeriesDetail, element: Elements?) {
         val contentSubject = element?.select(cssQuerySeriesContent)
-        for (content: Element in contentSubject!!) {
-            val post = Post()
-
+        val postList: MutableList<Post> = arrayListOf()
+        try {
+            for (content: Element in contentSubject!!) {
+                val post = Post()
+//                val avatarSubject = element.select(cssQuerySeriesContentAvatar).attr("srcset")!!.split(",")
+                val avatarSubject = element.select(cssQuerySeriesContentAvatar).first()
+                val nameSubject = element.select(cssQuerySeriesContentName).first()
+                val timeSubject = element.select(cssQuerySeriesContentTime).first()
+                val urlSubject = element.select(cssQuerySeriesContentPostUrl).first()
+                val authorsUrlSubject = element.select(cssQuerySeriesContentAuthorUrl).first()
+                val scoreSubject = element.select(cssQuerySeriesContentScore).first()
+                val statusSubject = element.select(cssQuerySeriesContentStatus).first()
+                val tagSubject = element.select(cssQuerySeriesContentTag)
+                if (statusSubject != null) {
+                    val viewSubject = statusSubject.getElementsByTag("span")
+                    viewSubject.map {
+                        if (TextUtils.isEmpty(it.text())) "0" else it.text()
+                    }
+                            .forEachIndexed { index, data ->
+                                when (index) {
+                                    0 -> post.views = data
+                                    1 -> post.clips = data
+                                    2 -> post.comments = data
+                                }
+                            }
+                }
+//                val avatar = avatarSubject[avatarSubject.size - 1]
+//                post.avatar = avatar.substring(0, avatar.length - 3)
+                post.avatar = avatarSubject?.attr("src")!!
+                post.name = nameSubject?.text()!!
+                post.time = timeSubject?.text()!!
+                post.postUrl = urlSubject?.attr("href")!!
+                post.authorUrl = authorsUrlSubject?.getElementsByTag("a")?.first()?.attr("href")!!
+                post.title = urlSubject.text()!!
+                if (scoreSubject != null) {
+                    post.score = scoreSubject.text()
+                }
+                tagSubject
+                        .filterNot { TextUtils.isEmpty(it.text()) }
+                        .forEach {
+                            post.tags.add(it.text())
+                            post.tagUrlList.add(it.attr("href"))
+                        }
+                postList.add(post)
+            }
+        } catch (ex: Exception) {
+            ex.printStackTrace()
         }
+        seriesDetail.seriesList.addAll(postList)
     }
 
     override fun onPostExecute(result: SeriesDetail?) {
