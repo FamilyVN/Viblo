@@ -36,7 +36,7 @@ class ContentHtmlLayout : LinearLayout {
     fun addContentHtml(contentHtml: MutableList<String>) {
         val contentChildList: MutableList<ContentChild> = arrayListOf()
         for (data: String in contentHtml) {
-            Log.d("TAG", "data = " + data)
+//            Log.d("TAG", "data = " + data)
             when {
                 data.contains("<ul>") || data.contains("<ol>") -> {
                     val content = data

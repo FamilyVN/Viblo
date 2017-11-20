@@ -65,7 +65,7 @@
                 android:textSize="@dimen/text_size_14"/>
 
             <TextView
-                android:id="@+id/txtTime"
+                android:id="@+id/txtPublishingDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/txtName"
@@ -78,26 +78,39 @@
                 android:id="@+id/txtTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/txtPublishingDate"
                 android:layout_marginLeft="@dimen/size_15"
                 android:layout_marginRight="@dimen/size_10"
-                android:layout_marginTop="@dimen/size_20"
+                android:layout_marginTop="@dimen/size_10"
                 android:layout_toRightOf="@id/imageAvatar"
                 android:textColor="@color/colorTitle"
                 android:textSize="@dimen/text_size_18"
                 android:textStyle="bold"/>
+
+            <com.asia.viblo.view.custom.FlowLayout
+                android:id="@+id/flowLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtTitle"
+                android:layout_marginLeft="@dimen/size_10"
+                android:layout_marginRight="@dimen/size_10"
+                android:layout_marginTop="@dimen/size_10"
+                android:layout_toRightOf="@id/imageAvatar"/>
         </RelativeLayout>
 
-        <com.asia.viblo.view.custom.FlowLayout
-            android:id="@+id/flowLayout"
+        <include
+            android:id="@+id/layoutStatus"
+            layout="@layout/include_layout_views_clips_comments"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_30"
+            android:layout_marginLeft="@dimen/size_80"
+            android:visibility="gone"/>
+
+        <com.asia.viblo.view.custom.ContentHtmlLayout
+            android:id="@+id/contentHtml"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/size_10"
-            android:layout_marginRight="@dimen/size_10"
-            android:layout_marginTop="@dimen/size_10"/>
-
-        <include
-            layout="@layout/include_layout_views_clips_comments"
-            android:visibility="gone"/>
+            android:layout_margin="@dimen/size_10"/>
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
