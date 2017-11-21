@@ -61,7 +61,6 @@ class ContentHtmlLayout : LinearLayout {
                     contentChildList.add(ContentChild(content, BLOCK_QUOTE))
                 }
                 data.contains("<pre><code") -> {
-                    Log.d("TAG", "data = " + data)
                     val content = data
                             .replace("<span class=\"hljs-string\">", "<font color = '#98c379'>")
                             .replace("<span class=\"hljs-keyword\">", "<font color = '#c678dd'>")
@@ -76,12 +75,13 @@ class ContentHtmlLayout : LinearLayout {
                             .replace("<span class=\"hljs-function\">", "<font color = '#bd4147'>")
                             .replace("<span class=\"hljs-params\">", "<font color = '#bd4147'>")
                             .replace("<span class=\"hljs-number\">", "<font color = '#c98e53'>")
-                            .replace("<span class=\"hljs-selector-pseudo\">", "<font color = '#bd4147'>")
+                            .replace("<span class=\"hljs-selector-pseudo\">", "<font color = '#d19a66'>")
                             .replace("<span class=\"hljs-type\">", "<font color = '#d19a66'>")
                             .replace("<span class=\"hljs-literal\">", "<font color = '#56b6c2'>")
                             .replace("<span class=\"hljs-selector-class\">", "<font color = '#bd4147'>")
-                            .replace("<span class=\"hljs-attribute\">", "<font color = '#bd4147'>")
-                            .replace("<span class=\"hljs-tag\">", "<font color = '#bd4147'>")
+                            .replace("<span class=\"hljs-attribute\">", "<font color = '#98c379'>")
+                            .replace("<span class=\"hljs-selector-attr\">", "<font color = '#d19a66'>")
+                            .replace("<span class=\"hljs-tag\">", "<font color = '#fff'>")
                             .replace("<span class=\"hljs-built_in\">", "<font color = '#e6c07b'>")
                             .replace("</span>", "</font>")
                             .replace("<pre><code>", "")
@@ -130,13 +130,20 @@ class ContentHtmlLayout : LinearLayout {
 
                 }
                 TABLE -> {
-//                    createTable(layoutInflater, contentChild.content)
+                    createTable(layoutInflater, contentChild.content)
                 }
                 CODE_CLASS -> {
                     val contentList = contentChild.content.split("\n").toMutableList()
                     val layout = layoutInflater.inflate(R.layout.item_layout_content_code, this, false)
                     for (content: String in contentList) {
-                        layout.layoutCode.addView(createText(layoutInflater, content, R.color.colorCode))
+                        var text = content
+                        val index = content.split("<font color = ")[0].length
+                        if (index >= 0) {
+                            var space = content.substring(0, index)
+                            space = space.replace(" ", "&#160;")
+                            text = space + content.substring(index, content.length)
+                        }
+                        layout.layoutCode.addView(createText(layoutInflater, text, R.color.colorCode))
                     }
                     addView(layout)
                 }

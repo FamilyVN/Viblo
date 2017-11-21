@@ -55,7 +55,15 @@ abstract class BaseFragment : Fragment(), OnSelectPage, OnUpdateFeedBar {
 
     private fun initSpinner() {
         if (!checkErrorNetwork(context)) return
+        showProgressDialog()
         FeedBarAsyncTask(this).execute(getLink(mPosition))
+    }
+
+    open fun showProgressDialog() {
+        if (mProgressDialog.isShowing) {
+            mProgressDialog.dismiss()
+        }
+        mProgressDialog.show()
     }
 
     open fun loadData(url: String) {
@@ -64,7 +72,7 @@ abstract class BaseFragment : Fragment(), OnSelectPage, OnUpdateFeedBar {
 
     open fun loadData(url: String, page: String) {
         if (!checkErrorNetwork(context)) return
-        mProgressDialog.show()
+        showProgressDialog()
     }
 
     override fun onSelectPage(pageSelected: String) {
@@ -77,6 +85,7 @@ abstract class BaseFragment : Fragment(), OnSelectPage, OnUpdateFeedBar {
     }
 
     override fun onUpdateFeedBar(feedBarList: List<String>?) {
+
     }
 
     open fun getPagePresent(pagePresentStr: String, pageMaxStr: String): String {
