@@ -7,7 +7,10 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.asia.viblo.R
-import com.asia.viblo.model.*
+import com.asia.viblo.model.BaseModel
+import com.asia.viblo.model.baseUrlViblo
+import com.asia.viblo.model.extraData
+import com.asia.viblo.model.extraUrl
 import com.asia.viblo.model.post.PostDetail
 import com.asia.viblo.utils.loadAvatar
 import com.asia.viblo.utils.setTags
@@ -28,8 +31,7 @@ class PostDetailActivity : BaseActivity(), OnClickTag, OnUpdatePostDetail {
     override fun loadData() {
         super.loadData()
         val baseUrl = baseUrlViblo + intent.getStringExtra(extraUrl)
-        val isVideo = intent.getBooleanExtra(extraIsVideo, false)
-        PostDetailAsyncTask(this, isVideo).execute(baseUrl)
+        PostDetailAsyncTask(this).execute(baseUrl)
     }
 
     private fun updateView() {

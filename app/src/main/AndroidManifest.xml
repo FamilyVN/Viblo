@@ -31,7 +31,11 @@
         <activity
             android:name=".view.activity.author.AuthorActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".view.activity.series.SeriesActivity"
+        <activity
+            android:name=".view.activity.series.SeriesActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".view.activity.webview.WebViewActivity"
             android:screenOrientation="portrait"/>
     </application>
 </manifest>
