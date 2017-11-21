@@ -7,10 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.asia.viblo.R
-import com.asia.viblo.model.BaseModel
-import com.asia.viblo.model.baseUrlViblo
-import com.asia.viblo.model.extraData
-import com.asia.viblo.model.extraUrl
+import com.asia.viblo.model.*
 import com.asia.viblo.model.post.PostDetail
 import com.asia.viblo.utils.loadAvatar
 import com.asia.viblo.utils.setTags
@@ -31,12 +28,16 @@ class PostDetailActivity : BaseActivity(), OnClickTag, OnUpdatePostDetail {
     override fun loadData() {
         super.loadData()
         val baseUrl = baseUrlViblo + intent.getStringExtra(extraUrl)
-        PostDetailAsyncTask(this).execute(baseUrl)
+        val isVideo = intent.getBooleanExtra(extraIsVideo, false)
+        PostDetailAsyncTask(this, isVideo).execute(baseUrl)
     }
 
     private fun updateView() {
         if (!TextUtils.isEmpty(mPostDetail.avatar)) {
             loadAvatar(imageAvatar, mPostDetail.avatar)
+            imageAvatar.visibility = View.VISIBLE
+        } else {
+            imageAvatar.visibility = View.GONE
         }
         txtName.text = mPostDetail.name
         relativeHeader?.visibility = if (TextUtils.isEmpty(mPostDetail.name)) View.GONE else View.VISIBLE
@@ -64,7 +65,7 @@ class PostDetailActivity : BaseActivity(), OnClickTag, OnUpdatePostDetail {
             layoutView.comments.visibility = View.VISIBLE
             layoutView.comments.text = mPostDetail.comments
         }
-        layoutView.score.visibility = View.INVISIBLE
+        layoutView.score.visibility = View.GONE
         //
         setTags(flowLayout, mPostDetail.tags, mPostDetail.tagUrlList, this)
         //

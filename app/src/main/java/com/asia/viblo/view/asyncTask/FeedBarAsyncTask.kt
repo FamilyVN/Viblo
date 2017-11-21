@@ -8,9 +8,9 @@ import org.jsoup.Jsoup
 /**
  * Created by FRAMGIA\vu.tuan.anh on 06/11/2017.
  */
-val cssQueryFeedBars = "div#__nuxt > div#app-container > div#main-content > div > div.bg-inverse " +
-        "> div.container > div.feed-bar > div.feedbar-wrapper > ul.feed-links"
-val cssQueryFeedBar = "li.feedbar-item > a"
+private val cssQueryFeedBars = "div#__nuxt > div#app-container > div#main-content > " +
+        "div > div.bg-inverse > div.container > div.feed-bar > div.feedbar-wrapper > ul.feed-links"
+private val cssQueryFeedBar = "li.feedbar-item > a"
 
 @SuppressLint("StaticFieldLeak")
 class FeedBarAsyncTask(onUpdateFeedBar: OnUpdateFeedBar) : AsyncTask<String, Void, List<String>>() {
