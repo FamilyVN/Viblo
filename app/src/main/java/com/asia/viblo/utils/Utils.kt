@@ -16,7 +16,7 @@ import com.asia.viblo.App
 import com.asia.viblo.R
 import com.asia.viblo.view.activity.home.OnClickTag
 import com.asia.viblo.view.custom.FlowLayout
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 import java.util.regex.Pattern
 
 /**
@@ -24,16 +24,14 @@ import java.util.regex.Pattern
  */
 val regex1 = "\\(?\\b(http://|www[.])[-A-Za-z0-9+&amp;@#/%?=~_()|!:,.;]*[-A-Za-z0-9+&amp;@#/%=~_()|]"
 val regex2 = "\\(?\\b(https://|www[.])[-A-Za-z0-9+&amp;@#/%?=~_()|!:,.;]*[-A-Za-z0-9+&amp;@#/%=~_()|]"
-
 fun loadAvatar(imageView: ImageView, url: String) {
-    Picasso.with(imageView.context)
+    Glide.with(imageView.context)
             .load(url)
-            .placeholder(R.drawable.ic_avatar_default)
             .into(imageView)
 }
 
 fun loadImageUrl(imageView: ImageView, url: String) {
-    Picasso.with(imageView.context)
+    Glide.with(imageView.context)
             .load(url)
             .into(imageView)
 }
