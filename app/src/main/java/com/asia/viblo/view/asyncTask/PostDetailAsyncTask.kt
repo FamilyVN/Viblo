@@ -36,9 +36,7 @@ private val cssQueryPostDetailStatusVideo = "div.container > div.row > div.col-x
 private val cssQueryPostDetailData = "div.md-contents"
 
 @SuppressLint("StaticFieldLeak")
-class PostDetailAsyncTask(onUpdatePostDetail: OnUpdatePostDetail, isVideo: Boolean) :
-        AsyncTask<String, Void, PostDetail>() {
-    private val mIsVideo = isVideo
+class PostDetailAsyncTask(onUpdatePostDetail: OnUpdatePostDetail) : AsyncTask<String, Void, PostDetail>() {
     private val mOnUpdatePostDetail = onUpdatePostDetail
     override fun doInBackground(vararg params: String?): PostDetail {
         val postDetail = PostDetail()
@@ -96,23 +94,24 @@ class PostDetailAsyncTask(onUpdatePostDetail: OnUpdatePostDetail, isVideo: Boole
                 else -> cssQueryPostDetailAnnouncement
             }
         } else {
-            cssQuery = if (mIsVideo) {
-                when (typeQuery) {
-                    TypeQuery.BASE -> cssQueryPostDetailVideo
-                    TypeQuery.TITLE -> cssQueryPostDetailTitleVideo
-                    TypeQuery.PUBLISHING_DATE -> cssQueryPostDetailPublishingDateVideo
-                    TypeQuery.STATUS -> cssQueryPostDetailStatusVideo
-                    else -> cssQueryPostDetail
-                }
-            } else {
-                when (typeQuery) {
-                    TypeQuery.BASE -> cssQueryPostDetail
-                    TypeQuery.TITLE -> cssQueryPostDetailTitle
-                    TypeQuery.PUBLISHING_DATE -> cssQueryPostDetailPublishingDate
-                    TypeQuery.STATUS -> cssQueryPostDetailStatus
-                    else -> cssQueryPostDetail
-                }
-            }
+            cssQuery =
+//            if (mIsVideo) {
+//                when (typeQuery) {
+//                    TypeQuery.BASE -> cssQueryPostDetailVideo
+//                    TypeQuery.TITLE -> cssQueryPostDetailTitleVideo
+//                    TypeQuery.PUBLISHING_DATE -> cssQueryPostDetailPublishingDateVideo
+//                    TypeQuery.STATUS -> cssQueryPostDetailStatusVideo
+//                    else -> cssQueryPostDetail
+//                }
+//            } else {
+                    when (typeQuery) {
+                        TypeQuery.BASE -> cssQueryPostDetail
+                        TypeQuery.TITLE -> cssQueryPostDetailTitle
+                        TypeQuery.PUBLISHING_DATE -> cssQueryPostDetailPublishingDate
+                        TypeQuery.STATUS -> cssQueryPostDetailStatus
+                        else -> cssQueryPostDetail
+                    }
+//            }
         }
         return cssQuery
     }

@@ -115,9 +115,7 @@ fun openBrowser(context: Context?, url: String) {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         intent.addCategory(Intent.CATEGORY_BROWSABLE)
         intent.addCategory(Intent.CATEGORY_DEFAULT)
-        val regex1 = url.substring(0, 7)
-        val regex2 = url.substring(0, 8)
-        if (TextUtils.equals(regex1, "http://") || TextUtils.equals(regex2, "https://")) {
+        if (url.indexOf("http://") == 0 || url.indexOf("https://") == 0) {
             intent.data = Uri.parse(url)
         } else {
             intent.data = Uri.parse("https://" + url)
