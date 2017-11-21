@@ -14,16 +14,16 @@ import org.jsoup.nodes.Element
 /**
  * Created by FRAMGIA\vu.tuan.anh on 08/11/2017.
  */
-val cssQueryPageQuestions = "div#__nuxt > div#app-container > div#main-content > div > " +
+private val cssQueryQuestionsPage = "div#__nuxt > div#app-container > div#main-content > div > " +
         "div.container > div.row > div.col-md-9 > div.question-list > ul.pagination"
-val cssQueryQuestions = "div#__nuxt > div#app-container > div#main-content > div > div.container " +
-        "> div.row > div.col-md-9 > div.question-list > div.question-item"
-val cssQueryAvatarQuestions = "div.summary > div.asked-by > a > img"
-val cssQueryNameQuestions = "div.summary > div.asked-by > div.text-small > a"
-val cssQueryTimeQuestions = "div.summary > div.asked-by > div.text-small > span.text-muted"
-val cssQueryTitleQuestions = "div.summary > div.q-title > a > h3"
-val cssQueryStatusQuestions = "div.stats > div > div.question-stats > span.stats-item"
-val cssQueryScoreQuestions = "div.stats > div > div.question-stats > div.points > span.text-muted"
+private val cssQueryQuestions = "div#__nuxt > div#app-container > div#main-content > div > " +
+        "div.container > div.row > div.col-md-9 > div.question-list > div.question-item"
+private val cssQueryQuestionsAvatar = "div.summary > div.asked-by > a > img"
+private val cssQueryQuestionsName = "div.summary > div.asked-by > div.text-small > a"
+private val cssQueryQuestionsTime = "div.summary > div.asked-by > div.text-small > span.text-muted"
+private val cssQueryQuestionsTitle = "div.summary > div.q-title > a > h3"
+private val cssQueryQuestionsStatus = "div.stats > div > div.question-stats > span.stats-item"
+private val cssQueryQuestionsScore = "div.stats > div > div.question-stats > div.points > span.text-muted"
 
 @SuppressLint("StaticFieldLeak")
 class LoadQuestionAsyncTask(onUpdateQuestionData: OnUpdateQuestionData) :
@@ -42,12 +42,12 @@ class LoadQuestionAsyncTask(onUpdateQuestionData: OnUpdateQuestionData) :
 //                        .attr("srcset").split(",")
 //                val avatar = avatarSubject[avatarSubject.size - 1]
 //                question.avatar = avatar.substring(0, avatar.length - 3)
-                val avatarSubject = element.select(cssQueryAvatarQuestions).first()
+                val avatarSubject = element.select(cssQueryQuestionsAvatar).first()
                 question.avatar = avatarSubject?.attr("src")!!
-                question.name = element.select(cssQueryNameQuestions).text()
-                question.time = element.select(cssQueryTimeQuestions).text()
-                question.title = element.select(cssQueryTitleQuestions).text()
-                val questionsStatusSubject = element.select(cssQueryStatusQuestions)
+                question.name = element.select(cssQueryQuestionsName).text()
+                question.time = element.select(cssQueryQuestionsTime).text()
+                question.title = element.select(cssQueryQuestionsTitle).text()
+                val questionsStatusSubject = element.select(cssQueryQuestionsStatus)
                 if (questionsStatusSubject != null) {
                     for ((index, statusSubject) in questionsStatusSubject.withIndex()) {
                         val viewSubject = statusSubject.getElementsByTag("span")
@@ -59,7 +59,7 @@ class LoadQuestionAsyncTask(onUpdateQuestionData: OnUpdateQuestionData) :
                         }
                     }
                 }
-                val scoreSubject = element.select(cssQueryScoreQuestions)
+                val scoreSubject = element.select(cssQueryQuestionsScore)
                 if (scoreSubject.isNotEmpty()) {
                     question.score = scoreSubject.first().text()
                 }
@@ -71,7 +71,7 @@ class LoadQuestionAsyncTask(onUpdateQuestionData: OnUpdateQuestionData) :
         val pageList: MutableList<String> = arrayListOf()
         try {
             val document = Jsoup.connect(baseUrl + page).get()
-            val elements = document?.select(cssQueryPageQuestions)
+            val elements = document?.select(cssQueryQuestionsPage)
             elements!!
                     .map { it.select("li") }
                     .forEach { data ->

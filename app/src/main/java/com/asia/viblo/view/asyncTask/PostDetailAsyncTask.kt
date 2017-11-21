@@ -10,25 +10,35 @@ import org.jsoup.Jsoup
 /**
  * Created by FRAMGIA\vu.tuan.anh on 01/11/2017.
  */
-val cssQueryDetail = "div#__nuxt > div#app-container > div#main-content > div > div > div" +
-        ".container > div.row > div.col-xl-9 > div.post-content-wrapper"
-val cssQueryDetailAnnouncement = "div#__nuxt > div#app-container > div#main-content >" +
+private val cssQueryPostDetail = "div#__nuxt > div#app-container > div#main-content > div > div > " +
+        "div.container > div.row > div.col-xl-9 > div.post-content-wrapper"
+private val cssQueryPostDetailVideo = "div#__nuxt > div#app-container > div#main-content > " +
+        "div > div > div"
+private val cssQueryPostDetailAnnouncement = "div#__nuxt > div#app-container > div#main-content >" +
         " div.container > div.row > div.col-lg-9 > div.support-article"
-private val cssQueryAvatar = "div.post-meta > div.content-author > a > img"
-private val cssQueryHeader = "div.post-meta > div.content-author > div.mw-0"
-private val cssQueryName = "div.text-bold > div.overflow-hidden > a"
-private val cssQueryTime = "div.text-muted > span"
-private val cssQueryTitle = "div.post-meta > h1"
-private val cssQueryTitleAnnouncement = "h1"
-val cssQueryPublishingDate = "div.post-meta > div.d-flex > div.meta-d1 > div.publishing-date"
-val cssQueryDetailTagDefault = "div.post-meta > div.tags > a"
-val cssQueryDetailTag = "div#__nuxt > div#app-container > div#main-content > div > div > div > " +
-        "div.container > div.row > div.col-xl-9 > div.tags > a"
-val cssQueryDetailStatus = "div.post-meta > div.d-flex > div.meta-d2 > div.post-stats > span"
-val cssQueryDetailData = "div.md-contents"
+private val cssQueryPostDetailAvatar = "div.post-meta > div.content-author > a > img"
+private val cssQueryPostDetailHeader = "div.post-meta > div.content-author > div.mw-0"
+private val cssQueryPostDetailName = "div.text-bold > div.overflow-hidden > a"
+private val cssQueryPostDetailTime = "div.text-muted > span"
+private val cssQueryPostDetailTitle = "div.post-meta > h1"
+private val cssQueryPostDetailTitleVideo = "div.container > div.row > div.col-12 > h1"
+private val cssQueryPostDetailTitleAnnouncement = "h1"
+private val cssQueryPostDetailPublishingDate = "div.post-meta > div.d-flex > div.meta-d1 > " +
+        "div.publishing-date"
+private val cssQueryPostDetailPublishingDateVideo = "div.container > div.row > div.col-xl-9 > " +
+        "div.d-flex > div.meta-d1 > div.publishing-date"
+private val cssQueryPostDetailTagDefault = "div.post-meta > div.tags > a"
+private val cssQueryPostDetailTag = "div#__nuxt > div#app-container > div#main-content > div > " +
+        "div > div > div.container > div.row > div.col-xl-9 > div.tags > a"
+private val cssQueryPostDetailStatus = "div.post-meta > div.d-flex > div.meta-d2 > div.post-stats > span"
+private val cssQueryPostDetailStatusVideo = "div.container > div.row > div.col-xl-9 > " +
+        "div.d-flex > div.meta-d2 > div.post-stats > span"
+private val cssQueryPostDetailData = "div.md-contents"
 
 @SuppressLint("StaticFieldLeak")
-class PostDetailAsyncTask(onUpdatePostDetail: OnUpdatePostDetail) : AsyncTask<String, Void, PostDetail>() {
+class PostDetailAsyncTask(onUpdatePostDetail: OnUpdatePostDetail, isVideo: Boolean) :
+        AsyncTask<String, Void, PostDetail>() {
+    private val mIsVideo = isVideo
     private val mOnUpdatePostDetail = onUpdatePostDetail
     override fun doInBackground(vararg params: String?): PostDetail {
         val postDetail = PostDetail()
@@ -37,16 +47,16 @@ class PostDetailAsyncTask(onUpdatePostDetail: OnUpdatePostDetail) : AsyncTask<St
             val document = Jsoup.connect(baseUrl).get()
             val body = document.body()
             val element = body.select(getCssQuery(baseUrl, TypeQuery.BASE))
-            postDetail.avatar = element.select(cssQueryAvatar).attr("src")
-            val elementHeader = element.select(cssQueryHeader)
-            postDetail.name = elementHeader.select(cssQueryName).text()
-            postDetail.time = elementHeader.select(cssQueryTime).text()
+            postDetail.avatar = element.select(cssQueryPostDetailAvatar).attr("src")
+            val elementHeader = element.select(cssQueryPostDetailHeader)
+            postDetail.name = elementHeader.select(cssQueryPostDetailName).text()
+            postDetail.time = elementHeader.select(cssQueryPostDetailTime).text()
             postDetail.title = element.select(getCssQuery(baseUrl, TypeQuery.TITLE)).text()
-            postDetail.publishingDate = element.select(cssQueryPublishingDate).text()
+            postDetail.publishingDate = element.select(getCssQuery(baseUrl, TypeQuery.PUBLISHING_DATE)).text()
             val tagSubject = if (TextUtils.isEmpty(postDetail.name)) {
-                body.select(cssQueryDetailTag)
+                body.select(cssQueryPostDetailTag)
             } else {
-                element.select(cssQueryDetailTagDefault)
+                element.select(cssQueryPostDetailTagDefault)
             }
             tagSubject
                     .filterNot { TextUtils.isEmpty(it.text()) }
@@ -55,7 +65,7 @@ class PostDetailAsyncTask(onUpdatePostDetail: OnUpdatePostDetail) : AsyncTask<St
                         postDetail.tagUrlList.add(it.attr("href"))
                     }
             // status
-            val statusSubject = element.select(cssQueryDetailStatus)
+            val statusSubject = element.select(getCssQuery(baseUrl, TypeQuery.STATUS))
             statusSubject?.map { it.text() }?.forEachIndexed { index, data ->
                 when (index) {
                     0 -> postDetail.views = data
@@ -63,7 +73,8 @@ class PostDetailAsyncTask(onUpdatePostDetail: OnUpdatePostDetail) : AsyncTask<St
                     2 -> postDetail.comments = data
                 }
             }
-            val dataSubject = element.select(cssQueryDetailData)
+            // body
+            val dataSubject = element.select(cssQueryPostDetailData)
             dataSubject?.mapNotNull { it.childNodes() }?.flatMap { it }?.forEach { postDetail.data.add(it.outerHtml()) }
         } catch (ex: Exception) {
             ex.printStackTrace()
@@ -80,15 +91,27 @@ class PostDetailAsyncTask(onUpdatePostDetail: OnUpdatePostDetail) : AsyncTask<St
         val cssQuery: String
         if (baseUrl?.contains("/announcements/")!!) {
             cssQuery = when (typeQuery) {
-                TypeQuery.BASE -> cssQueryDetailAnnouncement
-                TypeQuery.TITLE -> cssQueryTitleAnnouncement
-                else -> cssQueryDetailAnnouncement
+                TypeQuery.BASE -> cssQueryPostDetailAnnouncement
+                TypeQuery.TITLE -> cssQueryPostDetailTitleAnnouncement
+                else -> cssQueryPostDetailAnnouncement
             }
         } else {
-            cssQuery = when (typeQuery) {
-                TypeQuery.BASE -> cssQueryDetail
-                TypeQuery.TITLE -> cssQueryTitle
-                else -> cssQueryDetail
+            cssQuery = if (mIsVideo) {
+                when (typeQuery) {
+                    TypeQuery.BASE -> cssQueryPostDetailVideo
+                    TypeQuery.TITLE -> cssQueryPostDetailTitleVideo
+                    TypeQuery.PUBLISHING_DATE -> cssQueryPostDetailPublishingDateVideo
+                    TypeQuery.STATUS -> cssQueryPostDetailStatusVideo
+                    else -> cssQueryPostDetail
+                }
+            } else {
+                when (typeQuery) {
+                    TypeQuery.BASE -> cssQueryPostDetail
+                    TypeQuery.TITLE -> cssQueryPostDetailTitle
+                    TypeQuery.PUBLISHING_DATE -> cssQueryPostDetailPublishingDate
+                    TypeQuery.STATUS -> cssQueryPostDetailStatus
+                    else -> cssQueryPostDetail
+                }
             }
         }
         return cssQuery

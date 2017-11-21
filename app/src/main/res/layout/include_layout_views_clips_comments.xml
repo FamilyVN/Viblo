@@ -59,7 +59,6 @@
             android:id="@+id/score"
             style="@style/TextPost"
             android:layout_alignParentEnd="true"
-            android:drawableLeft="@drawable/ic_score"
-            android:drawablePadding="@dimen/size_negative_2"/>
+            android:drawableLeft="@drawable/ic_up_down"/>
     </RelativeLayout>
 </layout>

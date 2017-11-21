@@ -11,5 +11,7 @@ enum class TypeQuery {
     TIME,
     URL,
     TAG,
-    TITLE
+    TITLE,
+    PUBLISHING_DATE,
+    STATUS
 }

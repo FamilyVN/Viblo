@@ -17,31 +17,34 @@ import org.jsoup.nodes.Element
  * Created by FRAMGIA\vu.tuan.anh on 30/10/2017.
  */
 // cssQuery Post
-val cssQueryFeaturedArticles = "div#__nuxt > div#app-container > div#main-content > div >" +
-        " div.container > div.row > div.col-lg-9 > div > div.card"
-val cssQueryFeaturedSeries = "div#__nuxt > div#app-container > div#main-content > div >" +
-        " div.container > div.row > div.col-lg-9 > div > div > div.card"
-val cssQueryAvatarPost = "div.card-block > figure.post-author-avatar > a > img"
-val cssQueryAvatarPostSeries = "div.card-block > a > img"
-val cssQueryPostName = "div.card-block > div.ml-05 > div.post-header > div.post-meta > a"
-val cssQueryPostNameSeries = "div.card-block > div.ml-05 > div.series-header > div.series-meta > a"
-val cssQueryPostTime = "div.card-block > div.ml-05 > div.post-header > div.post-meta > " +
+private val cssQueryFeaturedArticles = "div#__nuxt > div#app-container > div#main-content > " +
+        "div > div.container > div.row > div.col-lg-9 > div > div.card"
+private val cssQueryFeaturedSeries = "div#__nuxt > div#app-container > div#main-content > div > " +
+        "div.container > div.row > div.col-lg-9 > div > div > div.card"
+private val cssQueryAvatarPost = "div.card-block > figure.post-author-avatar > a > img"
+private val cssQueryAvatarPostSeries = "div.card-block > a > img"
+private val cssQueryPostName = "div.card-block > div.ml-05 > div.post-header > div.post-meta > a"
+private val cssQueryPostNameSeries = "div.card-block > div.ml-05 > div.series-header > " +
+        "div.series-meta > a"
+private val cssQueryPostTime = "div.card-block > div.ml-05 > div.post-header > div.post-meta > " +
         "div.text-muted > span"
-val cssQueryPostTimeSeries = "div.card-block > div.ml-05 > div.series-header > div.series-meta > " +
-        "div.text-muted > span"
-val cssQueryPostUrl = "div.card-block > div.ml-05 > div.post-header > div.post-title-box > " +
+private val cssQueryPostTimeSeries = "div.card-block > div.ml-05 > div.series-header > " +
+        "div.series-meta > div.text-muted > span"
+private val cssQueryPostUrl = "div.card-block > div.ml-05 > div.post-header > div.post-title-box > " +
         "h1.post-title-header > a"
-val cssQueryPostUrlSeries = "div.card-block > div.ml-05 > div.series-header > " +
+private val cssQueryPostUrlSeries = "div.card-block > div.ml-05 > div.series-header > " +
         "div.series-title-box > h1.series-title-header > a"
-val cssQueryScore = "div.card-block > div.ml-05 > div.d-flex > div.points > span"
-val cssQueryPostStatus = "div.card-block > div.ml-05 > div.d-flex"
-val cssQueryPage = "div#__nuxt > div#app-container > div#main-content > div > div.container " +
-        "> div.row > div.col-lg-9 > div > ul.pagination"
-val cssQueryPostPageSeries = "div#__nuxt > div#app-container > div#main-content > div > " +
+private val cssQueryScore = "div.card-block > div.ml-05 > div.d-flex > div.points > span"
+private val cssQueryPostStatus = "div.card-block > div.ml-05 > div.d-flex"
+private val cssQueryPage = "div#__nuxt > div#app-container > div#main-content > div > " +
         "div.container > div.row > div.col-lg-9 > div > ul.pagination"
-val cssQueryPostAuthorUrl = "div.card-block"
-val cssQueryPostTag = "div.card-block > div.ml-05 > div.post-header > div.post-title-box > div.tags > a"
-val cssQueryPostSeriesTag = "div.card-block > div.ml-05 > div.series-header > div.series-title-box > div.tags > a"
+private val cssQueryPostPageSeries = "div#__nuxt > div#app-container > div#main-content > div > " +
+        "div.container > div.row > div.col-lg-9 > div > ul.pagination"
+private val cssQueryPostAuthorUrl = "div.card-block"
+private val cssQueryPostTag = "div.card-block > div.ml-05 > div.post-header > " +
+        "div.post-title-box > div.tags > a"
+private val cssQueryPostSeriesTag = "div.card-block > div.ml-05 > div.series-header > " +
+        "div.series-title-box > div.tags > a"
 
 @SuppressLint("StaticFieldLeak")
 class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) :

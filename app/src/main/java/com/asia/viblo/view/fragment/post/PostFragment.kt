@@ -28,6 +28,7 @@ import kotlinx.android.synthetic.main.include_layout_next_back_page.*
 
 class PostFragment : BaseFragment(), OnClickDetail, OnUpdatePostData, OnClickTag {
     private val mPostList: MutableList<Post> = arrayListOf()
+    private var mIsVideo = false
     private lateinit var mPostAdapter: PostAdapter
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -35,6 +36,7 @@ class PostFragment : BaseFragment(), OnClickDetail, OnUpdatePostData, OnClickTag
     }
 
     override fun getLink(type: Int): String {
+        mIsVideo = type == 4
         return when (type) {
             0 -> baseUrlViblo
             1 -> baseUrlSeries
@@ -83,6 +85,7 @@ class PostFragment : BaseFragment(), OnClickDetail, OnUpdatePostData, OnClickTag
         }
         val intent = Intent(context, PostDetailActivity::class.java)
         intent.putExtra(extraUrl, postUrl)
+        intent.putExtra(extraIsVideo, mIsVideo)
         startActivity(intent)
     }
 

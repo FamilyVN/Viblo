@@ -29,21 +29,24 @@
                 app:civ_border_width="@dimen/size_1"/>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/size_60"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/imageAvatar"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/imageUpVote"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_arrow_up"/>
+                    android:src="@drawable/ic_up"/>
 
                 <TextView
                     android:id="@+id/txtScore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/size_5"
+                    android:layout_marginTop="@dimen/size_5"
                     android:textColor="@color/color155"
                     android:textSize="@dimen/text_size_14"/>
 
@@ -51,7 +54,7 @@
                     android:id="@+id/imageDownVote"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_arrow_down"/>
+                    android:src="@drawable/ic_down"/>
             </LinearLayout>
 
             <TextView
@@ -59,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="@dimen/size_15"
+                android:layout_marginStart="@dimen/size_10"
                 android:layout_marginTop="@dimen/size_5"
                 android:layout_toEndOf="@+id/imageAvatar"
                 android:textColor="@color/colorName"
@@ -67,7 +70,7 @@
 
             <TextView
                 android:id="@+id/txtPublishingDate"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/txtName"
                 android:layout_below="@+id/txtName"
@@ -80,8 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txtPublishingDate"
-                android:layout_marginLeft="@dimen/size_15"
-                android:layout_marginRight="@dimen/size_10"
+                android:layout_marginLeft="@dimen/size_10"
                 android:layout_marginTop="@dimen/size_10"
                 android:layout_toRightOf="@id/imageAvatar"
                 android:textColor="@color/colorTitle"
@@ -94,7 +96,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txtTitle"
                 android:layout_marginLeft="@dimen/size_10"
-                android:layout_marginRight="@dimen/size_10"
                 android:layout_marginTop="@dimen/size_10"
                 android:layout_toRightOf="@id/imageAvatar"/>
         </RelativeLayout>
@@ -105,6 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_30"
             android:layout_marginLeft="@dimen/size_80"
+            android:layout_marginRight="@dimen/size_80"
             android:visibility="gone"/>
 
         <com.asia.viblo.view.custom.ContentHtmlLayout

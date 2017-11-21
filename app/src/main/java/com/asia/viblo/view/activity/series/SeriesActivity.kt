@@ -87,6 +87,7 @@ class SeriesActivity : BaseActivity(), OnUpdateSeriesDetail, OnClickTag, OnClick
             layoutStatus.posts.visibility = View.VISIBLE
             layoutStatus.posts.text = seriesDetail?.posts
         }
+        txtScore.text = seriesDetail?.score
         layoutStatus.score.visibility = View.GONE
         layoutStatus.comments.visibility = View.GONE
         contentHtml.addContentHtml(seriesDetail?.data!!)
