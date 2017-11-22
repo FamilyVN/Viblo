@@ -20,7 +20,7 @@ import com.asia.viblo.view.activity.detail.PostDetailActivity
 import com.asia.viblo.view.activity.home.OnClickDetail
 import com.asia.viblo.view.activity.home.OnClickTag
 import com.asia.viblo.view.adapter.PostAdapter
-import com.asia.viblo.view.asyncTask.LoadSeriesAsyncTask
+import com.asia.viblo.view.asyncTask.series.LoadSeriesAsyncTask
 import kotlinx.android.synthetic.main.activity_series.*
 import kotlinx.android.synthetic.main.include_layout_views_clips_comments.view.*
 

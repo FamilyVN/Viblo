@@ -1,4 +1,4 @@
-package com.asia.viblo.view.asyncTask
+package com.asia.viblo.view.asyncTask.post
 
 import android.annotation.SuppressLint
 import android.os.AsyncTask
@@ -9,6 +9,7 @@ import com.asia.viblo.model.keyMaxPage
 import com.asia.viblo.model.keyPagePresent
 import com.asia.viblo.model.post.Post
 import com.asia.viblo.utils.SharedPrefs
+import com.asia.viblo.view.asyncTask.TypeQuery
 import com.asia.viblo.view.fragment.post.OnUpdatePostData
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element

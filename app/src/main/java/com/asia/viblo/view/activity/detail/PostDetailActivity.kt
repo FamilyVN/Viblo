@@ -17,7 +17,7 @@ import com.asia.viblo.utils.setTags
 import com.asia.viblo.view.activity.BaseActivity
 import com.asia.viblo.view.activity.author.AuthorActivity
 import com.asia.viblo.view.activity.home.OnClickTag
-import com.asia.viblo.view.asyncTask.PostDetailAsyncTask
+import com.asia.viblo.view.asyncTask.postdetail.PostDetailAsyncTask
 import kotlinx.android.synthetic.main.activity_post_detail.*
 import kotlinx.android.synthetic.main.include_layout_views_clips_comments.view.*
 

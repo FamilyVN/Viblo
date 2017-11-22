@@ -1,6 +1,7 @@
 package com.asia.viblo.view.fragment.author
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,11 +9,14 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.asia.viblo.R
 import com.asia.viblo.model.BaseModel
+import com.asia.viblo.model.author.AuthorDetail
 import com.asia.viblo.model.baseUrlViblo
+import com.asia.viblo.utils.showProgressDialog
+import com.asia.viblo.view.asyncTask.author.LoadAuthorAsyncTask
 import com.asia.viblo.view.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_author.*
 
-class AuthorFragment : BaseFragment() {
+class AuthorFragment : BaseFragment(), OnUpdateAuthorData {
     private lateinit var mBaseModel: BaseModel
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -20,21 +24,37 @@ class AuthorFragment : BaseFragment() {
     }
 
     override fun getLink(type: Int): String {
-        return baseUrlViblo + when (type) {
+        return baseUrlViblo + mBaseModel.authorUrl + when (type) {
             1 -> "/series"
+            2 -> "/questions"
+            3 -> "/clips/posts"
+            4 -> "/following"
+            5 -> "/followers"
+            6 -> "/following-tags"
             else -> ""
         }
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         if (arguments != null) {
             mBaseModel = arguments.getSerializable(PARAM_AUTHOR) as BaseModel
-            initViews()
+            mProgressDialog = showProgressDialog(context)
+            initListener()
+            initSpinner(mBaseModel.authorUrl)
         }
     }
 
-    private fun initViews() {
+    override fun loadData(url: String, page: String) {
+        super.loadData(url, page)
+        if (TextUtils.isEmpty(page)) {
+            LoadAuthorAsyncTask(this).execute(url)
+        } else {
+            LoadAuthorAsyncTask(this).execute(url, page)
+        }
+    }
+
+    override fun onUpdateAuthorData(authorDetail: AuthorDetail?) {
+        mProgressDialog.dismiss()
     }
 
     override fun onUpdateFeedBar(feedBarList: List<String>?) {
