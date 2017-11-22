@@ -13,12 +13,13 @@
         android:visibility="invisible"/>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerAuthor"
+        android:id="@+id/recyclerContent"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
     <include
         android:id="@+id/viewNextBack"
-        layout="@layout/include_layout_next_back_page"/>
+        layout="@layout/include_layout_next_back_page"
+        android:visibility="gone"/>
 </LinearLayout>

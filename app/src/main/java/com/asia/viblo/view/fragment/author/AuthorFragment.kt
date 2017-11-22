@@ -1,6 +1,7 @@
 package com.asia.viblo.view.fragment.author
 
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -11,13 +12,19 @@ import com.asia.viblo.R
 import com.asia.viblo.model.BaseModel
 import com.asia.viblo.model.author.AuthorDetail
 import com.asia.viblo.model.baseUrlViblo
+import com.asia.viblo.model.post.Post
 import com.asia.viblo.utils.showProgressDialog
+import com.asia.viblo.view.activity.home.OnClickDetail
+import com.asia.viblo.view.activity.home.OnClickTag
+import com.asia.viblo.view.adapter.PostAdapter
 import com.asia.viblo.view.asyncTask.author.LoadAuthorAsyncTask
 import com.asia.viblo.view.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_author.*
 
-class AuthorFragment : BaseFragment(), OnUpdateAuthorData {
+class AuthorFragment : BaseFragment(), OnUpdateAuthorData, OnClickTag, OnClickDetail {
     private lateinit var mBaseModel: BaseModel
+    private val mPostList: MutableList<Post> = arrayListOf()
+    private lateinit var mPostAdapter: PostAdapter
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater!!.inflate(R.layout.fragment_author, container, false)
@@ -41,7 +48,14 @@ class AuthorFragment : BaseFragment(), OnUpdateAuthorData {
             mProgressDialog = showProgressDialog(context)
             initListener()
             initSpinner(mBaseModel.authorUrl)
+            initRecyclerContent()
         }
+    }
+
+    private fun initRecyclerContent() {
+        mPostAdapter = PostAdapter(context, mPostList, this, this)
+        recyclerContent.adapter = mPostAdapter
+        recyclerContent.layoutManager = LinearLayoutManager(context)
     }
 
     override fun loadData(url: String, page: String) {
@@ -53,8 +67,22 @@ class AuthorFragment : BaseFragment(), OnUpdateAuthorData {
         }
     }
 
+    override fun onOpenPostDetail(postUrl: String) {
+    }
+
+    override fun onOpenAuthor(baseModel: BaseModel) {
+    }
+
+    override fun onOpenTag(tagUrl: String) {
+    }
+
     override fun onUpdateAuthorData(authorDetail: AuthorDetail?) {
         mProgressDialog.dismiss()
+        if (authorDetail != null) {
+            mPostList.clear()
+            mPostList.addAll(authorDetail.postList)
+            mPostAdapter.notifyDataSetChanged()
+        }
     }
 
     override fun onUpdateFeedBar(feedBarList: List<String>?) {
