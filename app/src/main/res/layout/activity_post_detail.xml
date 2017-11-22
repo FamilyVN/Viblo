@@ -5,6 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fadeScrollbars="true"
+    android:scrollbarStyle="outsideOverlay"
+    android:scrollbars="vertical"
     tools:context="com.asia.viblo.view.activity.detail.PostDetailActivity">
 
     <LinearLayout
@@ -57,7 +60,7 @@
             android:layout_marginRight="@dimen/size_10"
             android:layout_marginTop="@dimen/size_20"
             android:textColor="@color/colorTitle"
-            android:textSize="@dimen/text_size_18"
+            android:textSize="@dimen/text_size_22"
             android:textStyle="bold"/>
 
         <com.asia.viblo.view.custom.FlowLayout

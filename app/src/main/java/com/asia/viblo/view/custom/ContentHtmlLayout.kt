@@ -1,6 +1,7 @@
 package com.asia.viblo.view.custom
 
 import android.content.Context
+import android.graphics.Typeface
 import android.os.Build
 import android.support.v4.content.ContextCompat
 import android.text.Html
@@ -36,16 +37,27 @@ class ContentHtmlLayout : LinearLayout {
     }
 
     fun addContentHtml(contentHtml: MutableList<String>) {
+        val contentChildList = setupContentChild(contentHtml)
+        createView(contentChildList)
+    }
+
+    private fun setupContentChild(contentHtml: MutableList<String>): MutableList<ContentChild> {
         val contentChildList: MutableList<ContentChild> = arrayListOf()
         for (data: String in contentHtml) {
-//            Log.d("TAG", "data = " + data)
             when {
                 data.contains("<ul>") || data.contains("<ol>") -> {
                     val content = data
-                            .replace("<li>", "<p>&#160;&#160;●&#160;&#160;")
-                            .replace("</li>", "</p>")
+                            .replace("<li><p>", "<li>")
+                            .replace("<li>", "<li>&#160;&#160;●&#160;&#160;")
+                            .replace("</p></li>", "</li>")
+                            .replace("</li>", "</li>")
                             .replace("<code>", "<font color = '#bd4147'>")
                             .replace("</code>", "</font>")
+                            .replace("<ul>", "")
+                            .replace("</ul>", "")
+                            .replace("<ol>", "")
+                            .replace("</ol>", "")
+                            .trim()
                     contentChildList.add(ContentChild(content))
                 }
                 data.contains("<img class=\"block-image\" src=") -> {
@@ -67,25 +79,28 @@ class ContentHtmlLayout : LinearLayout {
                             .replace("<span class=\"hljs-name\">", "<font color = '#c7504a'>")
                             .replace("<span class=\"hljs-attr\">", "<font color = '#cf9153'>")
                             .replace("<span class=\"hljs-class\">", "<font color = '#d19a66'>")
-                            .replace("<span class=\"hljs-title\">", "<font color = '#3683e0'>")//
+                            .replace("<span class=\"hljs-title\">", "<font color = '#e6c07b'>")//
                             .replace("<span class=\"hljs-meta\">", "<font color = '#61aeee'>")
                             .replace("<span class=\"hljs-selector-tag\">", "<font color = '#bd4147'>")
                             .replace("<span class=\"hljs-doctag\">", "<font color = '#bd4147'>")
-                            .replace("<span class=\"hljs-comment\">", "<font color = '#5c6370'>")
-                            .replace("<span class=\"hljs-function\">", "<font color = '#bd4147'>")
-                            .replace("<span class=\"hljs-params\">", "<font color = '#bd4147'>")
+                            .replace("<span class=\"hljs-function\">", "")
+                            .replace("<span class=\"hljs-params\">", "<font color = '#abb2bf'>")
                             .replace("<span class=\"hljs-number\">", "<font color = '#c98e53'>")
                             .replace("<span class=\"hljs-selector-pseudo\">", "<font color = '#d19a66'>")
                             .replace("<span class=\"hljs-type\">", "<font color = '#d19a66'>")
                             .replace("<span class=\"hljs-literal\">", "<font color = '#56b6c2'>")
-                            .replace("<span class=\"hljs-selector-class\">", "<font color = '#bd4147'>")
+                            .replace("<span class=\"hljs-selector-class\">", "<font color = '#d19a66'>")
                             .replace("<span class=\"hljs-attribute\">", "<font color = '#98c379'>")
                             .replace("<span class=\"hljs-selector-attr\">", "<font color = '#d19a66'>")
-                            .replace("<span class=\"hljs-tag\">", "<font color = '#fff'>")
+                            .replace("<span class=\"hljs-tag\">", "<font color = '#abb2bf'>")
                             .replace("<span class=\"hljs-built_in\">", "<font color = '#e6c07b'>")
+                            .replace("<code class=\"hljs language-javascript\">", "")
+                            .replace("<span class=\"xml\">", "")
                             .replace("</span>", "</font>")
                             .replace("<pre><code>", "")
                             .replace("</code></pre>", "")
+                            .replace("<pre>", "")
+                            .replace("</pre>", "")
                     contentChildList.add(ContentChild(content, CODE_CLASS))
                 }
                 data.contains("<code>") -> {
@@ -101,33 +116,67 @@ class ContentHtmlLayout : LinearLayout {
                 }
             }
         }
+        return contentChildList
+    }
+
+    private fun createView(contentChildList: MutableList<ContentChild>) {
         val layoutInflater = LayoutInflater.from(context)
         for (contentChild: ContentChild in contentChildList) {
-//            Log.d("TAG", "content = " + contentChild.content)
             when (contentChild.typeContent) {
                 TEXT, CODE, IMAGE -> {
                     val listBr = contentChild.content.split("<br>")
                     for (text: String in listBr) {
-                        if (text.contains("<img ")) {
-                            val list = text.split("\"")
-                            for (sub: String in list) {
-                                val urlList = getUrlListFromString(sub)
-                                for (url in urlList) {
-                                    addView(createImage(layoutInflater, url))
+                        when {
+                            text.contains("<img ") -> {
+                                val list = text.split("\"")
+                                for (sub: String in list) {
+                                    val urlList = getUrlListFromString(sub)
+                                    for (url in urlList) {
+                                        addView(createImage(layoutInflater, url))
+                                    }
                                 }
                             }
-                        } else {
-                            if (text.contains("<code>")) {
+                            text.contains("<code>") -> {
                                 val content = text
                                         .replace("<code>", "<font color = '#bd4147'>")
                                         .replace("</code>", "</font>")
                                 addView(createText(layoutInflater, content))
-                            } else {
-                                addView(createText(layoutInflater, text))
+                            }
+                            text.contains("<li>") -> {
+                                val listLi = text.split("</li>")
+                                for (li: String in listLi) {
+                                    if (!TextUtils.isEmpty(li)) {
+                                        addView(createText(layoutInflater, li))
+                                    }
+                                }
+                            }
+                            text.contains("<h1>")
+                                    || text.contains("<h2>")
+                                    || text.contains("<h3>")
+                                    || text.contains("<h4>") -> {
+                                val child = text
+                                        .replace("<h1>", "")
+                                        .replace("</h1>", "")
+                                        .replace("<h2>", "")
+                                        .replace("</h2>", "")
+                                        .replace("<h3>", "")
+                                        .replace("</h3>", "")
+                                        .replace("<h4>", "")
+                                        .replace("</h4>", "")
+                                val textView = createText(layoutInflater, child)
+                                textView.textSize =
+                                        resources.getDimension(R.dimen.text_size_8)
+                                textView.typeface = Typeface.DEFAULT_BOLD
+                                addView(textView)
+                            }
+                            else -> {
+                                val child = text
+                                        .replace("<p>", "")
+                                        .replace("</p>", "")
+                                addView(createText(layoutInflater, child))
                             }
                         }
                     }
-
                 }
                 TABLE -> {
                     createTable(layoutInflater, contentChild.content)
@@ -137,13 +186,31 @@ class ContentHtmlLayout : LinearLayout {
                     val layout = layoutInflater.inflate(R.layout.item_layout_content_code, this, false)
                     for (content: String in contentList) {
                         var text = content
-                        val index = content.split("<font color = ")[0].length
-                        if (index >= 0) {
-                            var space = content.substring(0, index)
-                            space = space.replace(" ", "&#160;")
-                            text = space + content.substring(index, content.length)
+                        if (content.contains("<span class=\"hljs-comment\">")) {
+                            text = text
+                                    .replace("<span class=\"hljs-comment\">"
+                                            , ("<font color = '#5c6370'>"))
+//                                    .replace("/*", "/*●\n")
+//                                    .replace("//", "\n//")
+//                                    .replace("{ ", "{ ●\n")
+//                                    .replace("; ", "; ●\n")
+//                                    .replace("} ", "} ●\n")
+//                                    .replace("*/", "*/●")
+//                            Log.d("TAG", "text = " + text)
+                            // todo 22/11/2017 fix later
                         }
-                        layout.layoutCode.addView(createText(layoutInflater, text, R.color.colorCode))
+                        text = changeSpaceString(text)
+                        val childList = text.split("\n").toMutableList()
+                        for (child: String in childList) {
+                            var childText = if (child.contains("●")) {
+                                "<font color = '#5c6370'>&#160;&#160;&#160;"
+                            } else {
+                                "&#160;"
+                            } + child.replace("●", "&#160;")
+                            childText = changeSpaceString(childText)
+                            Log.d("TAG", "childText = " + childText)
+                            layout.layoutCode.addView(createText(layoutInflater, childText, R.color.colorNote))
+                        }
                     }
                     addView(layout)
                 }
@@ -153,11 +220,22 @@ class ContentHtmlLayout : LinearLayout {
                     layout.txtContent.setText(if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
                         Html.fromHtml(contentChild.content, Html.FROM_HTML_MODE_COMPACT) else
                         Html.fromHtml(contentChild.content), TextView.BufferType.SPANNABLE)
-                    setUpOpenUrl(layout.txtContent, contentChild.content)
+                    setupOpenUrl(layout.txtContent, contentChild.content)
                     addView(layout)
                 }
             }
         }
+    }
+
+    private fun changeSpaceString(text: String): String {
+        var string = text
+        val index = text.split("<font color = ")[0].length
+        if (index >= 0) {
+            var space = text.substring(0, index)
+            space = space.replace(" ", "&#160;")
+            string = space + text.substring(index, text.length)
+        }
+        return string
     }
 
     private fun createTable(layoutInflater: LayoutInflater, data: String) {
@@ -230,11 +308,11 @@ class ContentHtmlLayout : LinearLayout {
         if (idColor != null) {
             textView.setTextColor(ContextCompat.getColor(context, idColor))
         }
-        setUpOpenUrl(textView, text)
+        setupOpenUrl(textView, text)
         return textView
     }
 
-    private fun setUpOpenUrl(textView: TextView, text: String) {
+    private fun setupOpenUrl(textView: TextView, text: String) {
         val urlList = getUrlListFromString(text)
         if (urlList.size > 0) {
             textView.setOnClickListener {
