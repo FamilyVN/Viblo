@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
+import android.text.TextUtils
 import android.view.View
 import android.widget.LinearLayout
 import com.asia.viblo.R
@@ -12,7 +13,7 @@ import com.asia.viblo.model.keyPagePresent
 import com.asia.viblo.utils.SharedPrefs
 import com.asia.viblo.utils.checkErrorNetwork
 import com.asia.viblo.utils.showProgressDialog
-import com.asia.viblo.view.asyncTask.FeedBarAsyncTask
+import com.asia.viblo.view.asyncTask.feedbar.FeedBarAsyncTask
 import com.asia.viblo.view.custom.DialogSelectPage
 import kotlinx.android.synthetic.main.dialog_select_page.view.*
 import kotlinx.android.synthetic.main.include_layout_next_back_page.*
@@ -27,12 +28,11 @@ abstract class BaseFragment : Fragment(), OnSelectPage, OnUpdateFeedBar {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mProgressDialog = showProgressDialog(context)
-        if (!checkErrorNetwork(context)) return
         initListener()
         initSpinner()
     }
 
-    private fun initListener() {
+    open fun initListener() {
         textPageNext.setOnClickListener {
             val pageNext = SharedPrefs.instance[keyPagePresent, String::class.java].toInt() + 1
             loadData(getLink(mPosition), pageNext.toString())
@@ -53,10 +53,18 @@ abstract class BaseFragment : Fragment(), OnSelectPage, OnUpdateFeedBar {
         }
     }
 
-    private fun initSpinner() {
+    open fun initSpinner() {
+        initSpinner(null)
+    }
+
+    open fun initSpinner(params: String?) {
         if (!checkErrorNetwork(context)) return
         showProgressDialog()
-        FeedBarAsyncTask(this).execute(getLink(mPosition))
+        if (TextUtils.isEmpty(params)) {
+            FeedBarAsyncTask(this).execute(getLink(mPosition))
+        } else {
+            FeedBarAsyncTask(this).execute(getLink(mPosition), params)
+        }
     }
 
     open fun showProgressDialog() {

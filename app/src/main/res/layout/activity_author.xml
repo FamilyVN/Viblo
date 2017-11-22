@@ -53,11 +53,16 @@
                 android:background="@drawable/selector_button_white_blue"
                 android:text="Follow"
                 android:textAllCaps="false"
-                android:textColor="@color/selector_text_blue_white"/>
+                android:textColor="@color/selector_text_blue_white"
+                android:visibility="gone"/>
         </LinearLayout>
     </LinearLayout>
 
-    <include layout="@layout/layout_linear_break"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_8"
+        android:layout_marginTop="@dimen/size_5"
+        android:background="@color/colorBreak"/>
 
     <FrameLayout
         android:id="@+id/frameAuthor"

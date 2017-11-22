@@ -1,4 +1,4 @@
-package com.asia.viblo.view.asyncTask
+package com.asia.viblo.view.asyncTask.series
 
 import android.os.AsyncTask
 import android.text.TextUtils

@@ -208,7 +208,7 @@ class ContentHtmlLayout : LinearLayout {
                                 "&#160;"
                             } + child.replace("●", "&#160;")
                             childText = changeSpaceString(childText)
-                            Log.d("TAG", "childText = " + childText)
+//                            Log.d("TAG", "childText = " + childText)
                             layout.layoutCode.addView(createText(layoutInflater, childText, R.color.colorNote))
                         }
                     }

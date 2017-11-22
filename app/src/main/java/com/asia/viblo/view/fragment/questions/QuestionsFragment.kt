@@ -15,7 +15,7 @@ import com.asia.viblo.utils.SharedPrefs
 import com.asia.viblo.view.activity.home.OnClickDetail
 import com.asia.viblo.view.activity.home.OnClickTag
 import com.asia.viblo.view.adapter.QuestionAdapter
-import com.asia.viblo.view.asyncTask.LoadQuestionAsyncTask
+import com.asia.viblo.view.asyncTask.question.LoadQuestionAsyncTask
 import com.asia.viblo.view.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_questions.*
 import kotlinx.android.synthetic.main.include_layout_next_back_page.*

@@ -22,7 +22,7 @@ import com.asia.viblo.view.activity.home.OnClickTag
 import com.asia.viblo.view.activity.series.SeriesActivity
 import com.asia.viblo.view.activity.webview.WebViewActivity
 import com.asia.viblo.view.adapter.PostAdapter
-import com.asia.viblo.view.asyncTask.LoadPostAsyncTask
+import com.asia.viblo.view.asyncTask.post.LoadPostAsyncTask
 import com.asia.viblo.view.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_post.*
 import kotlinx.android.synthetic.main.include_layout_next_back_page.*

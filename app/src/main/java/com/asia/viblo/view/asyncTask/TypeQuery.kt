@@ -13,5 +13,7 @@ enum class TypeQuery {
     TAG,
     TITLE,
     PUBLISHING_DATE,
-    STATUS
+    STATUS,
+    FEED_BAR,
+    FEED_BARS
 }
