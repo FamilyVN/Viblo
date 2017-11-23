@@ -5,7 +5,11 @@ import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.Uri
 import android.support.annotation.DimenRes
+import android.support.v4.content.ContextCompat
+import android.text.Spannable
+import android.text.SpannableString
 import android.text.TextUtils
+import android.text.style.ImageSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
@@ -120,4 +124,13 @@ fun openBrowser(context: Context?, url: String) {
         }
         context.startActivity(intent)
     }
+}
+
+fun getSpannableStringFirst(context: Context?, resIdImage: Int, text: String): SpannableString {
+    val drawable = ContextCompat.getDrawable(context, resIdImage)
+    drawable.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
+    val imageSpan = ImageSpan(drawable, ImageSpan.ALIGN_BASELINE)
+    val spannableString = SpannableString("  " + text)
+    spannableString.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+    return spannableString
 }
