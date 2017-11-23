@@ -8,7 +8,6 @@
     <View
         android:layout_width="@dimen/size_4"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/size_10"
         android:layout_marginRight="@dimen/size_10"
         android:background="@color/colorName"/>
 
@@ -18,6 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:lineSpacingExtra="@dimen/size_3"
+        android:paddingBottom="@dimen/size_4"
         android:paddingTop="@dimen/size_4"
         android:textColorLink="@color/colorName"
         android:textSize="@dimen/text_size_16"/>

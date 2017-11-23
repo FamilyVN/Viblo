@@ -13,6 +13,7 @@ open class BaseModel : Serializable {
     var title = ""
     var score = ""
     var views = ""
+    var comments = ""
     var tags: MutableList<String> = arrayListOf()
     var tagUrlList: MutableList<String> = arrayListOf()
 }

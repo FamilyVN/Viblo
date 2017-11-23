@@ -8,7 +8,6 @@ import com.asia.viblo.model.BaseModel
 open class Post : BaseModel() {
     var postUrl = ""
     var clips = ""
-    var comments = ""
     var posts = ""
     var reputation = ""
     var followers = ""

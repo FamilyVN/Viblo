@@ -96,15 +96,15 @@ class SeriesActivity : BaseActivity(), OnUpdateSeriesDetail, OnClickTag, OnClick
     override fun onOpenTag(tagUrl: String) {
     }
 
-    override fun onOpenPostDetail(postUrl: String, isVideo: Boolean) {
-        if (postUrl.contains("/s/")) {
+    override fun onOpenDetail(url: String, isVideo: Boolean) {
+        if (url.contains("/s/")) {
             val intent = Intent(this, SeriesActivity::class.java)
-            intent.putExtra(extraUrl, postUrl)
+            intent.putExtra(extraUrl, url)
             startActivity(intent)
             return
         }
         val intent = Intent(this, PostDetailActivity::class.java)
-        intent.putExtra(extraUrl, postUrl)
+        intent.putExtra(extraUrl, url)
         startActivity(intent)
     }
 
