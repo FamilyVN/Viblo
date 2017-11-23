@@ -21,6 +21,7 @@ private val cssQueryPostDetailAvatar = "div.post-meta > div.content-author > a >
 private val cssQueryPostDetailHeader = "div.post-meta > div.content-author > div.mw-0"
 private val cssQueryPostDetailName = "div.text-bold > div.overflow-hidden > a"
 private val cssQueryPostDetailTime = "div.text-muted > span"
+private val cssQueryPostDetailScore = "div.post-side-widgets > div.widget > div.points"
 private val cssQueryPostDetailTitle = "div.post-meta > h1"
 private val cssQueryPostDetailTitleVideo = "div.container > div.row > div.col-12 > h1"
 private val cssQueryPostDetailTitleAnnouncement = "h1"
@@ -72,6 +73,7 @@ class PostDetailAsyncTask(onUpdatePostDetail: OnUpdatePostDetail) : AsyncTask<St
                     2 -> postDetail.comments = data
                 }
             }
+            postDetail.score = element.select(cssQueryPostDetailScore).text()
             // body
             val dataSubject = element.select(cssQueryPostDetailData)
             dataSubject?.mapNotNull { it.childNodes() }?.flatMap { it }?.forEach { postDetail.data.add(it.outerHtml()) }

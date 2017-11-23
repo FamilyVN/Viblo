@@ -67,6 +67,12 @@ class PostDetailActivity : BaseActivity(), OnClickTag, OnUpdatePostDetail {
             layoutView.comments.visibility = View.VISIBLE
             layoutView.comments.text = mPostDetail.comments
         }
+        if (TextUtils.isEmpty(mPostDetail.score)) {
+            layoutVote.visibility = View.GONE
+        } else {
+            layoutVote.visibility = View.VISIBLE
+            txtScore.text = mPostDetail.score
+        }
         layoutView.score.visibility = View.GONE
         //
         setTags(flowLayout, mPostDetail.tags, mPostDetail.tagUrlList, this)

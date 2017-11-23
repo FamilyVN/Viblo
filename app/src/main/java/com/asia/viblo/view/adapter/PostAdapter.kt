@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.asia.viblo.R
 import com.asia.viblo.model.post.Post
+import com.asia.viblo.utils.getSpannableStringFirst
 import com.asia.viblo.utils.loadAvatar
 import com.asia.viblo.utils.setTags
 import com.asia.viblo.view.activity.home.OnClickDetail
@@ -35,8 +36,6 @@ class PostAdapter(context: Context, postList: MutableList<Post>, onClickDetail: 
         val post = mPostList[position]
         holder.name.text = post.name
         holder.time.text = post.time
-        holder.title.text = post.title
-        holder.title.visibility = if (TextUtils.isEmpty(post.title)) View.GONE else View.VISIBLE
         // layout status
         holder.views.text = post.views
         holder.clips.text = post.clips
@@ -100,6 +99,14 @@ class PostAdapter(context: Context, postList: MutableList<Post>, onClickDetail: 
             holder.post.visibility = View.INVISIBLE
         } else {
             holder.post.visibility = View.VISIBLE
+        }
+        // isVideo
+        if (post.isVideo) {
+            holder.title.text = getSpannableStringFirst(
+                    holder.itemView.context, R.drawable.ic_play, post.title)
+        } else {
+            holder.title.text = post.title
+            holder.title.visibility = if (TextUtils.isEmpty(post.title)) View.GONE else View.VISIBLE
         }
         // avatar
         loadAvatar(holder.imageAvatar, post.avatar)

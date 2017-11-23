@@ -24,6 +24,8 @@ private val cssQueryFeaturedSeries = "div#__nuxt > div#app-container > div#main-
         "div.container > div.row > div.col-lg-9 > div > div > div.card"
 private val cssQueryAvatarPost = "div.card-block > figure.post-author-avatar > a > img"
 private val cssQueryAvatarPostSeries = "div.card-block > a > img"
+private val cssQueryPostIsVideo = "div.card-block > div.ml-05 > div.post-header > " +
+        "div.post-title-box > h1.post-title-header > span > i"
 private val cssQueryPostName = "div.card-block > div.ml-05 > div.post-header > div.post-meta > a"
 private val cssQueryPostNameSeries = "div.card-block > div.ml-05 > div.series-header > " +
         "div.series-meta > a"
@@ -69,6 +71,7 @@ class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) :
                 val scoreSubject = element.select(cssQueryScore).first()
                 val postStatusSubject = element.select(cssQueryPostStatus).first()
                 val tagSubject = element.select(getCssQuery(baseUrl, TypeQuery.TAG))
+                val videoSubject = element.select(cssQueryPostIsVideo)
                 if (postStatusSubject != null) {
                     val viewSubject = postStatusSubject.getElementsByTag("span")
                     viewSubject.map {
@@ -104,6 +107,7 @@ class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) :
                             post.tags.add(it.text())
                             post.tagUrlList.add(it.attr("href"))
                         }
+                post.isVideo = TextUtils.equals(videoSubject.attr("aria-hidden"), "true")
                 postList.add(post)
             }
         } catch (ex: Exception) {
