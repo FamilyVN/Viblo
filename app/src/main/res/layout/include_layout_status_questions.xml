@@ -14,8 +14,13 @@
         android:id="@+id/score"
         style="@style/TextPost"
         android:layout_marginLeft="@dimen/size_10"
-        android:drawableLeft="@drawable/ic_up_down"
-        android:drawablePadding="@dimen/size_negative_2"/>
+        android:drawableLeft="@drawable/ic_up_down"/>
+
+    <TextView
+        android:id="@+id/comments"
+        style="@style/TextPost"
+        android:layout_marginLeft="@dimen/size_10"
+        android:drawableLeft="@drawable/ic_comment"/>
 
     <TextView
         android:id="@+id/views"

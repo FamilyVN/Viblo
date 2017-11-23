@@ -1,19 +1,26 @@
 package com.asia.viblo.view.fragment.questions
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.asia.viblo.R
 import com.asia.viblo.model.*
 import com.asia.viblo.model.questions.Question
 import com.asia.viblo.utils.SharedPrefs
+import com.asia.viblo.view.activity.author.AuthorActivity
+import com.asia.viblo.view.activity.detail.PostDetailActivity
 import com.asia.viblo.view.activity.home.OnClickDetail
 import com.asia.viblo.view.activity.home.OnClickTag
+import com.asia.viblo.view.activity.series.SeriesActivity
+import com.asia.viblo.view.activity.webview.WebViewActivity
 import com.asia.viblo.view.adapter.QuestionAdapter
 import com.asia.viblo.view.asyncTask.question.LoadQuestionAsyncTask
 import com.asia.viblo.view.fragment.BaseFragment
@@ -43,7 +50,7 @@ class QuestionsFragment : BaseFragment(), OnClickDetail, OnUpdateQuestionData, O
     }
 
     private fun initRecyclerQuestions() {
-        mQuestionAdapter = QuestionAdapter(context, mQuestionList, this)
+        mQuestionAdapter = QuestionAdapter(context, mQuestionList, this, this)
         recyclerQuestions.adapter = mQuestionAdapter
         recyclerQuestions.layoutManager = LinearLayoutManager(context)
     }
@@ -66,13 +73,32 @@ class QuestionsFragment : BaseFragment(), OnClickDetail, OnUpdateQuestionData, O
         }
     }
 
-    override fun onOpenPostDetail(url: String, isVideo: Boolean) {
+    override fun onOpenDetail(url: String, isVideo: Boolean) {
+        val intent = when {
+            url.contains("/s/") -> {
+                Intent(context, SeriesActivity::class.java)
+            }
+            isVideo -> {
+                Intent(context, WebViewActivity::class.java)
+            }
+            else -> {
+                // todo fix later
+                Intent(context, PostDetailActivity::class.java)
+            }
+        }
+        intent.putExtra(extraUrl, url)
+        startActivity(intent)
     }
 
     override fun onOpenAuthor(baseModel: BaseModel) {
+        val intent = Intent(context, AuthorActivity::class.java)
+        intent.putExtra(extraData, baseModel)
+        startActivity(intent)
     }
 
     override fun onOpenTag(tagUrl: String) {
+        Log.d("TAG.PostFragment", "tagUrl = " + baseUrlViblo + tagUrl)
+        Toast.makeText(context, tagUrl, Toast.LENGTH_SHORT).show()
     }
 
     override fun onUpdateQuestionData(questionList: List<Question>?) {

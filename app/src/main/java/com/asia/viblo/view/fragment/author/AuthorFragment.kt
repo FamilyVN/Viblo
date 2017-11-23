@@ -76,9 +76,9 @@ class AuthorFragment : BaseFragment(), OnUpdateAuthorData, OnClickTag, OnClickDe
         }
     }
 
-    override fun onOpenPostDetail(postUrl: String, isVideo: Boolean) {
+    override fun onOpenDetail(url: String, isVideo: Boolean) {
         val intent = when {
-            postUrl.contains("/s/") -> {
+            url.contains("/s/") -> {
                 Intent(context, SeriesActivity::class.java)
             }
             isVideo -> {
@@ -88,7 +88,7 @@ class AuthorFragment : BaseFragment(), OnUpdateAuthorData, OnClickTag, OnClickDe
                 Intent(context, PostDetailActivity::class.java)
             }
         }
-        intent.putExtra(extraUrl, postUrl)
+        intent.putExtra(extraUrl, url)
         startActivity(intent)
     }
 

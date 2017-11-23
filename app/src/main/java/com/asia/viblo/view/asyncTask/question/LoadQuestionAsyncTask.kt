@@ -24,6 +24,7 @@ private val cssQueryQuestionsTime = "div.summary > div.asked-by > div.text-small
 private val cssQueryQuestionsTitle = "div.summary > div.q-title > a > h3"
 private val cssQueryQuestionsStatus = "div.stats > div > div.question-stats > span.stats-item"
 private val cssQueryQuestionsScore = "div.stats > div > div.question-stats > div.points > span.text-muted"
+private val cssQueryQuestionsTag = "div.summary > div.q-title > div.tags > a"
 
 @SuppressLint("StaticFieldLeak")
 class LoadQuestionAsyncTask(onUpdateQuestionData: OnUpdateQuestionData) :
@@ -54,6 +55,7 @@ class LoadQuestionAsyncTask(onUpdateQuestionData: OnUpdateQuestionData) :
                         if (viewSubject != null) {
                             when (index) {
                                 0 -> question.answers = viewSubject.text()
+                                1 -> question.comments = viewSubject.text()
                                 else -> question.views = viewSubject.text()
                             }
                         }
@@ -63,6 +65,13 @@ class LoadQuestionAsyncTask(onUpdateQuestionData: OnUpdateQuestionData) :
                 if (scoreSubject.isNotEmpty()) {
                     question.score = scoreSubject.first().text()
                 }
+                val tagSubject = element.select(cssQueryQuestionsTag)
+                tagSubject
+                        .filterNot { TextUtils.isEmpty(it.text()) }
+                        .forEach {
+                            question.tags.add(it.text())
+                            question.tagUrlList.add(it.attr("href"))
+                        }
                 questionList.add(question)
             }
         } catch (ex: Exception) {

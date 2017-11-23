@@ -113,7 +113,7 @@ class PostAdapter(context: Context, postList: MutableList<Post>, onClickDetail: 
         // tags
         setTags(holder.flowLayout, post.tags, post.tagUrlList, mOnClickTag)
         // listener
-        holder.llRoot.setOnClickListener { mOnClickDetail.onOpenPostDetail(post.postUrl, post.isVideo) }
+        holder.llRoot.setOnClickListener { mOnClickDetail.onOpenDetail(post.postUrl, post.isVideo) }
         holder.imageAvatar.setOnClickListener { mOnClickDetail.onOpenAuthor(post) }
         holder.name.setOnClickListener { mOnClickDetail.onOpenAuthor(post) }
     }

@@ -11,6 +11,7 @@
                                     cardView:cardUseCompatPadding="true">
 
     <LinearLayout
+        android:id="@+id/llRoot"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/size_10"
@@ -60,6 +61,13 @@
                 android:layout_marginTop="@dimen/size_10"
                 android:textColor="@color/colorTitle"
                 android:textSize="@dimen/text_size_16"/>
+
+            <com.asia.viblo.view.custom.FlowLayout
+                android:id="@+id/flowLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/size_5"
+                android:layout_marginTop="@dimen/size_8"/>
 
             <include
                 android:id="@+id/layoutStatus"

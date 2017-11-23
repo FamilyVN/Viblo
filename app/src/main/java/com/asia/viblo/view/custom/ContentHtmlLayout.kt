@@ -70,6 +70,8 @@ class ContentHtmlLayout : LinearLayout {
                     val content = data
                             .replace("<blockquote>", "")
                             .replace("</blockquote>", "")
+                            .replace("<p>", "")
+                            .replace("</p>", "")
                     contentChildList.add(ContentChild(content, BLOCK_QUOTE))
                 }
                 data.contains("<pre><code") -> {
