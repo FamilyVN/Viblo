@@ -15,5 +15,6 @@ enum class TypeQuery {
     PUBLISHING_DATE,
     STATUS,
     FEED_BAR,
-    FEED_BARS
+    FEED_BARS,
+    AUTHOR
 }

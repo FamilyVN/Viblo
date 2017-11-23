@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/size_30"
+    android:layout_marginTop="@dimen/size_5">
+
+    <TextView
+        android:id="@+id/reputation"
+        style="@style/TextPost"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:drawableLeft="@drawable/ic_star"/>
+
+    <TextView
+
+        android:id="@+id/followers"
+        style="@style/TextPost"
+        android:layout_marginLeft="@dimen/size_10"
+        android:layout_toEndOf="@+id/reputation"
+        android:drawableLeft="@drawable/ic_followers"/>
+
+    <TextView
+        android:id="@+id/post"
+        style="@style/TextPost"
+        android:layout_marginLeft="@dimen/size_10"
+        android:layout_toEndOf="@+id/followers"
+        android:drawableLeft="@drawable/ic_pen"/>
+
+    <Button
+        android:id="@+id/follow"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="@dimen/size_10"
+        android:background="@drawable/selector_button_white_blue"
+        android:text="Follow"
+        android:textAllCaps="false"
+        android:textColor="@color/selector_text_blue_white"/>
+</RelativeLayout>

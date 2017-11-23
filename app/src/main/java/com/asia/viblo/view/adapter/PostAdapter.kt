@@ -1,6 +1,8 @@
 package com.asia.viblo.view.adapter
 
 import android.content.Context
+import android.graphics.Typeface
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -12,7 +14,8 @@ import com.asia.viblo.utils.loadAvatar
 import com.asia.viblo.utils.setTags
 import com.asia.viblo.view.activity.home.OnClickDetail
 import com.asia.viblo.view.activity.home.OnClickTag
-import kotlinx.android.synthetic.main.include_layout_views_clips_comments.view.*
+import kotlinx.android.synthetic.main.include_layout_stats.view.*
+import kotlinx.android.synthetic.main.include_layout_status.view.*
 import kotlinx.android.synthetic.main.item_post.view.*
 
 /**
@@ -33,6 +36,8 @@ class PostAdapter(context: Context, postList: MutableList<Post>, onClickDetail: 
         holder.name.text = post.name
         holder.time.text = post.time
         holder.title.text = post.title
+        holder.title.visibility = if (TextUtils.isEmpty(post.title)) View.GONE else View.VISIBLE
+        // layout status
         holder.views.text = post.views
         holder.clips.text = post.clips
         holder.comments.text = post.comments
@@ -42,9 +47,15 @@ class PostAdapter(context: Context, postList: MutableList<Post>, onClickDetail: 
         if (TextUtils.isEmpty(post.views)) {
             holder.views.visibility = View.INVISIBLE
             holder.layoutStatus.visibility = View.GONE
+            holder.name.setTextColor(
+                    ContextCompat.getColor(holder.itemView.context, android.R.color.black))
+            holder.name.typeface = Typeface.DEFAULT_BOLD
         } else {
             holder.views.visibility = View.VISIBLE
             holder.layoutStatus.visibility = View.VISIBLE
+            holder.name.setTextColor(
+                    ContextCompat.getColor(holder.itemView.context, R.color.colorName))
+            holder.name.typeface = Typeface.DEFAULT
         }
         //
         if (TextUtils.isEmpty(post.clips)) {
@@ -69,12 +80,33 @@ class PostAdapter(context: Context, postList: MutableList<Post>, onClickDetail: 
         } else {
             holder.score.visibility = View.VISIBLE
         }
-        //
+        // layout stats
+        holder.reputation.text = post.reputation
+        holder.followers.text = post.followers
+        holder.post.text = post.post
+        if (TextUtils.isEmpty(post.reputation)) {
+            holder.reputation.visibility = View.INVISIBLE
+            holder.layoutStats.visibility = View.GONE
+        } else {
+            holder.reputation.visibility = View.VISIBLE
+            holder.layoutStats.visibility = View.VISIBLE
+        }
+        if (TextUtils.isEmpty(post.followers)) {
+            holder.followers.visibility = View.INVISIBLE
+        } else {
+            holder.followers.visibility = View.VISIBLE
+        }
+        if (TextUtils.isEmpty(post.post)) {
+            holder.post.visibility = View.INVISIBLE
+        } else {
+            holder.post.visibility = View.VISIBLE
+        }
+        // avatar
         loadAvatar(holder.imageAvatar, post.avatar)
-        //
+        // tags
         setTags(holder.flowLayout, post.tags, post.tagUrlList, mOnClickTag)
-        //
-        holder.llRoot.setOnClickListener { mOnClickDetail.onOpenPostDetail(post.postUrl) }
+        // listener
+        holder.llRoot.setOnClickListener { mOnClickDetail.onOpenPostDetail(post.postUrl, post.isVideo) }
         holder.imageAvatar.setOnClickListener { mOnClickDetail.onOpenAuthor(post) }
         holder.name.setOnClickListener { mOnClickDetail.onOpenAuthor(post) }
     }
@@ -96,5 +128,9 @@ class PostAdapter(context: Context, postList: MutableList<Post>, onClickDetail: 
         val comments = itemView.layoutStatus.comments!!
         val posts = itemView.layoutStatus.posts!!
         val flowLayout = itemView.flowLayout!!
+        val reputation = itemView.layoutStats.reputation!!
+        val followers = itemView.layoutStats.followers!!
+        val post = itemView.layoutStats.post!!
+        val layoutStats = itemView.layoutStats!!
     }
 }

@@ -12,6 +12,27 @@
         android:layout_margin="@dimen/size_10"
         android:visibility="invisible"/>
 
+    <LinearLayout
+        android:id="@+id/llNothingHere"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <include layout="@layout/layout_linear_break"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/size_40"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="There is nothing here."
+            android:textColor="@color/color155"
+            android:textSize="@dimen/text_size_16"/>
+    </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerContent"
         android:layout_width="match_parent"

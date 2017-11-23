@@ -102,7 +102,7 @@
 
         <include
             android:id="@+id/layoutStatus"
-            layout="@layout/include_layout_views_clips_comments"
+            layout="@layout/include_layout_status"
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_30"
             android:layout_marginLeft="@dimen/size_80"
