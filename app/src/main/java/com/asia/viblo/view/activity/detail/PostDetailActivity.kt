@@ -19,7 +19,7 @@ import com.asia.viblo.view.activity.author.AuthorActivity
 import com.asia.viblo.view.activity.home.OnClickTag
 import com.asia.viblo.view.asyncTask.postdetail.PostDetailAsyncTask
 import kotlinx.android.synthetic.main.activity_post_detail.*
-import kotlinx.android.synthetic.main.include_layout_views_clips_comments.view.*
+import kotlinx.android.synthetic.main.include_layout_status.view.*
 
 class PostDetailActivity : BaseActivity(), OnClickTag, OnUpdatePostDetail {
     private var mPostDetail = PostDetail()

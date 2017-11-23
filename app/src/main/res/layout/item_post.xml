@@ -63,6 +63,7 @@
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_5"
                     android:textColor="@color/colorTitle"
                     android:textSize="@dimen/text_size_16"/>
             </LinearLayout>
@@ -71,11 +72,16 @@
                 android:id="@+id/flowLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/size_5"/>
+                android:layout_marginTop="@dimen/size_8"/>
 
             <include
                 android:id="@+id/layoutStatus"
-                layout="@layout/include_layout_views_clips_comments"
+                layout="@layout/include_layout_status"
+                android:visibility="gone"/>
+
+            <include
+                android:id="@+id/layoutStats"
+                layout="@layout/include_layout_stats"
                 android:visibility="gone"/>
         </LinearLayout>
     </LinearLayout>

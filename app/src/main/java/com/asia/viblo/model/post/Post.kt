@@ -10,4 +10,8 @@ open class Post : BaseModel() {
     var clips = ""
     var comments = ""
     var posts = ""
+    var reputation = ""
+    var followers = ""
+    var post = ""
+    var isVideo = false
 }

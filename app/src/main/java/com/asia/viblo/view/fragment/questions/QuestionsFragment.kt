@@ -66,7 +66,7 @@ class QuestionsFragment : BaseFragment(), OnClickDetail, OnUpdateQuestionData, O
         }
     }
 
-    override fun onOpenPostDetail(url: String) {
+    override fun onOpenPostDetail(url: String, isVideo: Boolean) {
     }
 
     override fun onOpenAuthor(baseModel: BaseModel) {

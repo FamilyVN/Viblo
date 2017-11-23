@@ -7,6 +7,6 @@ import java.io.Serializable
  * Created by FRAMGIA\vu.tuan.anh on 01/11/2017.
  */
 interface OnClickDetail : Serializable {
-    fun onOpenPostDetail(postUrl: String)
+    fun onOpenPostDetail(postUrl: String, isVideo: Boolean)
     fun onOpenAuthor(baseModel: BaseModel)
 }

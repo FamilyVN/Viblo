@@ -22,7 +22,7 @@ import com.asia.viblo.view.activity.home.OnClickTag
 import com.asia.viblo.view.adapter.PostAdapter
 import com.asia.viblo.view.asyncTask.series.LoadSeriesAsyncTask
 import kotlinx.android.synthetic.main.activity_series.*
-import kotlinx.android.synthetic.main.include_layout_views_clips_comments.view.*
+import kotlinx.android.synthetic.main.include_layout_status.view.*
 
 class SeriesActivity : BaseActivity(), OnUpdateSeriesDetail, OnClickTag, OnClickDetail {
     private lateinit var mPostAdapter: PostAdapter
@@ -96,7 +96,7 @@ class SeriesActivity : BaseActivity(), OnUpdateSeriesDetail, OnClickTag, OnClick
     override fun onOpenTag(tagUrl: String) {
     }
 
-    override fun onOpenPostDetail(postUrl: String) {
+    override fun onOpenPostDetail(postUrl: String, isVideo: Boolean) {
         if (postUrl.contains("/s/")) {
             val intent = Intent(this, SeriesActivity::class.java)
             intent.putExtra(extraUrl, postUrl)
