@@ -8,7 +8,7 @@
     android:fadeScrollbars="true"
     android:scrollbarStyle="outsideOverlay"
     android:scrollbars="vertical"
-    tools:context="com.asia.viblo.view.activity.detail.PostDetailActivity">
+    tools:context="com.asia.viblo.view.activity.post.PostDetailActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -51,37 +51,14 @@
                 android:textColor="@color/color155"
                 android:textSize="@dimen/text_size_14"/>
 
-            <LinearLayout
+            <include
                 android:id="@+id/layoutVote"
+                layout="@layout/include_layout_vote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="@dimen/size_10"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <ImageView
-                    android:id="@+id/imageUpVote"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_up"/>
-
-                <TextView
-                    android:id="@+id/txtScore"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/size_2"
-                    android:layout_marginTop="@dimen/size_2"
-                    android:textColor="@color/color155"
-                    android:textSize="@dimen/text_size_16"/>
-
-                <ImageView
-                    android:id="@+id/imageDownVote"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_down"/>
-            </LinearLayout>
+                android:visibility="gone"/>
         </RelativeLayout>
 
         <TextView

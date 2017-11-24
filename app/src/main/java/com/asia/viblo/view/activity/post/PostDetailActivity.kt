@@ -1,4 +1,4 @@
-package com.asia.viblo.view.activity.detail
+package com.asia.viblo.view.activity.post
 
 import android.content.Intent
 import android.os.Bundle
@@ -17,9 +17,10 @@ import com.asia.viblo.utils.setTags
 import com.asia.viblo.view.activity.BaseActivity
 import com.asia.viblo.view.activity.author.AuthorActivity
 import com.asia.viblo.view.activity.home.OnClickTag
-import com.asia.viblo.view.asyncTask.postdetail.PostDetailAsyncTask
+import com.asia.viblo.view.asyncTask.post.PostDetailAsyncTask
 import kotlinx.android.synthetic.main.activity_post_detail.*
 import kotlinx.android.synthetic.main.include_layout_status.view.*
+import kotlinx.android.synthetic.main.include_layout_vote.view.*
 
 class PostDetailActivity : BaseActivity(), OnClickTag, OnUpdatePostDetail {
     private var mPostDetail = PostDetail()
@@ -71,7 +72,7 @@ class PostDetailActivity : BaseActivity(), OnClickTag, OnUpdatePostDetail {
             layoutVote.visibility = View.GONE
         } else {
             layoutVote.visibility = View.VISIBLE
-            txtScore.text = mPostDetail.score
+            layoutVote.txtScore.text = mPostDetail.score
         }
         layoutView.score.visibility = View.GONE
         //

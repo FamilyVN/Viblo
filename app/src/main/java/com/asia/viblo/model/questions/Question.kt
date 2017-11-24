@@ -5,7 +5,7 @@ import com.asia.viblo.model.BaseModel
 /**
  * Created by FRAMGIA\vu.tuan.anh on 07/11/2017.
  */
-class Question : BaseModel() {
+open class Question : BaseModel() {
     var answers = ""
     var questionUrl = ""
 }

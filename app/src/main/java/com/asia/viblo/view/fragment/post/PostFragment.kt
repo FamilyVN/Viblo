@@ -16,7 +16,7 @@ import com.asia.viblo.model.*
 import com.asia.viblo.model.post.Post
 import com.asia.viblo.utils.SharedPrefs
 import com.asia.viblo.view.activity.author.AuthorActivity
-import com.asia.viblo.view.activity.detail.PostDetailActivity
+import com.asia.viblo.view.activity.post.PostDetailActivity
 import com.asia.viblo.view.activity.home.OnClickDetail
 import com.asia.viblo.view.activity.home.OnClickTag
 import com.asia.viblo.view.activity.series.SeriesActivity

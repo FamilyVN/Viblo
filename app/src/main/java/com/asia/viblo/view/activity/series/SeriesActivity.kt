@@ -16,9 +16,9 @@ import com.asia.viblo.utils.loadAvatar
 import com.asia.viblo.utils.setTags
 import com.asia.viblo.view.activity.BaseActivity
 import com.asia.viblo.view.activity.author.AuthorActivity
-import com.asia.viblo.view.activity.detail.PostDetailActivity
 import com.asia.viblo.view.activity.home.OnClickDetail
 import com.asia.viblo.view.activity.home.OnClickTag
+import com.asia.viblo.view.activity.post.PostDetailActivity
 import com.asia.viblo.view.adapter.PostAdapter
 import com.asia.viblo.view.asyncTask.series.LoadSeriesAsyncTask
 import kotlinx.android.synthetic.main.activity_series.*
@@ -88,6 +88,7 @@ class SeriesActivity : BaseActivity(), OnUpdateSeriesDetail, OnClickTag, OnClick
             layoutStatus.posts.text = seriesDetail?.posts
         }
         txtScore.text = seriesDetail?.score
+        layoutVote.visibility = if (TextUtils.isEmpty(seriesDetail?.score)) View.GONE else View.VISIBLE
         layoutStatus.score.visibility = View.GONE
         layoutStatus.comments.visibility = View.GONE
         contentHtml.addContentHtml(seriesDetail?.data!!)

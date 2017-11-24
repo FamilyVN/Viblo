@@ -16,9 +16,9 @@ import com.asia.viblo.model.*
 import com.asia.viblo.model.questions.Question
 import com.asia.viblo.utils.SharedPrefs
 import com.asia.viblo.view.activity.author.AuthorActivity
-import com.asia.viblo.view.activity.detail.PostDetailActivity
 import com.asia.viblo.view.activity.home.OnClickDetail
 import com.asia.viblo.view.activity.home.OnClickTag
+import com.asia.viblo.view.activity.questions.QuestionsActivity
 import com.asia.viblo.view.activity.series.SeriesActivity
 import com.asia.viblo.view.activity.webview.WebViewActivity
 import com.asia.viblo.view.adapter.QuestionAdapter
@@ -82,8 +82,7 @@ class QuestionsFragment : BaseFragment(), OnClickDetail, OnUpdateQuestionData, O
                 Intent(context, WebViewActivity::class.java)
             }
             else -> {
-                // todo fix later
-                Intent(context, PostDetailActivity::class.java)
+                Intent(context, QuestionsActivity::class.java)
             }
         }
         intent.putExtra(extraUrl, url)
