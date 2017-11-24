@@ -29,11 +29,13 @@
                 app:civ_border_width="@dimen/size_1"/>
 
             <LinearLayout
+                android:id="@+id/layoutVote"
                 android:layout_width="@dimen/size_60"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/imageAvatar"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/imageUpVote"

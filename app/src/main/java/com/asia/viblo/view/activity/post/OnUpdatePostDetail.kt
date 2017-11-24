@@ -1,4 +1,4 @@
-package com.asia.viblo.view.activity.detail
+package com.asia.viblo.view.activity.post
 
 import com.asia.viblo.model.post.PostDetail
 

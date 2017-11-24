@@ -19,11 +19,12 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.activity.detail.PostDetailActivity"
+            android:name=".view.activity.post.PostDetailActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".view.activity.search.SearchActivity"
@@ -36,6 +37,9 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".view.activity.webview.WebViewActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".view.activity.questions.QuestionsActivity"
             android:screenOrientation="portrait"/>
     </application>
 </manifest>

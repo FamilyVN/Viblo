@@ -1,10 +1,10 @@
-package com.asia.viblo.view.asyncTask.postdetail
+package com.asia.viblo.view.asyncTask.post
 
 import android.annotation.SuppressLint
 import android.os.AsyncTask
 import android.text.TextUtils
 import com.asia.viblo.model.post.PostDetail
-import com.asia.viblo.view.activity.detail.OnUpdatePostDetail
+import com.asia.viblo.view.activity.post.OnUpdatePostDetail
 import com.asia.viblo.view.asyncTask.TypeQuery
 import org.jsoup.Jsoup
 
