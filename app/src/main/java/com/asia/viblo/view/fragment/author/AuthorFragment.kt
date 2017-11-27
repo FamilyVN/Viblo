@@ -21,8 +21,6 @@ import com.asia.viblo.model.post.Post
 import com.asia.viblo.utils.showProgressDialog
 import com.asia.viblo.view.activity.author.AuthorActivity
 import com.asia.viblo.view.activity.post.PostDetailActivity
-import com.asia.viblo.view.activity.home.OnClickDetail
-import com.asia.viblo.view.activity.home.OnClickTag
 import com.asia.viblo.view.activity.series.SeriesActivity
 import com.asia.viblo.view.activity.webview.WebViewActivity
 import com.asia.viblo.view.adapter.PostAdapter
@@ -30,7 +28,7 @@ import com.asia.viblo.view.asyncTask.author.LoadAuthorAsyncTask
 import com.asia.viblo.view.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_author.*
 
-class AuthorFragment : BaseFragment(), OnUpdateAuthorData, OnClickTag, OnClickDetail {
+class AuthorFragment : BaseFragment(), OnUpdateAuthorData {
     private lateinit var mBaseModel: BaseModel
     private val mPostList: MutableList<Post> = arrayListOf()
     private lateinit var mPostAdapter: PostAdapter
@@ -62,7 +60,7 @@ class AuthorFragment : BaseFragment(), OnUpdateAuthorData, OnClickTag, OnClickDe
     }
 
     private fun initRecyclerContent() {
-        mPostAdapter = PostAdapter(context, mPostList, this, this)
+        mPostAdapter = PostAdapter(context, mPostList, this, this, this)
         recyclerContent.adapter = mPostAdapter
         recyclerContent.layoutManager = LinearLayoutManager(context)
     }

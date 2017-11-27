@@ -8,11 +8,15 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.LinearLayout
 import com.asia.viblo.R
+import com.asia.viblo.model.BaseModel
 import com.asia.viblo.model.keyMaxPage
 import com.asia.viblo.model.keyPagePresent
 import com.asia.viblo.utils.SharedPrefs
 import com.asia.viblo.utils.checkErrorNetwork
 import com.asia.viblo.utils.showProgressDialog
+import com.asia.viblo.view.activity.home.OnClickComment
+import com.asia.viblo.view.activity.home.OnClickDetail
+import com.asia.viblo.view.activity.home.OnClickTag
 import com.asia.viblo.view.asyncTask.feedbar.FeedBarAsyncTask
 import com.asia.viblo.view.custom.DialogSelectPage
 import kotlinx.android.synthetic.main.dialog_select_page.view.*
@@ -21,7 +25,8 @@ import kotlinx.android.synthetic.main.include_layout_next_back_page.*
 /**
  * Created by FRAMGIA\vu.tuan.anh on 03/11/2017.
  */
-abstract class BaseFragment : Fragment(), OnSelectPage, OnUpdateFeedBar {
+abstract class BaseFragment : Fragment(), OnSelectPage, OnUpdateFeedBar,
+        OnClickTag, OnClickDetail, OnClickComment {
     lateinit var mProgressDialog: Dialog
     var mPosition = 0
     private var mAlertDialog: AlertDialog? = null
@@ -98,6 +103,21 @@ abstract class BaseFragment : Fragment(), OnSelectPage, OnUpdateFeedBar {
 
     open fun getPagePresent(pagePresentStr: String, pageMaxStr: String): String {
         return pagePresentStr + "/" + pageMaxStr
+    }
+
+    override fun onOpenTag(tagUrl: String) {
+    }
+
+    override fun onOpenDetail(url: String, isVideo: Boolean) {
+    }
+
+    override fun onOpenAuthor(baseModel: BaseModel) {
+    }
+
+    override fun onOpenAuthorComment(authorUrl: String) {
+    }
+
+    override fun onOpenAllAuthorComment(authorUrlList: MutableList<String>?) {
     }
 
     abstract fun getLink(type: Int): String

@@ -70,7 +70,7 @@
             </LinearLayout>
 
             <com.asia.viblo.view.custom.FlowLayout
-                android:id="@+id/flowLayout"
+                android:id="@+id/tagLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/size_8"/>

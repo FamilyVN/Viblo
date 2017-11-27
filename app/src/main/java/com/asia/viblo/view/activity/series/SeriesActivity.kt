@@ -16,15 +16,13 @@ import com.asia.viblo.utils.loadAvatar
 import com.asia.viblo.utils.setTags
 import com.asia.viblo.view.activity.BaseActivity
 import com.asia.viblo.view.activity.author.AuthorActivity
-import com.asia.viblo.view.activity.home.OnClickDetail
-import com.asia.viblo.view.activity.home.OnClickTag
 import com.asia.viblo.view.activity.post.PostDetailActivity
 import com.asia.viblo.view.adapter.PostAdapter
 import com.asia.viblo.view.asyncTask.series.LoadSeriesAsyncTask
 import kotlinx.android.synthetic.main.activity_series.*
 import kotlinx.android.synthetic.main.include_layout_status.view.*
 
-class SeriesActivity : BaseActivity(), OnUpdateSeriesDetail, OnClickTag, OnClickDetail {
+class SeriesActivity : BaseActivity(), OnUpdateSeriesDetail {
     private lateinit var mPostAdapter: PostAdapter
     private var mPostList = arrayListOf<Post>()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +32,7 @@ class SeriesActivity : BaseActivity(), OnUpdateSeriesDetail, OnClickTag, OnClick
     }
 
     private fun initRecyclerContent() {
-        mPostAdapter = PostAdapter(this, mPostList, this, this)
+        mPostAdapter = PostAdapter(this, mPostList, this, this, this)
         recyclerContent.adapter = mPostAdapter
         recyclerContent.layoutManager = LinearLayoutManager(this)
     }
@@ -66,7 +64,7 @@ class SeriesActivity : BaseActivity(), OnUpdateSeriesDetail, OnClickTag, OnClick
         txtName.text = seriesDetail?.name
         txtPublishingDate.text = seriesDetail?.publishingDate
         txtTitle.text = seriesDetail?.title
-        setTags(flowLayout, seriesDetail?.tags, seriesDetail?.tagUrlList, this)
+        setTags(flowLayout, seriesDetail?.tagList, seriesDetail?.tagUrlList, this)
         if (TextUtils.isEmpty(seriesDetail?.views)) {
             layoutStatus.views.visibility = View.INVISIBLE
             layoutStatus.visibility = View.GONE

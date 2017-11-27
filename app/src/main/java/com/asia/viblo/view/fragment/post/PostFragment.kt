@@ -17,8 +17,6 @@ import com.asia.viblo.model.post.Post
 import com.asia.viblo.utils.SharedPrefs
 import com.asia.viblo.view.activity.author.AuthorActivity
 import com.asia.viblo.view.activity.post.PostDetailActivity
-import com.asia.viblo.view.activity.home.OnClickDetail
-import com.asia.viblo.view.activity.home.OnClickTag
 import com.asia.viblo.view.activity.series.SeriesActivity
 import com.asia.viblo.view.activity.webview.WebViewActivity
 import com.asia.viblo.view.adapter.PostAdapter
@@ -27,7 +25,7 @@ import com.asia.viblo.view.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_post.*
 import kotlinx.android.synthetic.main.include_layout_next_back_page.*
 
-class PostFragment : BaseFragment(), OnClickDetail, OnUpdatePostData, OnClickTag {
+class PostFragment : BaseFragment(), OnUpdatePostData {
     private val mPostList: MutableList<Post> = arrayListOf()
     private lateinit var mPostAdapter: PostAdapter
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -52,7 +50,7 @@ class PostFragment : BaseFragment(), OnClickDetail, OnUpdatePostData, OnClickTag
     }
 
     private fun initRecyclerPost() {
-        mPostAdapter = PostAdapter(context, mPostList, this, this)
+        mPostAdapter = PostAdapter(context, mPostList, this, this, this)
         recyclerPost.adapter = mPostAdapter
         recyclerPost.layoutManager = LinearLayoutManager(context)
     }

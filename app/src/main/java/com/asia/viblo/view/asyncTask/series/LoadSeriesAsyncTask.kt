@@ -4,8 +4,8 @@ import android.os.AsyncTask
 import android.text.TextUtils
 import com.asia.viblo.model.post.Post
 import com.asia.viblo.model.series.SeriesDetail
+import com.asia.viblo.utils.getDocument
 import com.asia.viblo.view.activity.series.OnUpdateSeriesDetail
-import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
 
@@ -43,8 +43,8 @@ class LoadSeriesAsyncTask(onUpdateSeriesDetail: OnUpdateSeriesDetail) : AsyncTas
         val seriesDetail = SeriesDetail()
         val baseUrl = params[0]
         try {
-            val document = Jsoup.connect(baseUrl).get()
-            val body = document.body()
+            val document = getDocument(baseUrl)
+            val body = document?.body() ?: return seriesDetail
             val element = body.select(cssQuerySeriesDetail)
             // header
             seriesDetail.avatar = element.select(cssQuerySeriesAvatar).attr("src")
@@ -57,7 +57,7 @@ class LoadSeriesAsyncTask(onUpdateSeriesDetail: OnUpdateSeriesDetail) : AsyncTas
             tagSubject
                     .filterNot { TextUtils.isEmpty(it.text()) }
                     .forEach {
-                        seriesDetail.tags.add(it.text())
+                        seriesDetail.tagList.add(it.text())
                         seriesDetail.tagUrlList.add(it.attr("href"))
                     }
             // status
@@ -124,7 +124,7 @@ class LoadSeriesAsyncTask(onUpdateSeriesDetail: OnUpdateSeriesDetail) : AsyncTas
                 tagSubject
                         .filterNot { TextUtils.isEmpty(it.text()) }
                         .forEach {
-                            post.tags.add(it.text())
+                            post.tagList.add(it.text())
                             post.tagUrlList.add(it.attr("href"))
                         }
                 postList.add(post)

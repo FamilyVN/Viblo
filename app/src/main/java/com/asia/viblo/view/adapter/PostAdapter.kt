@@ -12,7 +12,9 @@ import com.asia.viblo.R
 import com.asia.viblo.model.post.Post
 import com.asia.viblo.utils.getSpannableStringFirst
 import com.asia.viblo.utils.loadAvatar
+import com.asia.viblo.utils.setComments
 import com.asia.viblo.utils.setTags
+import com.asia.viblo.view.activity.home.OnClickComment
 import com.asia.viblo.view.activity.home.OnClickDetail
 import com.asia.viblo.view.activity.home.OnClickTag
 import kotlinx.android.synthetic.main.include_layout_stats.view.*
@@ -22,12 +24,15 @@ import kotlinx.android.synthetic.main.item_post.view.*
 /**
  * Created by FRAMGIA\vu.tuan.anh on 27/10/2017.
  */
-class PostAdapter(context: Context, postList: MutableList<Post>, onClickDetail: OnClickDetail, onClickTag: OnClickTag) :
+class PostAdapter(context: Context, postList: MutableList<Post>,
+                  onClickDetail: OnClickDetail, onClickTag: OnClickTag,
+                  onClickComment: OnClickComment) :
         RecyclerView.Adapter<PostAdapter.ViewHolder>() {
     private val mPostList: MutableList<Post> = postList
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(context)
     private val mOnClickDetail: OnClickDetail = onClickDetail
     private val mOnClickTag: OnClickTag = onClickTag
+    private val mOnClickComment: OnClickComment = onClickComment
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(mLayoutInflater.inflate(R.layout.item_post, parent, false))
     }
@@ -111,7 +116,9 @@ class PostAdapter(context: Context, postList: MutableList<Post>, onClickDetail: 
         // avatar
         loadAvatar(holder.imageAvatar, post.avatar)
         // tags
-        setTags(holder.flowLayout, post.tags, post.tagUrlList, mOnClickTag)
+        setTags(holder.tagLayout, post.tagList, post.tagUrlList, mOnClickTag)
+        // comments
+        setComments(holder.commentLayout, post.commentList, post.numberMore, mOnClickComment)
         // listener
         holder.llRoot.setOnClickListener { mOnClickDetail.onOpenDetail(post.postUrl, post.isVideo) }
         holder.imageAvatar.setOnClickListener { mOnClickDetail.onOpenAuthor(post) }
@@ -134,10 +141,11 @@ class PostAdapter(context: Context, postList: MutableList<Post>, onClickDetail: 
         val clips = itemView.layoutStatus.clips!!
         val comments = itemView.layoutStatus.comments!!
         val posts = itemView.layoutStatus.posts!!
-        val flowLayout = itemView.flowLayout!!
+        val tagLayout = itemView.tagLayout!!
         val reputation = itemView.layoutStats.reputation!!
         val followers = itemView.layoutStats.followers!!
         val post = itemView.layoutStats.post!!
         val layoutStats = itemView.layoutStats!!
+        val commentLayout = itemView.layoutStatus.commentLayout!!
     }
 }

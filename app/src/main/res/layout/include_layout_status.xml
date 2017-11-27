@@ -54,6 +54,13 @@
             android:drawableLeft="@drawable/ic_posts"
             android:visibility="gone"/>
 
+        <com.asia.viblo.view.custom.TagListOneLine
+            android:id="@+id/commentLayout"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/size_10"
+            android:layout_toRightOf="@id/comments"/>
+
         <TextView
             android:id="@+id/score"
             style="@style/TextPost"

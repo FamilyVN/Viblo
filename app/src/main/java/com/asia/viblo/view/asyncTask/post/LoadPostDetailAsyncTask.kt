@@ -4,9 +4,9 @@ import android.annotation.SuppressLint
 import android.os.AsyncTask
 import android.text.TextUtils
 import com.asia.viblo.model.post.PostDetail
+import com.asia.viblo.utils.getDocument
 import com.asia.viblo.view.activity.post.OnUpdatePostDetail
 import com.asia.viblo.view.asyncTask.TypeQuery
-import org.jsoup.Jsoup
 
 /**
  * Created by FRAMGIA\vu.tuan.anh on 01/11/2017.
@@ -44,8 +44,8 @@ class PostDetailAsyncTask(onUpdatePostDetail: OnUpdatePostDetail) : AsyncTask<St
         val postDetail = PostDetail()
         val baseUrl = params[0]
         try {
-            val document = Jsoup.connect(baseUrl).get()
-            val body = document.body()
+            val document = getDocument(baseUrl)
+            val body = document?.body() ?: return postDetail
             val element = body.select(getCssQuery(baseUrl, TypeQuery.BASE))
             postDetail.avatar = element.select(cssQueryPostDetailAvatar).attr("src")
             val elementHeader = element.select(cssQueryPostDetailHeader)
@@ -61,7 +61,7 @@ class PostDetailAsyncTask(onUpdatePostDetail: OnUpdatePostDetail) : AsyncTask<St
             tagSubject
                     .filterNot { TextUtils.isEmpty(it.text()) }
                     .forEach {
-                        postDetail.tags.add(it.text())
+                        postDetail.tagList.add(it.text())
                         postDetail.tagUrlList.add(it.attr("href"))
                     }
             // status

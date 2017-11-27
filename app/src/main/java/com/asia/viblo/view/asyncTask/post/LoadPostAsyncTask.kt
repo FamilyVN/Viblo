@@ -9,9 +9,9 @@ import com.asia.viblo.model.keyMaxPage
 import com.asia.viblo.model.keyPagePresent
 import com.asia.viblo.model.post.Post
 import com.asia.viblo.utils.SharedPrefs
+import com.asia.viblo.utils.getDocument
 import com.asia.viblo.view.asyncTask.TypeQuery
 import com.asia.viblo.view.fragment.post.OnUpdatePostData
-import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 
 /**
@@ -46,6 +46,10 @@ private val cssQueryPostPageSeries = "div#__nuxt > div#app-container > div#main-
 private val cssQueryPostAuthorUrl = "div.card-block"
 private val cssQueryPostTag = "div.card-block > div.ml-05 > div.post-header > " +
         "div.post-title-box > div.tags > a"
+private val cssQueryPostComment = "div.card-block > div.ml-05 > div.d-flex > div.d-flex > " +
+        "div.commentators > div.u-sm-avatar > a > img"
+private val cssQueryPostCommentMore = "div.card-block > div.ml-05 > div.d-flex > div.d-flex > " +
+        "div.commentators > div.hidden-counter > a > span"
 private val cssQueryPostSeriesTag = "div.card-block > div.ml-05 > div.series-header > " +
         "div.series-title-box > div.tags > a"
 
@@ -58,7 +62,7 @@ class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) :
         val baseUrl = params[0]
         val page: String = if (params.size == 1) "" else getLinkPage(baseUrl, params[1])
         try {
-            val document = Jsoup.connect(baseUrl + page).get()
+            val document = getDocument(baseUrl + page)
             val elements = document?.select(getCssQuery(baseUrl, TypeQuery.BASE))
             for (element: Element in elements!!) {
                 val post = Post()
@@ -101,12 +105,22 @@ class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) :
                 if (scoreSubject != null) {
                     post.score = scoreSubject.text()
                 }
+                // tagList
                 tagSubject
                         .filterNot { TextUtils.isEmpty(it.text()) }
                         .forEach {
-                            post.tags.add(it.text())
+                            post.tagList.add(it.text())
                             post.tagUrlList.add(it.attr("href"))
                         }
+                // commentList
+                val commentSubject = element.select(cssQueryPostComment)
+                commentSubject
+                        .mapNotNull { it.attr("src") }
+                        .forEach { post.commentList.add(it) }
+                val numberCommentMore = element.select(cssQueryPostCommentMore)
+                if (numberCommentMore != null) {
+                    post.numberMore = numberCommentMore.text()
+                }
                 post.isVideo = TextUtils.equals(videoSubject.attr("aria-hidden"), "true")
                 postList.add(post)
             }
@@ -115,7 +129,7 @@ class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) :
         }
         val pageList: MutableList<String> = arrayListOf()
         try {
-            val document = Jsoup.connect(baseUrl + page).get()
+            val document = getDocument(baseUrl + page)
             val elements = document?.select(getCssQuery(baseUrl, TypeQuery.PAGE))
             elements!!
                     .map { it.select("li") }

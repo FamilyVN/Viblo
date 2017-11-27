@@ -18,9 +18,13 @@ import android.widget.TextView
 import android.widget.Toast
 import com.asia.viblo.App
 import com.asia.viblo.R
+import com.asia.viblo.view.activity.home.OnClickComment
 import com.asia.viblo.view.activity.home.OnClickTag
 import com.asia.viblo.view.custom.FlowLayout
+import com.asia.viblo.view.custom.TagListOneLine
 import com.bumptech.glide.Glide
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
 import java.util.regex.Pattern
 
 /**
@@ -41,7 +45,7 @@ fun loadImageUrl(imageView: ImageView, url: String) {
 }
 
 fun getSize(@DimenRes dpId: Int): Int {
-    return App.self()?.resources?.getDimensionPixelOffset(dpId)!!
+    return App.self()?.resources?.getDimensionPixelSize(dpId)!!
 }
 
 fun setTags(flowLayout: FlowLayout, tags: MutableList<String>?, tagUrlList: MutableList<String>?,
@@ -75,6 +79,18 @@ fun setTags(flowLayout: FlowLayout, tags: MutableList<String>?, tagUrlList: Muta
         }
         flowLayout.addView(tagView)
     }
+}
+
+fun setComments(tagListOneLine: TagListOneLine, commentList: MutableList<String>?,
+                numberMore: String, onClickComment: OnClickComment) {
+    if (commentList == null || commentList.size == 0) {
+        tagListOneLine.visibility = View.GONE
+        return
+    }
+    tagListOneLine.setFixedSize(getSize(R.dimen.size_50))
+    tagListOneLine.visibility = View.VISIBLE
+    tagListOneLine.removeAllViews()
+    tagListOneLine.setImageList(commentList, numberMore, onClickComment)
 }
 
 fun isOnline(context: Context?): Boolean {
@@ -133,4 +149,8 @@ fun getSpannableStringFirst(context: Context?, resIdImage: Int, text: String): S
     val spannableString = SpannableString("  " + text)
     spannableString.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
     return spannableString
+}
+
+fun getDocument(baseUrl: String?): Document? {
+    return Jsoup.connect(baseUrl).timeout(10 * 1000).get()
 }
