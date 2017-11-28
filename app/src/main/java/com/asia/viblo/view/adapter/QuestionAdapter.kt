@@ -38,7 +38,7 @@ class QuestionAdapter(context: Context, questionList: MutableList<Question>, onC
         holder.comments.text = question.comments
         loadAvatar(holder.avatar, question.avatar)
         // tags
-        setTags(holder.flowLayout, question.tags, question.tagUrlList, mOnClickTag)
+        setTags(holder.flowLayout, question.tagList, question.tagUrlList, mOnClickTag)
         // listener
         holder.llRoot.setOnClickListener { mOnClickDetail.onOpenDetail(question.questionUrl, false) }
         holder.avatar.setOnClickListener { mOnClickDetail.onOpenAuthor(question) }

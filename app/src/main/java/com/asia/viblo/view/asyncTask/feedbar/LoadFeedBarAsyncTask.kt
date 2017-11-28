@@ -2,9 +2,9 @@ package com.asia.viblo.view.asyncTask.feedbar
 
 import android.annotation.SuppressLint
 import android.os.AsyncTask
+import com.asia.viblo.utils.getDocument
 import com.asia.viblo.view.asyncTask.TypeQuery
 import com.asia.viblo.view.fragment.OnUpdateFeedBar
-import org.jsoup.Jsoup
 
 /**
  * Created by FRAMGIA\vu.tuan.anh on 06/11/2017.
@@ -23,9 +23,9 @@ class FeedBarAsyncTask(onUpdateFeedBar: OnUpdateFeedBar) : AsyncTask<String, Voi
         val feedBarList: MutableList<String> = arrayListOf()
         val baseUrl = params[0]
         try {
-            val document = Jsoup.connect(baseUrl).get()
-            val body = document.body()
-            val data = body.select(getCssQuery(params, TypeQuery.FEED_BARS)).first()
+            val document = getDocument(baseUrl)
+            val body = document?.body()
+            val data = body?.select(getCssQuery(params, TypeQuery.FEED_BARS))?.first()
             data?.select(getCssQuery(params, TypeQuery.FEED_BAR))?.mapTo(feedBarList) { it.text() }
         } catch (ex: Exception) {
             ex.printStackTrace()

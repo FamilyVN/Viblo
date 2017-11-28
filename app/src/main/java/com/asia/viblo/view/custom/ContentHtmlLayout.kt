@@ -81,7 +81,7 @@ class ContentHtmlLayout : LinearLayout {
                             .replace("<span class=\"hljs-name\">", "<font color = '#c7504a'>")
                             .replace("<span class=\"hljs-attr\">", "<font color = '#cf9153'>")
                             .replace("<span class=\"hljs-class\">", "<font color = '#d19a66'>")
-                            .replace("<span class=\"hljs-title\">", "<font color = '#e6c07b'>")//
+                            .replace("<span class=\"hljs-title\">", "<font color = '#e6c07b'>")
                             .replace("<span class=\"hljs-meta\">", "<font color = '#61aeee'>")
                             .replace("<span class=\"hljs-selector-tag\">", "<font color = '#bd4147'>")
                             .replace("<span class=\"hljs-doctag\">", "<font color = '#bd4147'>")

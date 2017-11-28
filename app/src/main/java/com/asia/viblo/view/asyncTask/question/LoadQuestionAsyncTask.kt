@@ -7,8 +7,8 @@ import com.asia.viblo.model.keyMaxPage
 import com.asia.viblo.model.keyPagePresent
 import com.asia.viblo.model.questions.Question
 import com.asia.viblo.utils.SharedPrefs
+import com.asia.viblo.utils.getDocument
 import com.asia.viblo.view.fragment.questions.OnUpdateQuestionData
-import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 
 /**
@@ -35,7 +35,7 @@ class LoadQuestionAsyncTask(onUpdateQuestionData: OnUpdateQuestionData) :
         val baseUrl = params[0]
         val page: String = if (params.size == 1) "" else getPage(params[1])
         try {
-            val document = Jsoup.connect(baseUrl + page).get()
+            val document = getDocument(baseUrl + page)
             val elements = document?.select(cssQueryQuestions)
             for (element: Element in elements!!) {
                 val question = Question()
@@ -69,7 +69,7 @@ class LoadQuestionAsyncTask(onUpdateQuestionData: OnUpdateQuestionData) :
                 tagSubject
                         .filterNot { TextUtils.isEmpty(it.text()) }
                         .forEach {
-                            question.tags.add(it.text())
+                            question.tagList.add(it.text())
                             question.tagUrlList.add(it.attr("href"))
                         }
                 questionList.add(question)
@@ -79,7 +79,7 @@ class LoadQuestionAsyncTask(onUpdateQuestionData: OnUpdateQuestionData) :
         }
         val pageList: MutableList<String> = arrayListOf()
         try {
-            val document = Jsoup.connect(baseUrl + page).get()
+            val document = getDocument(baseUrl + page)
             val elements = document?.select(cssQueryQuestionsPage)
             elements!!
                     .map { it.select("li") }

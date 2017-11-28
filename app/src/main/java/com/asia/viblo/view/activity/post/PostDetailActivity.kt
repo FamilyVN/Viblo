@@ -16,13 +16,12 @@ import com.asia.viblo.utils.loadAvatar
 import com.asia.viblo.utils.setTags
 import com.asia.viblo.view.activity.BaseActivity
 import com.asia.viblo.view.activity.author.AuthorActivity
-import com.asia.viblo.view.activity.home.OnClickTag
 import com.asia.viblo.view.asyncTask.post.PostDetailAsyncTask
 import kotlinx.android.synthetic.main.activity_post_detail.*
 import kotlinx.android.synthetic.main.include_layout_status.view.*
 import kotlinx.android.synthetic.main.include_layout_vote.view.*
 
-class PostDetailActivity : BaseActivity(), OnClickTag, OnUpdatePostDetail {
+class PostDetailActivity : BaseActivity(), OnUpdatePostDetail {
     private var mPostDetail = PostDetail()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,7 +75,7 @@ class PostDetailActivity : BaseActivity(), OnClickTag, OnUpdatePostDetail {
         }
         layoutView.score.visibility = View.GONE
         //
-        setTags(flowLayout, mPostDetail.tags, mPostDetail.tagUrlList, this)
+        setTags(flowLayout, mPostDetail.tagList, mPostDetail.tagUrlList, this)
         //
         contentHtml.addContentHtml(mPostDetail.data)
         txtName.setOnClickListener {
@@ -87,7 +86,7 @@ class PostDetailActivity : BaseActivity(), OnClickTag, OnUpdatePostDetail {
         }
     }
 
-    private fun onOpenAuthor(baseModel: BaseModel) {
+    override fun onOpenAuthor(baseModel: BaseModel) {
         val intent = Intent(this, AuthorActivity::class.java)
         intent.putExtra(extraData, baseModel)
         startActivity(intent)

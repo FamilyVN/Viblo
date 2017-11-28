@@ -4,9 +4,9 @@ import android.os.AsyncTask
 import android.text.TextUtils
 import com.asia.viblo.model.author.AuthorDetail
 import com.asia.viblo.model.post.Post
+import com.asia.viblo.utils.getDocument
 import com.asia.viblo.view.asyncTask.TypeQuery
 import com.asia.viblo.view.fragment.author.OnUpdateAuthorData
-import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 
 /**
@@ -48,7 +48,7 @@ class LoadAuthorAsyncTask(onUpdateAuthorData: OnUpdateAuthorData) : AsyncTask<St
         val baseUrl = params[0]
         val page: String = if (params.size == 1) "" else "?page=" + params[1]
         try {
-            val document = Jsoup.connect(baseUrl + page).get()
+            val document = getDocument(baseUrl + page)
             val elements = document?.select(getCssQuery(baseUrl, TypeQuery.BASE))
             for (element: Element in elements!!) {
                 val post = Post()
@@ -97,7 +97,7 @@ class LoadAuthorAsyncTask(onUpdateAuthorData: OnUpdateAuthorData) : AsyncTask<St
                 tagSubject
                         .filterNot { TextUtils.isEmpty(it.text()) }
                         .forEach {
-                            post.tags.add(it.text())
+                            post.tagList.add(it.text())
                             post.tagUrlList.add(it.attr("href"))
                         }
                 // stats
