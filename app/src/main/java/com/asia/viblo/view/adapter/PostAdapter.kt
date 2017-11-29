@@ -12,7 +12,6 @@ import com.asia.viblo.R
 import com.asia.viblo.model.post.Post
 import com.asia.viblo.utils.getSpannableStringFirst
 import com.asia.viblo.utils.loadAvatar
-import com.asia.viblo.utils.setComments
 import com.asia.viblo.utils.setTags
 import com.asia.viblo.view.activity.home.OnClickComment
 import com.asia.viblo.view.activity.home.OnClickDetail
@@ -118,7 +117,7 @@ class PostAdapter(context: Context, postList: MutableList<Post>,
         // tags
         setTags(holder.tagLayout, post.tagList, post.tagUrlList, mOnClickTag)
         // comments
-        setComments(holder.commentLayout, post.commentList, post.numberMore, mOnClickComment)
+//        setComments(holder.commentLayout, post.commentList, post.numberMore, mOnClickComment)
         // listener
         holder.llRoot.setOnClickListener { mOnClickDetail.onOpenDetail(post.postUrl, post.isVideo) }
         holder.imageAvatar.setOnClickListener { mOnClickDetail.onOpenAuthor(post) }

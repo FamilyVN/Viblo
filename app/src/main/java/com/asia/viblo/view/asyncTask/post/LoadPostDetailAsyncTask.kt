@@ -5,7 +5,7 @@ import android.os.AsyncTask
 import android.text.TextUtils
 import com.asia.viblo.model.post.PostDetail
 import com.asia.viblo.utils.getDocument
-import com.asia.viblo.view.activity.post.OnUpdatePostDetail
+import com.asia.viblo.view.activity.postdetail.OnUpdatePostDetail
 import com.asia.viblo.view.asyncTask.TypeQuery
 
 /**
