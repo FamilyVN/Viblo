@@ -6,4 +6,7 @@
     <string name="text_dialog_title">Đi đến trang</string>
     <string name="text_dialog_message">Chọn trang (%s-%s)</string>
     <string name="msg_network_error">Network error, please try again later.</string>
+    <string name="text_tag_posts">Posts</string>
+    <string name="text_tag_questions">Questions</string>
+    <string name="text_tag_followers">Followers</string>
 </resources>

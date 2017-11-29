@@ -1,33 +1,24 @@
 package com.asia.viblo.view.fragment.questions
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import com.asia.viblo.R
 import com.asia.viblo.model.*
 import com.asia.viblo.model.questions.Question
 import com.asia.viblo.utils.SharedPrefs
-import com.asia.viblo.view.activity.author.AuthorActivity
-import com.asia.viblo.view.activity.home.OnClickDetail
-import com.asia.viblo.view.activity.home.OnClickTag
-import com.asia.viblo.view.activity.questions.QuestionsActivity
-import com.asia.viblo.view.activity.series.SeriesActivity
-import com.asia.viblo.view.activity.webview.WebViewActivity
 import com.asia.viblo.view.adapter.QuestionAdapter
 import com.asia.viblo.view.asyncTask.question.LoadQuestionAsyncTask
 import com.asia.viblo.view.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_questions.*
 import kotlinx.android.synthetic.main.include_layout_next_back_page.*
 
-class QuestionsFragment : BaseFragment(), OnClickDetail, OnUpdateQuestionData, OnClickTag {
+class QuestionsFragment : BaseFragment(), OnUpdateQuestionData {
     private val mQuestionList: MutableList<Question> = arrayListOf()
     private lateinit var mQuestionAdapter: QuestionAdapter
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -71,33 +62,6 @@ class QuestionsFragment : BaseFragment(), OnClickDetail, OnUpdateQuestionData, O
         } else {
             LoadQuestionAsyncTask(this).execute(url, page)
         }
-    }
-
-    override fun onOpenDetail(url: String, isVideo: Boolean) {
-        val intent = when {
-            url.contains("/s/") -> {
-                Intent(context, SeriesActivity::class.java)
-            }
-            isVideo -> {
-                Intent(context, WebViewActivity::class.java)
-            }
-            else -> {
-                Intent(context, QuestionsActivity::class.java)
-            }
-        }
-        intent.putExtra(extraUrl, url)
-        startActivity(intent)
-    }
-
-    override fun onOpenAuthor(baseModel: BaseModel) {
-        val intent = Intent(context, AuthorActivity::class.java)
-        intent.putExtra(extraData, baseModel)
-        startActivity(intent)
-    }
-
-    override fun onOpenTag(tagUrl: String) {
-        Log.d("TAG.PostFragment", "tagUrl = " + baseUrlViblo + tagUrl)
-        Toast.makeText(context, tagUrl, Toast.LENGTH_SHORT).show()
     }
 
     override fun onUpdateQuestionData(questionList: List<Question>?) {

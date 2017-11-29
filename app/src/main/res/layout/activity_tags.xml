@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="tagDetail"
+            type="com.asia.viblo.model.tag.TagDetail"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color221"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white">
+
+            <ImageView
+                android:layout_width="@dimen/size_80"
+                android:layout_height="@dimen/size_80"
+                android:layout_margin="@dimen/size_10"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/size_5"
+            android:layout_marginTop="@dimen/size_5"
+            android:background="@android:color/white"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <include
+                layout="@layout/include_layout_header_tag"
+                app:number="@{tagDetail.posts}"
+                app:title="@{@string/text_tag_posts}"/>
+
+            <include
+                layout="@layout/include_layout_header_tag"
+                app:number="@{tagDetail.questions}"
+                app:title="@{@string/text_tag_questions}"/>
+
+            <include
+                layout="@layout/include_layout_header_tag"
+                app:number="@{tagDetail.followers}"
+                app:title="@{@string/text_tag_followers}"/>
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/frameTags"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@android:color/white"/>
+    </LinearLayout>
+</layout>
