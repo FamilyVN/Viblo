@@ -8,7 +8,7 @@ import android.webkit.CookieManager
 import android.webkit.CookieSyncManager
 import com.asia.viblo.R
 import com.asia.viblo.model.baseUrlViblo
-import com.asia.viblo.model.extraUrl
+import com.asia.viblo.model.constant.extraUrl
 import kotlinx.android.synthetic.main.activity_web_view.*
 
 class WebViewActivity : AppCompatActivity() {

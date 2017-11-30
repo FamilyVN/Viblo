@@ -9,20 +9,20 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.asia.viblo.R
+import com.asia.viblo.libs.recyclerview.SingleAdapter
+import com.asia.viblo.listener.BaseListener
 import com.asia.viblo.model.BaseModel
 import com.asia.viblo.model.author.AuthorDetail
 import com.asia.viblo.model.baseUrlViblo
 import com.asia.viblo.model.post.Post
 import com.asia.viblo.utils.showProgressDialog
-import com.asia.viblo.view.adapter.PostAdapter
 import com.asia.viblo.view.asyncTask.author.LoadAuthorAsyncTask
 import com.asia.viblo.view.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_author.*
 
 class AuthorFragment : BaseFragment(), OnUpdateAuthorData {
     private lateinit var mBaseModel: BaseModel
-    private val mPostList: MutableList<Post> = arrayListOf()
-    private lateinit var mPostAdapter: PostAdapter
+    private lateinit var mPostAdapter: SingleAdapter<Post>
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater!!.inflate(R.layout.fragment_author, container, false)
@@ -51,7 +51,8 @@ class AuthorFragment : BaseFragment(), OnUpdateAuthorData {
     }
 
     private fun initRecyclerContent() {
-        mPostAdapter = PostAdapter(context, mPostList, this, this, this)
+        mPostAdapter = SingleAdapter(context, R.layout.item_post)
+        mPostAdapter.setPresenter(BaseListener(activity))
         recyclerContent.adapter = mPostAdapter
         recyclerContent.layoutManager = LinearLayoutManager(context)
     }
@@ -68,8 +69,7 @@ class AuthorFragment : BaseFragment(), OnUpdateAuthorData {
     override fun onUpdateAuthorData(authorDetail: AuthorDetail?) {
         mProgressDialog.dismiss()
         if (authorDetail != null && authorDetail.postList.size > 0) {
-            mPostList.clear()
-            mPostList.addAll(authorDetail.postList)
+            mPostAdapter.setData(authorDetail.postList)
             mPostAdapter.notifyDataSetChanged()
             recyclerContent.visibility = View.VISIBLE
             llNothingHere.visibility = View.GONE

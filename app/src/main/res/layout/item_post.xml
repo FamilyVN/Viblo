@@ -13,7 +13,7 @@
 
         <variable
             name="listener"
-            type="com.asia.viblo.view.fragment.BaseFragment"/>
+            type="com.asia.viblo.listener.BaseListener"/>
     </data>
 
     <android.support.v7.widget.CardView
@@ -22,6 +22,7 @@
         android:layout_marginLeft="@dimen/size_5"
         android:layout_marginRight="@dimen/size_5"
         android:clipToPadding="true"
+        android:onClick="@{() -> listener.onOpenDetail(data.postUrl, data.isVideo)}"
         cardView:cardCornerRadius="@dimen/size_5"
         cardView:cardUseCompatPadding="true">
 
@@ -39,6 +40,7 @@
                 android:id="@+id/imageAvatar"
                 android:layout_width="@dimen/size_40"
                 android:layout_height="@dimen/size_40"
+                android:onClick="@{() -> listener.onOpenAuthor(data)}"
                 app:avatar="@{data.avatar}"
                 app:civ_border_color="@android:color/white"
                 app:civ_border_width="@dimen/size_1"/>
@@ -58,6 +60,7 @@
                         android:id="@+id/name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:onClick="@{() -> listener.onOpenAuthor(data)}"
                         android:text="@{data.name}"
                         android:textColor="@{TextUtils.isEmpty(data.views) ? android.R.color.black : @color/colorName}"
                         android:textSize="@dimen/text_size_14"

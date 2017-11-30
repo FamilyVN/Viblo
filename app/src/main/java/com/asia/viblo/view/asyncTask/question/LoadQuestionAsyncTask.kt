@@ -3,8 +3,8 @@ package com.asia.viblo.view.asyncTask.question
 import android.annotation.SuppressLint
 import android.os.AsyncTask
 import android.text.TextUtils
-import com.asia.viblo.model.keyMaxPage
-import com.asia.viblo.model.keyPagePresent
+import com.asia.viblo.model.constant.keyMaxPage
+import com.asia.viblo.model.constant.keyPagePresent
 import com.asia.viblo.model.questions.Question
 import com.asia.viblo.utils.SharedPrefs
 import com.asia.viblo.utils.getDocument

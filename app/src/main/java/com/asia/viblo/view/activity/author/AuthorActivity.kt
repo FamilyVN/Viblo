@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.asia.viblo.R
 import com.asia.viblo.model.BaseModel
-import com.asia.viblo.model.extraData
+import com.asia.viblo.model.constant.extraData
 import com.asia.viblo.utils.loadAvatar
 import com.asia.viblo.view.fragment.author.AuthorFragment
 import kotlinx.android.synthetic.main.activity_author.*

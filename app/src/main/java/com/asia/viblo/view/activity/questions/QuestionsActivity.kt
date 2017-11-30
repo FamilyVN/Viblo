@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.asia.viblo.R
 import com.asia.viblo.model.baseUrlViblo
-import com.asia.viblo.model.extraUrl
+import com.asia.viblo.model.constant.extraUrl
 import com.asia.viblo.model.questions.QuestionDetail
 import com.asia.viblo.view.asyncTask.question.LoadQuestionDetailAsyncTask
 

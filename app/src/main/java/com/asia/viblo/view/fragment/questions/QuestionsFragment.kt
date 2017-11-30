@@ -1,7 +1,6 @@
 package com.asia.viblo.view.fragment.questions
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,12 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.asia.viblo.R
-import com.asia.viblo.model.*
+import com.asia.viblo.model.baseUrlQuestionFollowings
+import com.asia.viblo.model.baseUrlQuestionMyClips
+import com.asia.viblo.model.baseUrlQuestionNewest
+import com.asia.viblo.model.baseUrlQuestionUnsolved
+import com.asia.viblo.model.constant.keyMaxPage
+import com.asia.viblo.model.constant.keyPagePresent
 import com.asia.viblo.model.questions.Question
 import com.asia.viblo.utils.SharedPrefs
 import com.asia.viblo.view.adapter.QuestionAdapter
@@ -41,9 +45,9 @@ class QuestionsFragment : BaseFragment(), OnUpdateQuestionData {
     }
 
     private fun initRecyclerQuestions() {
-        mQuestionAdapter = QuestionAdapter(context, mQuestionList, this, this)
-        recyclerQuestions.adapter = mQuestionAdapter
-        recyclerQuestions.layoutManager = LinearLayoutManager(context)
+//        mQuestionAdapter = QuestionAdapter(context, mQuestionList, this, this)
+//        recyclerQuestions.adapter = mQuestionAdapter
+//        recyclerQuestions.layoutManager = LinearLayoutManager(context)
     }
 
     private fun updateViewNextBackBottom() {
@@ -66,9 +70,9 @@ class QuestionsFragment : BaseFragment(), OnUpdateQuestionData {
 
     override fun onUpdateQuestionData(questionList: MutableList<Question>?) {
         if (questionList != null) {
-            mQuestionList.clear()
-            mQuestionList.addAll(questionList)
-            mQuestionAdapter.notifyDataSetChanged()
+//            mQuestionList.clear()
+//            mQuestionList.addAll(questionList)
+//            mQuestionAdapter.notifyDataSetChanged()
         }
         mProgressDialog.dismiss()
         updateViewNextBackBottom()

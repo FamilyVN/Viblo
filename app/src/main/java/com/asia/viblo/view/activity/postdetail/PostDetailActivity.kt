@@ -5,10 +5,9 @@ import android.text.TextUtils
 import android.view.View
 import com.asia.viblo.R
 import com.asia.viblo.model.baseUrlViblo
-import com.asia.viblo.model.extraUrl
+import com.asia.viblo.model.constant.extraUrl
 import com.asia.viblo.model.post.PostDetail
 import com.asia.viblo.utils.loadAvatar
-import com.asia.viblo.utils.setTags
 import com.asia.viblo.view.activity.BaseActivity
 import com.asia.viblo.view.asyncTask.post.PostDetailAsyncTask
 import kotlinx.android.synthetic.main.activity_post_detail.*
@@ -69,14 +68,14 @@ class PostDetailActivity : BaseActivity(), OnUpdatePostDetail {
         }
         layoutView.score.visibility = View.GONE
         //
-        setTags(flowLayout, mPostDetail.tagList, mPostDetail.tagUrlList, this)
+//        setTags(flowLayout, mPostDetail.tagList, mPostDetail.tagUrlList, this)
         //
         contentHtml.addContentHtml(mPostDetail.data)
         txtName.setOnClickListener {
-            onOpenAuthor(mPostDetail)
+            //            onOpenAuthor(mPostDetail)
         }
         imageAvatar.setOnClickListener {
-            onOpenAuthor(mPostDetail)
+            //            onOpenAuthor(mPostDetail)
         }
     }
 
