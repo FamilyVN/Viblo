@@ -9,18 +9,17 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.asia.viblo.R
+import com.asia.viblo.libs.recyclerview.SingleAdapter
 import com.asia.viblo.model.*
 import com.asia.viblo.model.post.Post
 import com.asia.viblo.utils.SharedPrefs
-import com.asia.viblo.view.adapter.PostAdapter
 import com.asia.viblo.view.asyncTask.post.LoadPostAsyncTask
 import com.asia.viblo.view.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_post.*
 import kotlinx.android.synthetic.main.include_layout_next_back_page.*
 
 class PostFragment : BaseFragment(), OnUpdatePostData {
-    private val mPostList: MutableList<Post> = arrayListOf()
-    private lateinit var mPostAdapter: PostAdapter
+    private lateinit var mPostAdapter: SingleAdapter<Post>
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater!!.inflate(R.layout.fragment_post, container, false)
@@ -43,7 +42,8 @@ class PostFragment : BaseFragment(), OnUpdatePostData {
     }
 
     private fun initRecyclerPost() {
-        mPostAdapter = PostAdapter(context, mPostList, this, this, this)
+        mPostAdapter = SingleAdapter(context, R.layout.item_post)
+        mPostAdapter.setPresenter(this)
         recyclerPost.adapter = mPostAdapter
         recyclerPost.layoutManager = LinearLayoutManager(context)
     }
@@ -66,17 +66,16 @@ class PostFragment : BaseFragment(), OnUpdatePostData {
         }
     }
 
-    override fun onUpdatePostData(postList: List<Post>?) {
+    override fun onUpdatePostData(postList: MutableList<Post>?) {
         if (postList != null) {
-            mPostList.clear()
-            mPostList.addAll(postList)
-            mPostAdapter.notifyDataSetChanged()
+            mPostAdapter.clear()
+            mPostAdapter.setData(postList)
         }
         mProgressDialog.dismiss()
         updateViewNextBackBottom()
     }
 
-    override fun onUpdateFeedBar(feedBarList: List<String>?) {
+    override fun onUpdateFeedBar(feedBarList: MutableList<String>?) {
         if (feedBarList != null && feedBarList.isNotEmpty()) {
             if (spinnerPost == null) return
             spinnerPost.visibility = View.VISIBLE

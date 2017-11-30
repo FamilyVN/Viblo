@@ -27,10 +27,9 @@ private val cssQueryQuestionsScore = "div.stats > div > div.question-stats > div
 private val cssQueryQuestionsTag = "div.summary > div.q-title > div.tags > a"
 
 @SuppressLint("StaticFieldLeak")
-class LoadQuestionAsyncTask(onUpdateQuestionData: OnUpdateQuestionData) :
-        AsyncTask<String, Void, List<Question>>() {
+class LoadQuestionAsyncTask(onUpdateQuestionData: OnUpdateQuestionData) : AsyncTask<String, Void, MutableList<Question>>() {
     private val mOnUpdateQuestionData = onUpdateQuestionData
-    override fun doInBackground(vararg params: String?): List<Question> {
+    override fun doInBackground(vararg params: String?): MutableList<Question> {
         val questionList: MutableList<Question> = arrayListOf()
         val baseUrl = params[0]
         val page: String = if (params.size == 1) "" else getPage(params[1])
@@ -98,7 +97,7 @@ class LoadQuestionAsyncTask(onUpdateQuestionData: OnUpdateQuestionData) :
         return questionList
     }
 
-    override fun onPostExecute(result: List<Question>?) {
+    override fun onPostExecute(result: MutableList<Question>?) {
         super.onPostExecute(result)
         mOnUpdateQuestionData.onUpdateQuestionData(result)
     }

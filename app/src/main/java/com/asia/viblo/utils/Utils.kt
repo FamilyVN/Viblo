@@ -2,6 +2,8 @@ package com.asia.viblo.utils
 
 import android.content.Context
 import android.content.Intent
+import android.databinding.BindingAdapter
+import android.graphics.Typeface
 import android.net.ConnectivityManager
 import android.net.Uri
 import android.support.annotation.DimenRes
@@ -32,12 +34,14 @@ import java.util.regex.Pattern
  */
 val regex1 = "\\(?\\b(http://|www[.])[-A-Za-z0-9+&amp;@#/%?=~_()|!:,.;]*[-A-Za-z0-9+&amp;@#/%=~_()|]"
 val regex2 = "\\(?\\b(https://|www[.])[-A-Za-z0-9+&amp;@#/%?=~_()|!:,.;]*[-A-Za-z0-9+&amp;@#/%=~_()|]"
+@BindingAdapter("avatar")
 fun loadAvatar(imageView: ImageView, url: String) {
     Glide.with(imageView.context)
             .load(url)
             .into(imageView)
 }
 
+@BindingAdapter("imageUrl")
 fun loadImageUrl(imageView: ImageView, url: String) {
     Glide.with(imageView.context)
             .load(url)
@@ -48,9 +52,10 @@ fun getSize(@DimenRes dpId: Int): Int {
     return App.self()?.resources?.getDimensionPixelSize(dpId)!!
 }
 
-fun setTags(flowLayout: FlowLayout, tags: MutableList<String>?, tagUrlList: MutableList<String>?,
-            onClickTag: OnClickTag) {
-    if (tags == null || tags.size == 0) {
+@BindingAdapter("tagList", "tagUrlList", "onClickTag")
+fun setTags(flowLayout: FlowLayout, tagList: MutableList<String>?, tagUrlList: MutableList<String>?,
+            onClickTag: OnClickTag?) {
+    if (tagList == null || tagList.size == 0) {
         flowLayout.visibility = View.GONE
         return
     }
@@ -58,7 +63,7 @@ fun setTags(flowLayout: FlowLayout, tags: MutableList<String>?, tagUrlList: Muta
     flowLayout.removeAllViews()
     val context = flowLayout.context
     val layoutInflater = LayoutInflater.from(context)
-    for ((index, tag) in tags.withIndex()) {
+    for ((index, tag) in tagList.withIndex()) {
         val tagView = if (TextUtils.equals(tag, "Trending")
                 || TextUtils.equals(tag, "Editors' Choice")
                 || TextUtils.equals(tag, "Announcement")) {
@@ -74,7 +79,7 @@ fun setTags(flowLayout: FlowLayout, tags: MutableList<String>?, tagUrlList: Muta
         tagView.text = tag
         tagView.setOnClickListener {
             if (tagUrlList != null && tagUrlList.size > 0 && tagUrlList.size >= index) {
-                onClickTag.onOpenTag(tagUrlList[index])
+                onClickTag?.onOpenTag(tagUrlList[index])
             }
         }
         flowLayout.addView(tagView)
@@ -149,6 +154,25 @@ fun getSpannableStringFirst(context: Context?, resIdImage: Int, text: String): S
     val spannableString = SpannableString("  " + text)
     spannableString.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
     return spannableString
+}
+
+@BindingAdapter("title", "isVideo")
+fun setTitle(textView: TextView, title: String, isVideo: Boolean) {
+    textView.text = if (isVideo) {
+        getSpannableStringFirst(textView.context, R.drawable.ic_play, title)
+    } else {
+        title
+    }
+}
+
+@BindingAdapter("visibility")
+fun setVisibility(view: View, text: String) {
+    view.visibility = if (TextUtils.isEmpty(text)) View.GONE else View.VISIBLE
+}
+
+@BindingAdapter("textStyle")
+fun setTextStyle(textView: TextView, text: String) {
+    textView.typeface = if (TextUtils.isEmpty(text)) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
 }
 
 fun getDocument(baseUrl: String?): Document? {

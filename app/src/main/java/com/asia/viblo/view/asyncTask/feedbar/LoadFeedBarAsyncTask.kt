@@ -17,9 +17,9 @@ private val cssQueryFeedBar = "li.feedbar-item > a"
 private val cssQueryAuthorFeedBar = "li.nav-item > a"
 
 @SuppressLint("StaticFieldLeak")
-class FeedBarAsyncTask(onUpdateFeedBar: OnUpdateFeedBar) : AsyncTask<String, Void, List<String>>() {
+class FeedBarAsyncTask(onUpdateFeedBar: OnUpdateFeedBar) : AsyncTask<String, Void, MutableList<String>>() {
     private val mOnUpdateFeedBar: OnUpdateFeedBar = onUpdateFeedBar
-    override fun doInBackground(vararg params: String?): List<String> {
+    override fun doInBackground(vararg params: String?): MutableList<String> {
         val feedBarList: MutableList<String> = arrayListOf()
         val baseUrl = params[0]
         try {
@@ -33,7 +33,7 @@ class FeedBarAsyncTask(onUpdateFeedBar: OnUpdateFeedBar) : AsyncTask<String, Voi
         return feedBarList
     }
 
-    override fun onPostExecute(result: List<String>?) {
+    override fun onPostExecute(result: MutableList<String>?) {
         super.onPostExecute(result)
         mOnUpdateFeedBar.onUpdateFeedBar(result)
     }

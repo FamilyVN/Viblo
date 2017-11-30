@@ -79,7 +79,7 @@ class AuthorFragment : BaseFragment(), OnUpdateAuthorData {
         }
     }
 
-    override fun onUpdateFeedBar(feedBarList: List<String>?) {
+    override fun onUpdateFeedBar(feedBarList: MutableList<String>?) {
         if (feedBarList != null && feedBarList.isNotEmpty()) {
             if (spinnerAuthor == null) return
             spinnerAuthor.visibility = View.VISIBLE

@@ -102,7 +102,7 @@ abstract class BaseFragment : Fragment(), OnSelectPage, OnUpdateFeedBar,
         mAlertDialog?.dismiss()
     }
 
-    override fun onUpdateFeedBar(feedBarList: List<String>?) {
+    override fun onUpdateFeedBar(feedBarList: MutableList<String>?) {
 
     }
 

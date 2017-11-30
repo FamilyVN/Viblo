@@ -64,7 +64,7 @@ class QuestionsFragment : BaseFragment(), OnUpdateQuestionData {
         }
     }
 
-    override fun onUpdateQuestionData(questionList: List<Question>?) {
+    override fun onUpdateQuestionData(questionList: MutableList<Question>?) {
         if (questionList != null) {
             mQuestionList.clear()
             mQuestionList.addAll(questionList)
@@ -74,7 +74,7 @@ class QuestionsFragment : BaseFragment(), OnUpdateQuestionData {
         updateViewNextBackBottom()
     }
 
-    override fun onUpdateFeedBar(feedBarList: List<String>?) {
+    override fun onUpdateFeedBar(feedBarList: MutableList<String>?) {
         if (feedBarList != null && feedBarList.isNotEmpty()) {
             if (spinnerQuestions == null) return
             spinnerQuestions.visibility = View.VISIBLE
