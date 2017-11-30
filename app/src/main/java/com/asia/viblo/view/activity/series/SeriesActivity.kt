@@ -5,21 +5,20 @@ import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.View
 import com.asia.viblo.R
+import com.asia.viblo.libs.recyclerview.SingleAdapter
+import com.asia.viblo.listener.BaseListener
 import com.asia.viblo.model.baseUrlViblo
-import com.asia.viblo.model.extraUrl
+import com.asia.viblo.model.constant.extraUrl
 import com.asia.viblo.model.post.Post
 import com.asia.viblo.model.series.SeriesDetail
 import com.asia.viblo.utils.loadAvatar
-import com.asia.viblo.utils.setTags
 import com.asia.viblo.view.activity.BaseActivity
-import com.asia.viblo.view.adapter.PostAdapter
 import com.asia.viblo.view.asyncTask.series.LoadSeriesAsyncTask
 import kotlinx.android.synthetic.main.activity_series.*
 import kotlinx.android.synthetic.main.include_layout_status.view.*
 
 class SeriesActivity : BaseActivity(), OnUpdateSeriesDetail {
-    private lateinit var mPostAdapter: PostAdapter
-    private var mPostList = arrayListOf<Post>()
+    private lateinit var mPostAdapter: SingleAdapter<Post>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_series)
@@ -27,7 +26,8 @@ class SeriesActivity : BaseActivity(), OnUpdateSeriesDetail {
     }
 
     private fun initRecyclerContent() {
-        mPostAdapter = PostAdapter(this, mPostList, this, this, this)
+        mPostAdapter = SingleAdapter(this, R.layout.item_post)
+        mPostAdapter.setPresenter(BaseListener(this))
         recyclerContent.adapter = mPostAdapter
         recyclerContent.layoutManager = LinearLayoutManager(this)
     }
@@ -46,8 +46,7 @@ class SeriesActivity : BaseActivity(), OnUpdateSeriesDetail {
 
     private fun updateRecyclerContent(seriesList: MutableList<Post>?) {
         if (seriesList != null) {
-            mPostList.clear()
-            mPostList.addAll(seriesList)
+            mPostAdapter.setData(seriesList)
             mPostAdapter.notifyDataSetChanged()
         }
     }
@@ -59,7 +58,7 @@ class SeriesActivity : BaseActivity(), OnUpdateSeriesDetail {
         txtName.text = seriesDetail?.name
         txtPublishingDate.text = seriesDetail?.publishingDate
         txtTitle.text = seriesDetail?.title
-        setTags(flowLayout, seriesDetail?.tagList, seriesDetail?.tagUrlList, this)
+//        setTags(flowLayout, seriesDetail?.tagList, seriesDetail?.tagUrlList, this)
         if (TextUtils.isEmpty(seriesDetail?.views)) {
             layoutStatus.views.visibility = View.INVISIBLE
             layoutStatus.visibility = View.GONE

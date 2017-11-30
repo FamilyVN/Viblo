@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SearchView
 import android.view.Menu
 import com.asia.viblo.R
-import com.asia.viblo.model.extraSearch
+import com.asia.viblo.model.constant.extraSearch
 import com.asia.viblo.view.activity.search.SearchActivity
 import com.asia.viblo.view.fragment.discussions.DiscussionsFragment
 import com.asia.viblo.view.fragment.post.PostFragment

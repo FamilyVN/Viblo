@@ -1,4 +1,4 @@
-package com.asia.viblo.model
+package com.asia.viblo.model.constant
 
 /**
  * Created by FRAMGIA\vu.tuan.anh on 31/10/2017.

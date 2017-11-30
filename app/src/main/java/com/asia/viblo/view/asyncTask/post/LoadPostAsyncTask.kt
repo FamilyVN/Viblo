@@ -5,8 +5,8 @@ import android.os.AsyncTask
 import android.text.TextUtils
 import com.asia.viblo.model.baseUrlSeries
 import com.asia.viblo.model.baseUrlViblo
-import com.asia.viblo.model.keyMaxPage
-import com.asia.viblo.model.keyPagePresent
+import com.asia.viblo.model.constant.keyMaxPage
+import com.asia.viblo.model.constant.keyPagePresent
 import com.asia.viblo.model.post.Post
 import com.asia.viblo.utils.SharedPrefs
 import com.asia.viblo.utils.getDocument

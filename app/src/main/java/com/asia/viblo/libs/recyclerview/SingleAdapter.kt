@@ -25,7 +25,7 @@ class SingleAdapter<T>(context: Context, layoutRes: Int) : RecyclerView.Adapter<
         val data = mDataList[position]
         holder.getBinding().setVariable(BR.position, position)
         holder.getBinding().setVariable(BR.data, data)
-        holder.getBinding().setVariable(BR.listener, mDecorator)
+        holder.getBinding().setVariable(BR.listener, mPresenter)
         if (mDecorator != null) {
             mDecorator!!.decorator(holder, position, getItemViewType(position))
         }
