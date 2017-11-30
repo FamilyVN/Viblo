@@ -18,10 +18,11 @@ import com.asia.viblo.model.post.Post
 import com.asia.viblo.utils.SharedPrefs
 import com.asia.viblo.view.asyncTask.post.LoadPostAsyncTask
 import com.asia.viblo.view.fragment.BaseFragment
+import com.asia.viblo.view.fragment.OnUpdateData
 import kotlinx.android.synthetic.main.fragment_post.*
 import kotlinx.android.synthetic.main.include_layout_next_back_page.*
 
-class PostFragment : BaseFragment(), OnUpdatePostData {
+class PostFragment : BaseFragment(), OnUpdateData<Post> {
     private lateinit var mPostAdapter: SingleAdapter<Post>
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -69,8 +70,11 @@ class PostFragment : BaseFragment(), OnUpdatePostData {
         }
     }
 
-    override fun onUpdatePostData(postList: MutableList<Post>?) {
-        mPostAdapter.setData(postList)
+    override fun onUpdateData(data: Post?) {
+    }
+
+    override fun onUpdateDataList(dataList: MutableList<Post>?) {
+        mPostAdapter.setData(dataList)
         mProgressDialog.dismiss()
         updateViewNextBackBottom()
     }

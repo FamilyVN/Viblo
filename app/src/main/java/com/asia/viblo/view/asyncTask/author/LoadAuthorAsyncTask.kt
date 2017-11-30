@@ -6,7 +6,7 @@ import com.asia.viblo.model.author.AuthorDetail
 import com.asia.viblo.model.post.Post
 import com.asia.viblo.utils.getDocument
 import com.asia.viblo.view.asyncTask.TypeQuery
-import com.asia.viblo.view.fragment.author.OnUpdateAuthorData
+import com.asia.viblo.view.fragment.OnUpdateData
 import org.jsoup.nodes.Element
 
 /**
@@ -40,8 +40,8 @@ private val cssQueryAuthorTagPost = "div.card-block > div.ml-05 > div.post-heade
 private val cssQueryAuthorContentStats = "div.d-flex > div.user-info >" +
         "div.user-stats"
 
-class LoadAuthorAsyncTask(onUpdateAuthorData: OnUpdateAuthorData) : AsyncTask<String, Void, AuthorDetail>() {
-    private val mOnUpdateAuthorData: OnUpdateAuthorData = onUpdateAuthorData
+class LoadAuthorAsyncTask(onUpdateData: OnUpdateData<AuthorDetail>) : AsyncTask<String, Void, AuthorDetail>() {
+    private val mOnUpdateData = onUpdateData
     override fun doInBackground(vararg params: String?): AuthorDetail {
         val authorDetail = AuthorDetail()
         val postList: MutableList<Post> = arrayListOf()
@@ -128,7 +128,7 @@ class LoadAuthorAsyncTask(onUpdateAuthorData: OnUpdateAuthorData) : AsyncTask<St
 
     override fun onPostExecute(result: AuthorDetail?) {
         super.onPostExecute(result)
-        mOnUpdateAuthorData.onUpdateAuthorData(result)
+        mOnUpdateData.onUpdateData(result)
     }
 
     private fun getCssQuery(baseUrl: String?, typeQuery: TypeQuery): String {

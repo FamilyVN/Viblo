@@ -14,10 +14,11 @@ import com.asia.viblo.model.series.SeriesDetail
 import com.asia.viblo.utils.loadAvatar
 import com.asia.viblo.view.activity.BaseActivity
 import com.asia.viblo.view.asyncTask.series.LoadSeriesAsyncTask
+import com.asia.viblo.view.fragment.OnUpdateData
 import kotlinx.android.synthetic.main.activity_series.*
 import kotlinx.android.synthetic.main.include_layout_status.view.*
 
-class SeriesActivity : BaseActivity(), OnUpdateSeriesDetail {
+class SeriesActivity : BaseActivity(), OnUpdateData<SeriesDetail> {
     private lateinit var mPostAdapter: SingleAdapter<Post>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,10 +39,13 @@ class SeriesActivity : BaseActivity(), OnUpdateSeriesDetail {
         LoadSeriesAsyncTask(this).execute(baseUrl)
     }
 
-    override fun onUpdateSeriesDetail(seriesDetail: SeriesDetail?) {
+    override fun onUpdateData(data: SeriesDetail?) {
         mProgressDialog.dismiss()
-        updateViews(seriesDetail)
-        updateRecyclerContent(seriesDetail?.seriesList)
+        updateViews(data)
+        updateRecyclerContent(data?.seriesList)
+    }
+
+    override fun onUpdateDataList(dataList: MutableList<SeriesDetail>?) {
     }
 
     private fun updateRecyclerContent(seriesList: MutableList<Post>?) {

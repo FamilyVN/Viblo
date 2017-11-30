@@ -21,10 +21,11 @@ import com.asia.viblo.model.questions.Question
 import com.asia.viblo.utils.SharedPrefs
 import com.asia.viblo.view.asyncTask.question.LoadQuestionAsyncTask
 import com.asia.viblo.view.fragment.BaseFragment
+import com.asia.viblo.view.fragment.OnUpdateData
 import kotlinx.android.synthetic.main.fragment_questions.*
 import kotlinx.android.synthetic.main.include_layout_next_back_page.*
 
-class QuestionsFragment : BaseFragment(), OnUpdateQuestionData {
+class QuestionsFragment : BaseFragment(), OnUpdateData<Question> {
     private lateinit var mQuestionAdapter: SingleAdapter<Question>
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -70,8 +71,11 @@ class QuestionsFragment : BaseFragment(), OnUpdateQuestionData {
         }
     }
 
-    override fun onUpdateQuestionData(questionList: MutableList<Question>?) {
-        mQuestionAdapter.setData(questionList)
+    override fun onUpdateData(data: Question?) {
+    }
+
+    override fun onUpdateDataList(dataList: MutableList<Question>?) {
+        mQuestionAdapter.setData(dataList)
         mProgressDialog.dismiss()
         updateViewNextBackBottom()
     }

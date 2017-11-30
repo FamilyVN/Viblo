@@ -5,7 +5,7 @@ import android.text.TextUtils
 import com.asia.viblo.model.post.Post
 import com.asia.viblo.model.series.SeriesDetail
 import com.asia.viblo.utils.getDocument
-import com.asia.viblo.view.activity.series.OnUpdateSeriesDetail
+import com.asia.viblo.view.fragment.OnUpdateData
 import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
 
@@ -37,8 +37,8 @@ private val cssQuerySeriesContentStatus = "div.card-block > div.ml-05 > div.d-fl
 private val cssQuerySeriesContentTag = "div.card-block > div.ml-05 > div.post-header > " +
         "div.post-title-box > div.tags > a"
 
-class LoadSeriesAsyncTask(onUpdateSeriesDetail: OnUpdateSeriesDetail) : AsyncTask<String, Void, SeriesDetail>() {
-    private val mOnUpdateSeriesDetail: OnUpdateSeriesDetail = onUpdateSeriesDetail
+class LoadSeriesAsyncTask(onUpdateData: OnUpdateData<SeriesDetail>) : AsyncTask<String, Void, SeriesDetail>() {
+    private val mOnUpdateData = onUpdateData
     override fun doInBackground(vararg params: String?): SeriesDetail {
         val seriesDetail = SeriesDetail()
         val baseUrl = params[0]
@@ -137,6 +137,6 @@ class LoadSeriesAsyncTask(onUpdateSeriesDetail: OnUpdateSeriesDetail) : AsyncTas
 
     override fun onPostExecute(result: SeriesDetail?) {
         super.onPostExecute(result)
-        mOnUpdateSeriesDetail.onUpdateSeriesDetail(result)
+        mOnUpdateData.onUpdateData(result)
     }
 }

@@ -8,7 +8,7 @@ import com.asia.viblo.model.constant.keyPagePresent
 import com.asia.viblo.model.questions.Question
 import com.asia.viblo.utils.SharedPrefs
 import com.asia.viblo.utils.getDocument
-import com.asia.viblo.view.fragment.questions.OnUpdateQuestionData
+import com.asia.viblo.view.fragment.OnUpdateData
 import org.jsoup.nodes.Element
 
 /**
@@ -27,8 +27,8 @@ private val cssQueryQuestionsScore = "div.stats > div > div.question-stats > div
 private val cssQueryQuestionsTag = "div.summary > div.q-title > div.tags > a"
 
 @SuppressLint("StaticFieldLeak")
-class LoadQuestionAsyncTask(onUpdateQuestionData: OnUpdateQuestionData) : AsyncTask<String, Void, MutableList<Question>>() {
-    private val mOnUpdateQuestionData = onUpdateQuestionData
+class LoadQuestionAsyncTask(onUpdateData: OnUpdateData<Question>) : AsyncTask<String, Void, MutableList<Question>>() {
+    private val mOnUpdateData = onUpdateData
     override fun doInBackground(vararg params: String?): MutableList<Question> {
         val questionList: MutableList<Question> = arrayListOf()
         val baseUrl = params[0]
@@ -99,7 +99,7 @@ class LoadQuestionAsyncTask(onUpdateQuestionData: OnUpdateQuestionData) : AsyncT
 
     override fun onPostExecute(result: MutableList<Question>?) {
         super.onPostExecute(result)
-        mOnUpdateQuestionData.onUpdateQuestionData(result)
+        mOnUpdateData.onUpdateDataList(result)
     }
 
     private fun getPage(page: String?): String {

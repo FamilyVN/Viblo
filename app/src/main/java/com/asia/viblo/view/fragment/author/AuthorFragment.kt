@@ -18,9 +18,10 @@ import com.asia.viblo.model.post.Post
 import com.asia.viblo.utils.showProgressDialog
 import com.asia.viblo.view.asyncTask.author.LoadAuthorAsyncTask
 import com.asia.viblo.view.fragment.BaseFragment
+import com.asia.viblo.view.fragment.OnUpdateData
 import kotlinx.android.synthetic.main.fragment_author.*
 
-class AuthorFragment : BaseFragment(), OnUpdateAuthorData {
+class AuthorFragment : BaseFragment(), OnUpdateData<AuthorDetail> {
     private lateinit var mBaseModel: BaseModel
     private lateinit var mPostAdapter: SingleAdapter<Post>
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -66,16 +67,19 @@ class AuthorFragment : BaseFragment(), OnUpdateAuthorData {
         }
     }
 
-    override fun onUpdateAuthorData(authorDetail: AuthorDetail?) {
+    override fun onUpdateData(data: AuthorDetail?) {
         mProgressDialog.dismiss()
-        if (authorDetail != null && authorDetail.postList.size > 0) {
-            mPostAdapter.setData(authorDetail.postList)
+        if (data != null && data.postList.size > 0) {
+            mPostAdapter.setData(data.postList)
             recyclerContent.visibility = View.VISIBLE
             llNothingHere.visibility = View.GONE
         } else {
             recyclerContent.visibility = View.GONE
             llNothingHere.visibility = View.VISIBLE
         }
+    }
+
+    override fun onUpdateDataList(dataList: MutableList<AuthorDetail>?) {
     }
 
     override fun onUpdateFeedBar(feedBarList: MutableList<String>?) {
