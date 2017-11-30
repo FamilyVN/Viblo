@@ -45,10 +45,7 @@ class SeriesActivity : BaseActivity(), OnUpdateSeriesDetail {
     }
 
     private fun updateRecyclerContent(seriesList: MutableList<Post>?) {
-        if (seriesList != null) {
-            mPostAdapter.setData(seriesList)
-            mPostAdapter.notifyDataSetChanged()
-        }
+        mPostAdapter.setData(seriesList)
     }
 
     private fun updateViews(seriesDetail: SeriesDetail?) {

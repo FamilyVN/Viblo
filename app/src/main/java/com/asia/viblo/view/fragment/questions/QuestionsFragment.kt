@@ -1,6 +1,7 @@
 package com.asia.viblo.view.fragment.questions
 
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.asia.viblo.R
+import com.asia.viblo.libs.recyclerview.SingleAdapter
+import com.asia.viblo.listener.BaseListener
 import com.asia.viblo.model.baseUrlQuestionFollowings
 import com.asia.viblo.model.baseUrlQuestionMyClips
 import com.asia.viblo.model.baseUrlQuestionNewest
@@ -16,15 +19,13 @@ import com.asia.viblo.model.constant.keyMaxPage
 import com.asia.viblo.model.constant.keyPagePresent
 import com.asia.viblo.model.questions.Question
 import com.asia.viblo.utils.SharedPrefs
-import com.asia.viblo.view.adapter.QuestionAdapter
 import com.asia.viblo.view.asyncTask.question.LoadQuestionAsyncTask
 import com.asia.viblo.view.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_questions.*
 import kotlinx.android.synthetic.main.include_layout_next_back_page.*
 
 class QuestionsFragment : BaseFragment(), OnUpdateQuestionData {
-    private val mQuestionList: MutableList<Question> = arrayListOf()
-    private lateinit var mQuestionAdapter: QuestionAdapter
+    private lateinit var mQuestionAdapter: SingleAdapter<Question>
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater!!.inflate(R.layout.fragment_questions, container, false)
@@ -45,9 +46,10 @@ class QuestionsFragment : BaseFragment(), OnUpdateQuestionData {
     }
 
     private fun initRecyclerQuestions() {
-//        mQuestionAdapter = QuestionAdapter(context, mQuestionList, this, this)
-//        recyclerQuestions.adapter = mQuestionAdapter
-//        recyclerQuestions.layoutManager = LinearLayoutManager(context)
+        mQuestionAdapter = SingleAdapter(context, R.layout.item_question)
+        mQuestionAdapter.setPresenter(BaseListener(activity))
+        recyclerQuestions.adapter = mQuestionAdapter
+        recyclerQuestions.layoutManager = LinearLayoutManager(context)
     }
 
     private fun updateViewNextBackBottom() {
@@ -69,11 +71,7 @@ class QuestionsFragment : BaseFragment(), OnUpdateQuestionData {
     }
 
     override fun onUpdateQuestionData(questionList: MutableList<Question>?) {
-        if (questionList != null) {
-//            mQuestionList.clear()
-//            mQuestionList.addAll(questionList)
-//            mQuestionAdapter.notifyDataSetChanged()
-        }
+        mQuestionAdapter.setData(questionList)
         mProgressDialog.dismiss()
         updateViewNextBackBottom()
     }

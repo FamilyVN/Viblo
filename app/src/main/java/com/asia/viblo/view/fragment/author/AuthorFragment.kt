@@ -70,7 +70,6 @@ class AuthorFragment : BaseFragment(), OnUpdateAuthorData {
         mProgressDialog.dismiss()
         if (authorDetail != null && authorDetail.postList.size > 0) {
             mPostAdapter.setData(authorDetail.postList)
-            mPostAdapter.notifyDataSetChanged()
             recyclerContent.visibility = View.VISIBLE
             llNothingHere.visibility = View.GONE
         } else {
