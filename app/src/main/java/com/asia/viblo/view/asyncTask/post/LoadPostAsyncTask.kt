@@ -11,7 +11,7 @@ import com.asia.viblo.model.post.Post
 import com.asia.viblo.utils.SharedPrefs
 import com.asia.viblo.utils.getDocument
 import com.asia.viblo.view.asyncTask.TypeQuery
-import com.asia.viblo.view.fragment.post.OnUpdatePostData
+import com.asia.viblo.view.fragment.OnUpdateData
 import org.jsoup.nodes.Element
 
 /**
@@ -54,8 +54,8 @@ private val cssQueryPostSeriesTag = "div.card-block > div.ml-05 > div.series-hea
         "div.series-title-box > div.tags > a"
 
 @SuppressLint("StaticFieldLeak")
-class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) : AsyncTask<String, Void, MutableList<Post>>() {
-    private val mOnUpdatePostData = onUpdatePostData
+class LoadPostAsyncTask(onUpdateData: OnUpdateData<Post>) : AsyncTask<String, Void, MutableList<Post>>() {
+    private val mOnUpdateData = onUpdateData
     override fun doInBackground(vararg params: String?): MutableList<Post> {
         val postList: MutableList<Post> = arrayListOf()
         val baseUrl = params[0]
@@ -149,7 +149,7 @@ class LoadPostAsyncTask(onUpdatePostData: OnUpdatePostData) : AsyncTask<String, 
 
     override fun onPostExecute(result: MutableList<Post>?) {
         super.onPostExecute(result)
-        mOnUpdatePostData.onUpdatePostData(result)
+        mOnUpdateData.onUpdateDataList(result)
     }
 
     private fun getCssQuery(baseUrl: String?, typeQuery: TypeQuery): String {
