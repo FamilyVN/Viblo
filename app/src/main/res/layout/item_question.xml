@@ -1,78 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/tools"
-    xmlns:cardView="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/size_5"
-    android:layout_marginRight="@dimen/size_5"
-    android:clipToPadding="true"
-    cardView:cardCornerRadius="@dimen/size_5"
-    cardView:cardUseCompatPadding="true">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:cardView="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        android:id="@+id/llRoot"
+    <data>
+
+        <variable
+            name="data"
+            type="com.asia.viblo.model.questions.Question"/>
+
+        <variable
+            name="listener"
+            type="com.asia.viblo.listener.BaseListener"/>
+    </data>
+
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/size_10"
-        android:orientation="horizontal"
-        android:paddingBottom="@dimen/size_10"
-        android:paddingLeft="@dimen/size_10"
-        android:paddingRight="@dimen/size_10">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imageAvatar"
-            android:layout_width="@dimen/size_40"
-            android:layout_height="@dimen/size_40"
-            app:civ_border_color="@android:color/white"
-            app:civ_border_width="@dimen/size_1"/>
+        android:layout_marginLeft="@dimen/size_5"
+        android:layout_marginRight="@dimen/size_5"
+        android:clipToPadding="true"
+        android:onClick="@{() -> listener.onOpenDetail(data.questionUrl, false)}"
+        cardView:cardCornerRadius="@dimen/size_5"
+        cardView:cardUseCompatPadding="true">
 
         <LinearLayout
+            android:id="@+id/llRoot"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/size_10"
-            android:orientation="vertical">
+            android:layout_marginTop="@dimen/size_10"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/size_10"
+            android:paddingLeft="@dimen/size_10"
+            android:paddingRight="@dimen/size_10">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageAvatar"
+                android:layout_width="@dimen/size_40"
+                android:layout_height="@dimen/size_40"
+                android:onClick="@{() -> listener.onOpenAuthor(data)}"
+                app:avatar="@{data.avatar}"
+                app:civ_border_color="@android:color/white"
+                app:civ_border_width="@dimen/size_1"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginLeft="@dimen/size_10"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{() -> listener.onOpenAuthor(data)}"
+                        android:text="@{data.name}"
+                        android:textColor="@color/colorName"
+                        android:textSize="@dimen/text_size_14"/>
+
+                    <TextView
+                        android:id="@+id/time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/size_15"
+                        android:text="@{data.time}"
+                        android:textColor="@color/color155"
+                        android:textSize="@dimen/text_size_14"/>
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/name"
+                    android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorName"
-                    android:textSize="@dimen/text_size_14"/>
+                    android:layout_marginTop="@dimen/size_10"
+                    android:text="@{data.title}"
+                    android:textColor="@color/colorTitle"
+                    android:textSize="@dimen/text_size_16"/>
 
-                <TextView
-                    android:id="@+id/time"
-                    android:layout_width="wrap_content"
+                <com.asia.viblo.view.custom.FlowLayout
+                    android:id="@+id/flowLayout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/size_15"
-                    android:textColor="@color/color155"
-                    android:textSize="@dimen/text_size_14"/>
+                    android:layout_marginBottom="@dimen/size_5"
+                    android:layout_marginTop="@dimen/size_8"
+                    app:onClickTag="@{listener}"
+                    app:tagList="@{data.tagList}"
+                    app:tagUrlList="@{data.tagUrlList}"/>
+
+                <include
+                    android:id="@+id/layoutStatus"
+                    layout="@layout/include_layout_status_questions"
+                    app:answers="@{data.answers}"
+                    app:comments="@{data.comments}"
+                    app:score="@{data.score}"
+                    app:views="@{data.views}"/>
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/size_10"
-                android:textColor="@color/colorTitle"
-                android:textSize="@dimen/text_size_16"/>
-
-            <com.asia.viblo.view.custom.FlowLayout
-                android:id="@+id/flowLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/size_5"
-                android:layout_marginTop="@dimen/size_8"/>
-
-            <include
-                android:id="@+id/layoutStatus"
-                layout="@layout/include_layout_status_questions"/>
         </LinearLayout>
-    </LinearLayout>
-</android.support.v7.widget.CardView>
+    </android.support.v7.widget.CardView>
+</layout>

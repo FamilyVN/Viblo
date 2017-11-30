@@ -1,30 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+<layout>
 
-    <TextView
-        android:id="@+id/answers"
-        style="@style/TextPost"
-        android:drawableLeft="@drawable/ic_answers"/>
+    <data>
 
-    <TextView
-        android:id="@+id/score"
-        style="@style/TextPost"
-        android:layout_marginLeft="@dimen/size_10"
-        android:drawableLeft="@drawable/ic_up_down"/>
+        <variable
+            name="answers"
+            type="String"/>
 
-    <TextView
-        android:id="@+id/comments"
-        style="@style/TextPost"
-        android:layout_marginLeft="@dimen/size_10"
-        android:drawableLeft="@drawable/ic_comment"/>
+        <variable
+            name="score"
+            type="String"/>
 
-    <TextView
-        android:id="@+id/views"
-        style="@style/TextPost"
-        android:layout_marginLeft="@dimen/size_10"
-        android:drawableLeft="@drawable/ic_views"/>
-</LinearLayout>
+        <variable
+            name="comments"
+            type="String"/>
+
+        <variable
+            name="views"
+            type="String"/>
+    </data>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/answers"
+            style="@style/TextPost"
+            android:drawableLeft="@drawable/ic_answers"
+            android:text="@{answers}"/>
+
+        <TextView
+            android:id="@+id/score"
+            style="@style/TextPost"
+            android:layout_marginLeft="@dimen/size_10"
+            android:drawableLeft="@drawable/ic_up_down"
+            android:text="@{score}"/>
+
+        <TextView
+            android:id="@+id/comments"
+            style="@style/TextPost"
+            android:layout_marginLeft="@dimen/size_10"
+            android:drawableLeft="@drawable/ic_comment"
+            android:text="@{comments}"/>
+
+        <TextView
+            android:id="@+id/views"
+            style="@style/TextPost"
+            android:layout_marginLeft="@dimen/size_10"
+            android:drawableLeft="@drawable/ic_views"
+            android:text="@{views}"/>
+    </LinearLayout>
+</layout>

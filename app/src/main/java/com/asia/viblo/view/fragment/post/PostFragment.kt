@@ -70,10 +70,7 @@ class PostFragment : BaseFragment(), OnUpdatePostData {
     }
 
     override fun onUpdatePostData(postList: MutableList<Post>?) {
-        if (postList != null) {
-            mPostAdapter.setData(postList)
-            mPostAdapter.notifyDataSetChanged()
-        }
+        mPostAdapter.setData(postList)
         mProgressDialog.dismiss()
         updateViewNextBackBottom()
     }
