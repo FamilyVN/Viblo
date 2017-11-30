@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -16,6 +17,10 @@
             type="String"/>
 
         <variable
+            name="posts"
+            type="String"/>
+
+        <variable
             name="score"
             type="String"/>
     </data>
@@ -23,28 +28,32 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_30"
-        android:layout_marginTop="@dimen/size_5">
+        android:layout_marginTop="@dimen/size_5"
+        app:visibility="@{views}">
 
         <TextView
             android:id="@+id/views"
             style="@style/TextPost"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:drawableLeft="@drawable/ic_views"/>
+            android:drawableLeft="@drawable/ic_views"
+            android:text="@{views}"/>
 
         <TextView
             android:id="@+id/clips"
             style="@style/TextPost"
             android:layout_marginLeft="@dimen/size_10"
             android:layout_toEndOf="@+id/views"
-            android:drawableLeft="@drawable/ic_clips"/>
+            android:drawableLeft="@drawable/ic_clips"
+            android:text="@{clips}"/>
 
         <TextView
             android:id="@+id/comments"
             style="@style/TextPost"
             android:layout_marginLeft="@dimen/size_10"
             android:layout_toEndOf="@+id/clips"
-            android:drawableLeft="@drawable/ic_comments"/>
+            android:drawableLeft="@drawable/ic_comments"
+            android:text="@{comments}"/>
 
         <TextView
             android:id="@+id/posts"
@@ -52,6 +61,7 @@
             android:layout_marginLeft="@dimen/size_10"
             android:layout_toEndOf="@+id/comments"
             android:drawableLeft="@drawable/ic_posts"
+            android:text="@{posts}"
             android:visibility="gone"/>
 
         <com.asia.viblo.view.custom.TagListOneLine
@@ -65,6 +75,7 @@
             android:id="@+id/score"
             style="@style/TextPost"
             android:layout_alignParentEnd="true"
-            android:drawableLeft="@drawable/ic_up_down"/>
+            android:drawableLeft="@drawable/ic_up_down"
+            android:text="@{score}"/>
     </RelativeLayout>
 </layout>
