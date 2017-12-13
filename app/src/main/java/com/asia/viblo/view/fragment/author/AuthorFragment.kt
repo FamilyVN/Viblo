@@ -24,8 +24,7 @@ import kotlinx.android.synthetic.main.fragment_author.*
 class AuthorFragment : BaseFragment(), OnUpdateData<AuthorDetail> {
     private lateinit var mBaseModel: BaseModel
     private lateinit var mPostAdapter: SingleAdapter<Post>
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater!!.inflate(R.layout.fragment_author, container, false)
     }
 

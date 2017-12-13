@@ -5,7 +5,7 @@
     <data>
 
         <variable
-            name="tagDetail"
+            name="data"
             type="com.asia.viblo.model.tag.TagDetail"/>
     </data>
 
@@ -38,17 +38,17 @@
 
             <include
                 layout="@layout/include_layout_header_tag"
-                app:number="@{tagDetail.posts}"
+                app:number="@{data.posts}"
                 app:title="@{@string/text_tag_posts}"/>
 
             <include
                 layout="@layout/include_layout_header_tag"
-                app:number="@{tagDetail.questions}"
+                app:number="@{data.questions}"
                 app:title="@{@string/text_tag_questions}"/>
 
             <include
                 layout="@layout/include_layout_header_tag"
-                app:number="@{tagDetail.followers}"
+                app:number="@{data.followers}"
                 app:title="@{@string/text_tag_followers}"/>
         </LinearLayout>
 

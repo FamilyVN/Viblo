@@ -5,8 +5,8 @@ import android.os.AsyncTask
 import android.text.TextUtils
 import com.asia.viblo.model.post.PostDetail
 import com.asia.viblo.utils.getDocument
-import com.asia.viblo.view.activity.postdetail.OnUpdatePostDetail
 import com.asia.viblo.view.asyncTask.TypeQuery
+import com.asia.viblo.view.fragment.OnUpdateData
 
 /**
  * Created by FRAMGIA\vu.tuan.anh on 01/11/2017.
@@ -38,8 +38,8 @@ private val cssQueryPostDetailStatusVideo = "div.container > div.row > div.col-x
 private val cssQueryPostDetailData = "div.md-contents"
 
 @SuppressLint("StaticFieldLeak")
-class PostDetailAsyncTask(onUpdatePostDetail: OnUpdatePostDetail) : AsyncTask<String, Void, PostDetail>() {
-    private val mOnUpdatePostDetail = onUpdatePostDetail
+class PostDetailAsyncTask(onUpdateData: OnUpdateData<PostDetail>) : AsyncTask<String, Void, PostDetail>() {
+    private val mOnUpdateData = onUpdateData
     override fun doInBackground(vararg params: String?): PostDetail {
         val postDetail = PostDetail()
         val baseUrl = params[0]
@@ -85,7 +85,7 @@ class PostDetailAsyncTask(onUpdatePostDetail: OnUpdatePostDetail) : AsyncTask<St
 
     override fun onPostExecute(result: PostDetail?) {
         super.onPostExecute(result)
-        mOnUpdatePostDetail.onUpdatePostDetail(result)
+        mOnUpdateData.onUpdateData(result)
     }
 
     private fun getCssQuery(baseUrl: String?, typeQuery: TypeQuery): String {
