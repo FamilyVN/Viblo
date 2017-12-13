@@ -71,6 +71,7 @@ class PostFragment : BaseFragment(), OnUpdateData<Post> {
     }
 
     override fun onUpdateData(data: Post?) {
+        // nothing
     }
 
     override fun onUpdateDataList(dataList: MutableList<Post>?) {

@@ -19,4 +19,5 @@ open class BaseModel : BaseObservable(), Serializable {
     var tagList: MutableList<String> = arrayListOf()
     var commentList: MutableList<String> = arrayListOf()
     var tagUrlList: MutableList<String> = arrayListOf()
+    var dataNull = ""
 }
