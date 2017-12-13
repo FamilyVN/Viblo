@@ -1,112 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fadeScrollbars="true"
-    android:scrollbarStyle="outsideOverlay"
-    android:scrollbars="vertical"
-    tools:context="com.asia.viblo.view.activity.postdetail.PostDetailActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context="com.asia.viblo.view.activity.postdetail.PostDetailActivity">
 
-    <LinearLayout
+    <data>
+
+        <import type="android.text.TextUtils"/>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="data"
+            type="com.asia.viblo.model.post.PostDetail"/>
+
+        <variable
+            name="listener"
+            type="com.asia.viblo.listener.BaseListener"/>
+    </data>
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:fadeScrollbars="true"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbars="vertical">
 
-        <RelativeLayout
-            android:id="@+id/relativeHeader"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/size_10"
-            android:layout_marginRight="@dimen/size_10"
-            android:layout_marginTop="@dimen/size_10">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imageAvatar"
-                android:layout_width="@dimen/size_60"
-                android:layout_height="@dimen/size_60"
-                app:civ_border_color="@android:color/white"
-                app:civ_border_width="@dimen/size_1"/>
+            <RelativeLayout
+                android:id="@+id/relativeHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/size_10"
+                android:layout_marginRight="@dimen/size_10"
+                android:layout_marginTop="@dimen/size_10"
+                app:visibility="@{data.name}">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imageAvatar"
+                    android:layout_width="@dimen/size_60"
+                    android:layout_height="@dimen/size_60"
+                    android:onClick="@{() -> listener.onOpenAuthor(data)}"
+                    app:civ_border_color="@android:color/white"
+                    app:civ_border_width="@dimen/size_1"
+                    app:imageUrl="@{data.avatar}"/>
+
+                <TextView
+                    android:id="@+id/txtName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="@dimen/size_15"
+                    android:layout_marginTop="@dimen/size_5"
+                    android:layout_toEndOf="@+id/imageAvatar"
+                    android:onClick="@{() -> listener.onOpenAuthor(data)}"
+                    android:text="@{data.name}"
+                    android:textColor="@color/colorName"
+                    android:textSize="@dimen/text_size_14"/>
+
+                <TextView
+                    android:id="@+id/txtTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/txtName"
+                    android:layout_below="@+id/txtName"
+                    android:layout_marginTop="@dimen/size_5"
+                    android:text="@{data.time}"
+                    android:textColor="@color/color155"
+                    android:textSize="@dimen/text_size_14"/>
+
+                <include
+                    android:id="@+id/layoutVote"
+                    layout="@layout/include_layout_vote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/size_10"
+                    android:visibility="gone"
+                    app:score="@{data.score}"/>
+            </RelativeLayout>
 
             <TextView
-                android:id="@+id/txtName"
-                android:layout_width="wrap_content"
+                android:id="@+id/txtTitle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="@dimen/size_15"
-                android:layout_marginTop="@dimen/size_5"
-                android:layout_toEndOf="@+id/imageAvatar"
-                android:textColor="@color/colorName"
-                android:textSize="@dimen/text_size_14"/>
+                android:layout_marginLeft="@dimen/size_10"
+                android:layout_marginRight="@dimen/size_10"
+                android:layout_marginTop="@dimen/size_20"
+                android:text="@{data.title}"
+                android:textColor="@color/colorTitle"
+                android:textSize="@dimen/text_size_22"
+                android:textStyle="bold"/>
+
+            <com.asia.viblo.view.custom.FlowLayout
+                android:id="@+id/flowLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/size_10"
+                android:layout_marginRight="@dimen/size_10"
+                android:layout_marginTop="@dimen/size_10"
+                app:onClickTag="@{listener}"
+                app:tagList="@{data.tagList}"
+                app:tagUrlList="@{data.tagUrlList}"/>
 
             <TextView
-                android:id="@+id/txtTime"
+                android:id="@+id/txtPublishingDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/txtName"
-                android:layout_below="@+id/txtName"
-                android:layout_marginTop="@dimen/size_5"
+                android:layout_marginLeft="@dimen/size_10"
+                android:layout_marginRight="@dimen/size_10"
+                android:layout_marginTop="@dimen/size_10"
+                android:drawableLeft="@drawable/ic_calender"
+                android:drawablePadding="@dimen/size_5"
+                android:text="@{data.publishingDate}"
                 android:textColor="@color/color155"
-                android:textSize="@dimen/text_size_14"/>
+                android:textSize="@dimen/text_size_14"
+                android:visibility="gone"
+                app:visibility="@{data.publishingDate}"/>
 
             <include
-                android:id="@+id/layoutVote"
-                layout="@layout/include_layout_vote"
+                android:id="@+id/layoutView"
+                layout="@layout/include_layout_status"
                 android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_30"
+                android:layout_margin="@dimen/size_10"
+                android:visibility="gone"
+                app:clips="@{data.clips}"
+                app:comments="@{data.comments}"
+                app:posts="@{data.posts}"
+                app:score="@{data.dataNull}"
+                app:views="@{data.views}"/>
+
+            <com.asia.viblo.view.custom.ContentHtmlLayout
+                android:id="@+id/contentHtml"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="@dimen/size_10"
-                android:visibility="gone"/>
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/txtTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/size_10"
-            android:layout_marginRight="@dimen/size_10"
-            android:layout_marginTop="@dimen/size_20"
-            android:textColor="@color/colorTitle"
-            android:textSize="@dimen/text_size_22"
-            android:textStyle="bold"/>
-
-        <com.asia.viblo.view.custom.FlowLayout
-            android:id="@+id/flowLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/size_10"
-            android:layout_marginRight="@dimen/size_10"
-            android:layout_marginTop="@dimen/size_10"/>
-
-        <TextView
-            android:id="@+id/txtPublishingDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/size_10"
-            android:layout_marginRight="@dimen/size_10"
-            android:layout_marginTop="@dimen/size_10"
-            android:drawableLeft="@drawable/ic_calender"
-            android:drawablePadding="@dimen/size_5"
-            android:textColor="@color/color155"
-            android:textSize="@dimen/text_size_14"
-            android:visibility="gone"/>
-
-        <include
-            android:id="@+id/layoutView"
-            layout="@layout/include_layout_status"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/size_30"
-            android:layout_margin="@dimen/size_10"
-            android:visibility="gone"/>
-
-        <com.asia.viblo.view.custom.ContentHtmlLayout
-            android:id="@+id/contentHtml"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/size_10"
-            android:layout_marginLeft="@dimen/size_10"
-            android:layout_marginRight="@dimen/size_10"/>
-    </LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+                android:layout_marginBottom="@dimen/size_10"
+                android:layout_marginLeft="@dimen/size_10"
+                android:layout_marginRight="@dimen/size_10"
+                app:addContentHtml="@{data.data}"/>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</layout>

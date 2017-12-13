@@ -37,7 +37,8 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
             android:drawableLeft="@drawable/ic_views"
-            android:text="@{views}"/>
+            android:text="@{views}"
+            app:visibility="@{views}"/>
 
         <TextView
             android:id="@+id/clips"
@@ -45,7 +46,8 @@
             android:layout_marginLeft="@dimen/size_10"
             android:layout_toEndOf="@+id/views"
             android:drawableLeft="@drawable/ic_clips"
-            android:text="@{clips}"/>
+            android:text="@{clips}"
+            app:visibility="@{clips}"/>
 
         <TextView
             android:id="@+id/comments"
@@ -53,7 +55,8 @@
             android:layout_marginLeft="@dimen/size_10"
             android:layout_toEndOf="@+id/clips"
             android:drawableLeft="@drawable/ic_comments"
-            android:text="@{comments}"/>
+            android:text="@{comments}"
+            app:visibility="@{comments}"/>
 
         <TextView
             android:id="@+id/posts"
@@ -62,7 +65,8 @@
             android:layout_toEndOf="@+id/comments"
             android:drawableLeft="@drawable/ic_posts"
             android:text="@{posts}"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            app:visibility="@{posts}"/>
 
         <com.asia.viblo.view.custom.TagListOneLine
             android:id="@+id/commentLayout"
@@ -76,6 +80,7 @@
             style="@style/TextPost"
             android:layout_alignParentEnd="true"
             android:drawableLeft="@drawable/ic_up_down"
-            android:text="@{score}"/>
+            android:text="@{score}"
+            app:visibility="@{score}"/>
     </RelativeLayout>
 </layout>

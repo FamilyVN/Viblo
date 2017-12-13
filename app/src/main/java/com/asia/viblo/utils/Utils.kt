@@ -22,6 +22,7 @@ import com.asia.viblo.App
 import com.asia.viblo.R
 import com.asia.viblo.view.activity.home.OnClickComment
 import com.asia.viblo.view.activity.home.OnClickTag
+import com.asia.viblo.view.custom.ContentHtmlLayout
 import com.asia.viblo.view.custom.FlowLayout
 import com.asia.viblo.view.custom.TagListOneLine
 import com.bumptech.glide.Glide
@@ -39,6 +40,7 @@ fun loadAvatar(imageView: ImageView, url: String) {
     Glide.with(imageView.context)
             .load(url)
             .into(imageView)
+    imageView.visibility = if (TextUtils.isEmpty(url)) View.GONE else View.VISIBLE
 }
 
 @BindingAdapter("imageUrl")
@@ -177,4 +179,9 @@ fun setTextStyle(textView: TextView, text: String) {
 
 fun getDocument(baseUrl: String?): Document? {
     return Jsoup.connect(baseUrl).timeout(10 * 1000).get()
+}
+
+@BindingAdapter("addContentHtml")
+fun addContentHtml(contentHtmlLayout: ContentHtmlLayout, contentHtml: MutableList<String>) {
+    contentHtmlLayout.addContentHtml(contentHtml)
 }
