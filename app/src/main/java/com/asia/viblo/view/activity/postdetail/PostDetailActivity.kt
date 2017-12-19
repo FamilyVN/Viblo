@@ -10,8 +10,9 @@ import com.asia.viblo.model.constant.extraUrl
 import com.asia.viblo.model.post.PostDetail
 import com.asia.viblo.view.activity.BaseActivity
 import com.asia.viblo.view.asyncTask.post.PostDetailAsyncTask
+import com.asia.viblo.view.fragment.OnUpdateData
 
-class PostDetailActivity : BaseActivity(), OnUpdatePostDetail {
+class PostDetailActivity : BaseActivity(), OnUpdateData<PostDetail> {
     private lateinit var mBinding: ActivityPostDetailBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,8 +27,12 @@ class PostDetailActivity : BaseActivity(), OnUpdatePostDetail {
         PostDetailAsyncTask(this).execute(baseUrl)
     }
 
-    override fun onUpdatePostDetail(postDetail: PostDetail?) {
+    override fun onUpdateData(data: PostDetail?) {
         mProgressDialog.dismiss()
-        mBinding.data = postDetail!!
+        mBinding.data = data!!
+    }
+
+    override fun onUpdateDataList(dataList: MutableList<PostDetail>?) {
+        // nothing
     }
 }
