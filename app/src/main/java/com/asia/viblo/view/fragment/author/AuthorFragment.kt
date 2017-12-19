@@ -79,6 +79,7 @@ class AuthorFragment : BaseFragment(), OnUpdateData<AuthorDetail> {
     }
 
     override fun onUpdateDataList(dataList: MutableList<AuthorDetail>?) {
+        // nothing
     }
 
     override fun onUpdateFeedBar(feedBarList: MutableList<String>?) {

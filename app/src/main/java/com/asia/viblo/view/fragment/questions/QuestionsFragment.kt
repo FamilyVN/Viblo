@@ -72,6 +72,7 @@ class QuestionsFragment : BaseFragment(), OnUpdateData<Question> {
     }
 
     override fun onUpdateData(data: Question?) {
+        // nothing
     }
 
     override fun onUpdateDataList(dataList: MutableList<Question>?) {
