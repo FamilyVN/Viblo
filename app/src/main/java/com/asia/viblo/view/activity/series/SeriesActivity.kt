@@ -27,7 +27,7 @@ class SeriesActivity : BaseActivity(), OnUpdateData<SeriesDetail> {
     }
 
     private fun initRecyclerContent() {
-        mPostAdapter = SingleAdapter(this, R.layout.item_post)
+        mPostAdapter = SingleAdapter(this, R.layout.item_recycler_post)
         mPostAdapter.setPresenter(BaseListener(this))
         recyclerContent.adapter = mPostAdapter
         recyclerContent.layoutManager = LinearLayoutManager(this)

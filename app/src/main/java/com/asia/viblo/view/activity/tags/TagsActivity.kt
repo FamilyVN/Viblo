@@ -24,6 +24,7 @@ class TagsActivity : BaseActivity(), OnUpdateData<TagDetail> {
         val baseUrl = baseUrlViblo + intent.getStringExtra(extraUrl)
         LoadTagsAsyncTask(this).execute(baseUrl)
     }
+
     override fun onUpdateData(data: TagDetail?) {
         mProgressDialog.dismiss()
         mBinding.data = data!!

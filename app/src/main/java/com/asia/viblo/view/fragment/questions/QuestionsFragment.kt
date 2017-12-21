@@ -47,7 +47,7 @@ class QuestionsFragment : BaseFragment(), OnUpdateData<Question> {
     }
 
     private fun initRecyclerQuestions() {
-        mQuestionAdapter = SingleAdapter(context, R.layout.item_question)
+        mQuestionAdapter = SingleAdapter(context, R.layout.item_recycler_question)
         mQuestionAdapter.setPresenter(BaseListener(activity))
         recyclerQuestions.adapter = mQuestionAdapter
         recyclerQuestions.layoutManager = LinearLayoutManager(context)

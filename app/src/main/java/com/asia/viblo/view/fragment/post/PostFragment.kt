@@ -46,8 +46,8 @@ class PostFragment : BaseFragment(), OnUpdateData<Post> {
     }
 
     private fun initRecyclerPost() {
-        mPostAdapter = SingleAdapter(context, R.layout.item_post)
-        mPostAdapter.setPresenter(BaseListener(activity))
+        mPostAdapter = SingleAdapter(context, R.layout.item_recycler_post)
+        mPostAdapter.setPresenter(BaseListener(activity))  // add listener for adapter
         recyclerPost.adapter = mPostAdapter
         recyclerPost.layoutManager = LinearLayoutManager(context)
     }
@@ -75,7 +75,7 @@ class PostFragment : BaseFragment(), OnUpdateData<Post> {
     }
 
     override fun onUpdateDataList(dataList: MutableList<Post>?) {
-        mPostAdapter.setData(dataList)
+        mPostAdapter.setData(dataList) // set data for adapter
         mProgressDialog.dismiss()
         updateViewNextBackBottom()
     }
