@@ -51,7 +51,7 @@ class AuthorFragment : BaseFragment(), OnUpdateData<AuthorDetail> {
     }
 
     private fun initRecyclerContent() {
-        mPostAdapter = SingleAdapter(context, R.layout.item_post)
+        mPostAdapter = SingleAdapter(context, R.layout.item_recycler_post)
         mPostAdapter.setPresenter(BaseListener(activity))
         recyclerContent.adapter = mPostAdapter
         recyclerContent.layoutManager = LinearLayoutManager(context)

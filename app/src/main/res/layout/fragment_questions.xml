@@ -9,7 +9,7 @@
 
     <Spinner
         android:id="@+id/spinnerQuestions"
-        android:layout_width="@dimen/size_130"
+        android:layout_width="@dimen/size_135"
         android:layout_height="@dimen/size_30"
         android:layout_margin="@dimen/size_10"
         android:visibility="invisible"/>
