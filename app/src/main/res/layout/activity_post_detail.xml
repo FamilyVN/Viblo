@@ -119,7 +119,6 @@
                 android:text="@{data.publishingDate}"
                 android:textColor="@color/color155"
                 android:textSize="@dimen/text_size_14"
-                android:visibility="gone"
                 app:visibility="@{data.publishingDate}"/>
 
             <include
