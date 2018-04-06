@@ -12,12 +12,12 @@ import org.jsoup.nodes.Element
 /**
  * Created by anhtv on 22/11/2017.
  */
-private val cssQueryAuthorPost = "div#__nuxt > div#app-container > div#main-content > " +
+private val cssQueryAuthorPost = "div#__nuxt > div#__layout > div#app-container > div#main-content > " +
         "div.user-page > div.container > div.row > div.col-lg-9 > div.user-activities > " +
-        "div.posts-list > div > div.card"
-private val cssQueryAuthorClips = "div#__nuxt  > div#app-container > div#main-content > " +
+        "div.posts-list > div > div > div.card"
+private val cssQueryAuthorClips = "div#__nuxt > div#__layout > div#app-container > div#main-content > " +
         "div > div.container > div.row > div.col-lg-9 > div > div.card"
-private val cssQueryAuthorFollowing = "div#__nuxt  > div#app-container > div#main-content > " +
+private val cssQueryAuthorFollowing = "div#__nuxt > div#__layout > div#app-container > div#main-content > " +
         "div.user-page > div.container > div.row > div.col-lg-9 > div.user-activities > " +
         "div.posts-list > div > div.block-exhibition > div.col-sm-6"
 private val cssQueryAuthorAvatarPost = "div.card-block > figure.post-author-avatar > a > img"

@@ -9,7 +9,6 @@ import com.asia.viblo.view.activity.author.AuthorActivity
 import com.asia.viblo.view.activity.home.OnClickComment
 import com.asia.viblo.view.activity.home.OnClickDetail
 import com.asia.viblo.view.activity.home.OnClickTag
-import com.asia.viblo.view.activity.postdetail.PostDetailActivity
 import com.asia.viblo.view.activity.questions.QuestionsActivity
 import com.asia.viblo.view.activity.series.SeriesActivity
 import com.asia.viblo.view.activity.tags.TagsActivity
@@ -36,8 +35,9 @@ class BaseListener(activity: Activity) : OnClickTag, OnClickDetail, OnClickComme
         val intent = when {
             url.contains("/s/") -> Intent(mActivity, SeriesActivity::class.java)
             url.contains("/q/") -> Intent(mActivity, QuestionsActivity::class.java)
-            isVideo -> Intent(mActivity, WebViewActivity::class.java)
-            else -> Intent(mActivity, PostDetailActivity::class.java)
+//            isVideo -> Intent(mActivity, WebViewActivity::class.java)
+//            else -> Intent(mActivity, PostDetailActivity::class.java)
+            else -> Intent(mActivity, WebViewActivity::class.java)
         }
         intent.putExtra(extraUrl, url)
         mActivity.startActivity(intent)

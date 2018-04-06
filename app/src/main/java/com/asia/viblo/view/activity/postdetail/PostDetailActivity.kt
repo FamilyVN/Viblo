@@ -12,6 +12,7 @@ import com.asia.viblo.view.activity.BaseActivity
 import com.asia.viblo.view.asyncTask.post.PostDetailAsyncTask
 import com.asia.viblo.view.fragment.OnUpdateData
 
+// not use class
 class PostDetailActivity : BaseActivity(), OnUpdateData<PostDetail> {
     private lateinit var mBinding: ActivityPostDetailBinding
     override fun onCreate(savedInstanceState: Bundle?) {

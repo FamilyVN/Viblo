@@ -75,6 +75,11 @@ class AuthorFragment : BaseFragment(), OnUpdateData<AuthorDetail> {
         } else {
             recyclerContent.visibility = View.GONE
             llNothingHere.visibility = View.VISIBLE
+            txtNote.text = getString(when (mPosition) {
+            // followers
+                5 -> R.string.text_has_not_any_followers
+                else -> R.string.text_nothing_here
+            })
         }
     }
 

@@ -25,6 +25,7 @@
         <include layout="@layout/layout_linear_break"/>
 
         <TextView
+            android:id="@+id/txtNote"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/size_40"
