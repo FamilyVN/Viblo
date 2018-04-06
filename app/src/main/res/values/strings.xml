@@ -9,4 +9,6 @@
     <string name="text_tag_posts">Posts</string>
     <string name="text_tag_questions">Questions</string>
     <string name="text_tag_followers">Followers</string>
+    <string name="text_has_not_any_followers">This user doesn\'t have any followers.</string>
+    <string name="text_nothing_here">There is nothing here.</string>
 </resources>

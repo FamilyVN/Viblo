@@ -9,7 +9,7 @@ import org.jsoup.nodes.Element
 /**
  * Created by FRAMGIA\vu.tuan.anh on 21/12/2017.
  */
-private val cssQueryDiscussion = "div#__nuxt > div#app-container > div#main-content > " +
+private val cssQueryDiscussion = "div#__nuxt > div#__layout > div#app-container > div#main-content > " +
         "div > div#comment-section > div.item"
 private val cssQueryDiscussionAvatar = "a > img"
 

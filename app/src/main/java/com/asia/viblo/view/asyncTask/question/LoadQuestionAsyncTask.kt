@@ -14,9 +14,9 @@ import org.jsoup.nodes.Element
 /**
  * Created by FRAMGIA\vu.tuan.anh on 08/11/2017.
  */
-private val cssQueryQuestionsPage = "div#__nuxt > div#app-container > div#main-content > div > " +
+private val cssQueryQuestionsPage = "div#__nuxt > div#__layout > div#app-container > div#main-content > div > " +
         "div.container > div.row > div.col-md-9 > div.question-list > ul.pagination"
-private val cssQueryQuestions = "div#__nuxt > div#app-container > div#main-content > div > " +
+private val cssQueryQuestions = "div#__nuxt > div#__layout > div#app-container > div#main-content > div > " +
         "div.container > div.row > div.col-md-9 > div.question-list > div.question-item"
 private val cssQueryQuestionsAvatar = "div.summary > div.asked-by > a > img"
 private val cssQueryQuestionsName = "div.summary > div.asked-by > div.text-small > a"
@@ -25,6 +25,7 @@ private val cssQueryQuestionsTitle = "div.summary > div.q-title > a > h3"
 private val cssQueryQuestionsStatus = "div.stats > div > div.question-stats > span.stats-item"
 private val cssQueryQuestionsScore = "div.stats > div > div.question-stats > div.points > span.text-muted"
 private val cssQueryQuestionsTag = "div.summary > div.q-title > div.tags > a"
+private val cssQueryQuestionsUrl = "div.summary > div.q-title > a"
 
 @SuppressLint("StaticFieldLeak")
 class LoadQuestionAsyncTask(onUpdateData: OnUpdateData<Question>) : AsyncTask<String, Void, MutableList<Question>>() {
@@ -60,6 +61,7 @@ class LoadQuestionAsyncTask(onUpdateData: OnUpdateData<Question>) : AsyncTask<St
                         }
                     }
                 }
+                question.questionUrl = element.select(cssQueryQuestionsUrl).attr("href")
                 val scoreSubject = element.select(cssQueryQuestionsScore)
                 if (scoreSubject.isNotEmpty()) {
                     question.score = scoreSubject.first().text()

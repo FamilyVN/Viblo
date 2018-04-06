@@ -9,9 +9,9 @@ import com.asia.viblo.view.fragment.OnUpdateFeedBar
 /**
  * Created by FRAMGIA\vu.tuan.anh on 06/11/2017.
  */
-private val cssQueryFeedBars = "div#__nuxt > div#app-container > div#main-content > " +
+private val cssQueryFeedBars = "div#__nuxt > div#__layout > div#app-container > div#main-content > " +
         "div > div.bg-inverse > div.container > div.feed-bar > div.feedbar-wrapper > ul.feed-links"
-private val cssQueryAuthorFeedBars = "div#__nuxt > div#app-container > div#main-content > " +
+private val cssQueryAuthorFeedBars = "div#__nuxt > div#__layout > div#app-container > div#main-content > " +
         "div.user-page > div.profile-tabs > ul.container"
 private val cssQueryFeedBar = "li.feedbar-item > a"
 private val cssQueryAuthorFeedBar = "li.nav-item > a"

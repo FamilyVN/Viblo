@@ -12,7 +12,7 @@ import org.jsoup.select.Elements
 /**
  * Created by TuanAnh on 11/19/2017.
  */
-private val cssQuerySeriesDetail = "div#__nuxt > div#app-container > div#main-content > " +
+private val cssQuerySeriesDetail = "div#__nuxt > div#__layout > div#app-container > div#main-content > " +
         "div.series-view > div > div.row > div.col-xl-9 > div.series-content-wrapper"
 private val cssQuerySeriesAvatar = "div.content-author > a > img"
 private val cssQuerySeriesName = "div.content-author > div.mw-0 > div.text-bold > div.overflow-hidden > a"

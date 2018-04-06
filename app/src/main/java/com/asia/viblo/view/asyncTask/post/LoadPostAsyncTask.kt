@@ -18,9 +18,9 @@ import org.jsoup.nodes.Element
  * Created by FRAMGIA\vu.tuan.anh on 30/10/2017.
  */
 // cssQuery Post
-private val cssQueryFeaturedArticles = "div#__nuxt > div#app-container > div#main-content > " +
+private val cssQueryFeaturedArticles = "div#__nuxt > div#__layout > div#app-container > div#main-content > " +
         "div > div.container > div.row > div.col-lg-9 > div > div.card"
-private val cssQueryFeaturedSeries = "div#__nuxt > div#app-container > div#main-content > div > " +
+private val cssQueryFeaturedSeries = "div#__nuxt > div#__layout > div#app-container > div#main-content > div > " +
         "div.container > div.row > div.col-lg-9 > div > div > div.card"
 private val cssQueryAvatarPost = "div.card-block > figure.post-author-avatar > a > img"
 private val cssQueryAvatarPostSeries = "div.card-block > a > img"
@@ -39,9 +39,9 @@ private val cssQueryPostUrlSeries = "div.card-block > div.ml-05 > div.series-hea
         "div.series-title-box > h1.series-title-header > a"
 private val cssQueryScore = "div.card-block > div.ml-05 > div.d-flex > div.points > span"
 private val cssQueryPostStatus = "div.card-block > div.ml-05 > div.d-flex"
-private val cssQueryPage = "div#__nuxt > div#app-container > div#main-content > div > " +
+private val cssQueryPage = "div#__nuxt > div#__layout > div#app-container > div#main-content > div > " +
         "div.container > div.row > div.col-lg-9 > div > ul.pagination"
-private val cssQueryPostPageSeries = "div#__nuxt > div#app-container > div#main-content > div > " +
+private val cssQueryPostPageSeries = "div#__nuxt > div#__layout > div#app-container > div#main-content > div > " +
         "div.container > div.row > div.col-lg-9 > div > ul.pagination"
 private val cssQueryPostAuthorUrl = "div.card-block"
 private val cssQueryPostTag = "div.card-block > div.ml-05 > div.post-header > " +
